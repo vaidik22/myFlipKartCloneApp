@@ -82,11 +82,40 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/slider_frag"
+                android:layout_width="match_parent"
+                android:layout_height="123dp"
+                android:layout_weight="1"
+                app:sliderAnimationDuration="600"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorEnabled="true"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="1dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="1dp"
+                app:sliderIndicatorSelectedColor="#504F4F"
+                app:sliderIndicatorUnselectedColor="#FFF"
+                app:sliderScrollTimeInSec="1">
+
+            </com.smarteist.autoimageslider.SliderView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/add_to_cart_rec_product"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
             <ImageButton
                 android:id="@+id/imgbutton"
                 android:layout_width="match_parent"
                 android:layout_height="123dp"
-                android:background="@drawable/banner"></ImageButton>
+                android:background="@drawable/banner"
+                tools:ignore="SpeakableTextPresentCheck"></ImageButton>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

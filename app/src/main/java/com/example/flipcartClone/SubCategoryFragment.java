@@ -127,7 +127,7 @@ public class SubCategoryFragment extends Fragment implements SubCategoryAdapter.
     }
 
     private void loadDataForSelectedPosition(ProductDatabaseHelper dbHelper) {
-
+dbHelper.clearProducts();
         if (selectedPosition == 0) {
             dbHelper.insertProduct("Shirt 1", "Men Regular...", "500", "1000", url44, "1", "0");
             dbHelper.insertProduct("HR fashion 1", "Men Regular...", "500", "1000", url55, "1", "0");
