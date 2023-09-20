@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1"
+    tools:context="com.example.flipcartClone.RegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#3fff"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="81dp"
+            android:layout_height="81dp"
+            android:background="@drawable/logo22"
+            android:gravity="center"
+            android:text="Flipcart"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/custombutton"
+            android:gravity="center"
+            android:hint="@string/name"
+            android:textColorHint="#000000" />
+
+        <EditText
+            android:id="@+id/editTextUsername"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/custombutton"
+            android:gravity="center"
+            android:hint="Username"
+            android:textColorHint="#000000" />
+
+        <EditText
+            android:id="@+id/editTextNumber"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/custombutton"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Phone"
+            android:inputType="number"
+            android:textColorHint="#000000" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/custombutton"
+            android:gravity="center"
+            android:hint="@string/password"
+            android:textColorHint="#000000" />
+
+        <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custombutton2"
+            android:text="@string/register"
+            android:textAllCaps="false"
+            android:textColor="#FFFBF6"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="15dp"
+            android:background="#3fff" />
+
+        <Button
+            android:id="@+id/buttonLogin2"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custombutton2"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:textColor="#FFFBF6"
+            tools:ignore="TouchTargetSizeCheck" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

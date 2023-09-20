@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#e6e6e6"
+    android:orientation="vertical"
+    android:padding="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:padding="1.5dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="150dp"
+                android:layout_height="250dp"
+                android:layout_gravity="top|center"
+                android:padding="5dp"
+                android:src="@drawable/indoera1" />
+
+            <ImageButton
+                android:id="@+id/wishlistIcon"
+                android:layout_width="31dp"
+                android:layout_height="30dp"
+                android:layout_gravity="top|end"
+                android:background="@drawable/wishlist" />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="#e6e6e6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal">
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="2dp"
+                android:text="New Text" />
+
+            <TextView
+                android:id="@+id/rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="New Text" />
+
+            <TextView
+                android:id="@+id/product_discription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rate"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:text="New Text" />
+
+            <TextView
+                android:id="@+id/MRP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rate"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:foreground="@drawable/strickthrough"
+                android:text="TextView" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Other views for product information -->
+
+            <!-- "Add to Cart" Button -->
+            <Button
+                android:id="@+id/addToCartButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFA500"
+                android:text="Add to Cart" />
+
+            <!-- "Elegant" Button and Quantity Controls -->
+            <LinearLayout
+                android:id="@+id/elegantLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone">
+                <!-- "Elegant" Button -->
+
+                <!-- Minus Button -->
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                    android:id="@+id/numberButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+
+                    android:gravity="center">
+
+                </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+
+            </LinearLayout>
+
+            <!-- ... Other views for product information ... -->
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

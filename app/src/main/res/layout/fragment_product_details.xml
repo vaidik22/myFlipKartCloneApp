@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true">
+
+                <ImageView
+                    android:id="@+id/productImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="371dp"
+                    android:contentDescription="Product Image"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/earphones" />
+
+                <ImageButton
+                    android:id="@+id/wishlistIcon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="top|end"
+                    android:background="@drawable/wishlist" />
+
+                <ImageButton
+                    android:id="@+id/share"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity=""
+                    android:background="@drawable/share" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textColor="@android:color/black"
+                android:textSize="25dp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/productDescriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Basic in Ear Wired Earphones with mic in-line Mic,10mm Dual Driver
+, Powerful Bass , Noise Reduction, 3.5 mm Audio Jack(Black, WE02)"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-50%"
+                    android:textColor="@color/red"
+                    android:textSize="30dp"></TextView>
+
+                <TextView
+                    android:id="@+id/Product_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="   Rs299"
+                    android:textColor="@color/black"
+                    android:textSize="30dp"></TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="M.R.P:" />
+
+                <TextView
+                    android:id="@+id/Product_mrp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foreground="@drawable/strickthrough"
+                    android:text="Rs599">
+
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/elegant_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/subtract_Button"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity=""
+                    android:background="@drawable/circle"
+                    android:backgroundTint="#FFDD3C"
+                    android:text="-"
+                    android:textColor="@color/white" />
+
+                <!-- Quantity TextView -->
+                <TextView
+                    android:id="@+id/quantity_Text_View"
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="8dp"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textSize="16sp" />
+
+                <!-- Plus Button -->
+                <Button
+                    android:id="@+id/add_Button"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="#FFDD3C"
+                    android:text="+"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/add_To_Cart_Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFDD3C"
+                    android:text="Add to Cart"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/buyButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFA500"
+                    android:text="Buy Now"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
