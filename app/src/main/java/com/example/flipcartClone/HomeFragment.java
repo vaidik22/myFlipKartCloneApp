@@ -3,6 +3,7 @@ package com.example.flipcartClone;
 import static com.example.flipcartClone.DatabaseHelper.COLUMN_NAME;
 import static com.example.flipcartClone.DatabaseHelper.COLUMN_USERNAME;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,9 +28,10 @@ import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuantityChangeListener {
 
     RecyclerView rec_home;
+    RecyclerView add_to_cart_rec_product;
     ArrayList<HomeModel> hList;
     HomeAdapter homeAdapter;
     RecyclerView rec_circular;
@@ -40,9 +42,21 @@ public class HomeFragment extends Fragment {
     String url1 = "https://rukminim2.flixcart.com/fk-p-flap/850/300/image/a08bb1606053a0ba.jpg?q=90";
     String url2 = "https://dog55574plkkx.cloudfront.net/images/flipkart-big-billion-days-offer.jpg";
     String url3 = "https://cdn.flipshope.com/blog/wp-content/uploads/2023/05/Flipkart-Big-Bachat-Dhamaal-sale.jpg";
+    SubCategoryAdapter subCategoryAdapter;
+    String url11 = "https://flashsaletricks.com/wp-content/uploads/2016/12/Flipkart_Fashion_Sale_24-26Dec.png";
+    String url22 = "https://flashsaletricks.com/wp-content/uploads/2016/12/Flipkart_Fashion_Sale_Womens_Clothing_offer_24-26Dec.png";
+    String url33 = "https://images.freekaamaal.com/post_images/1637727957.PNG";
+    String url44 = "https://rukminim2.flixcart.com/image/450/500/xif0q/shirt/3/j/v/xxl-st10-vebnor-original-imagnvrqgv7e5crg.jpeg?q=90&crop=false";
+    String url55 = "https://rukminim2.flixcart.com/image/550/650/kmthz0w0/dress/d/e/6/s-hr-0073-s-hr-fashion-original-imagfn8tfkhxh2xh.jpeg?q=90&crop=false";
+    String url66 = "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/k/o/-original-imaghx9qtwbnhwvy.jpeg?q=70";
+    String url77 = "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/d/h/q/m6-pro-5g-mzb0eprin-poco-original-imags3e7vewsafst.jpeg?q=70";
+    ProductDatabaseHelper dbHelper;
+    private ArrayList<CartItemModel> cartItems = new ArrayList<>();
+    private ArrayList<SubCategoryModel> productList = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_home, null);
+        dbHelper = new ProductDatabaseHelper(getContext());
 
         searchView = root.findViewById(R.id.search_view);
         searchHintText = root.findViewById(R.id.search_hint_text);
@@ -79,7 +93,7 @@ public class HomeFragment extends Fragment {
         ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
 
         // initializing the slider view.
-        SliderView sliderView = (SliderView) root.findViewById(R.id.slider);
+        SliderView sliderView = root.findViewById(R.id.slider);
         sliderDataArrayList.add(new SliderData(url1));
         sliderDataArrayList.add(new SliderData(url2));
         sliderDataArrayList.add(new SliderData(url3));
@@ -102,8 +116,110 @@ public class HomeFragment extends Fragment {
         rec_circular = root.findViewById(R.id.circuar_rec_view);
         rec_circular.setLayoutManager(new GridLayoutManager(getContext(), 1, LinearLayoutManager.HORIZONTAL, false));
         getCategory();
-
+        add_to_cart_rec_product = root.findViewById(R.id.add_to_cart_rec_product);
+        add_to_cart_rec_product.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+        loadDataForSelectedPosition(dbHelper);
         return root;
+    }
+
+    private void loadDataForSelectedPosition(ProductDatabaseHelper dbHelper) {
+        dbHelper.clearProducts();
+        dbHelper.insertProduct("Shirt 1", "Men Regular...", "500", "1000", url44, "1", "0");
+        dbHelper.insertProduct("HR fashion 1", "Men Regular...", "500", "1000", url55, "1", "0");
+        dbHelper.insertProduct("Shirt 2", "Men Regular...", "500", "1000", url44, "1", "0");
+        dbHelper.insertProduct("Iphone 14", "RED,128 GB..", "500", "1000", url66, "1", "0");
+        dbHelper.insertProduct("POCO M6 PRO", "BLACK, 128 GB...", "500", "1000", url77, "1", "0");
+        dbHelper.insertProduct("POCO M6 PRO 2", "BLACK, 128 GB...", "500", "1000", url77, "1", "0");
+
+        fetchAndDisplayProducts(dbHelper);
+        subCategoryAdapter = new SubCategoryAdapter(
+                getContext(),
+                productList,
+                new SubCategoryAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position, String imageUrl) {
+                        AppBarLayout appBarLayout1 = requireActivity().findViewById(R.id.appBar);
+                        AppBarLayout appBarLayout2 = requireActivity().findViewById(R.id.appBar2);
+                        if (appBarLayout1 != null && appBarLayout2 != null) {
+                            appBarLayout1.setVisibility(View.GONE);
+                            appBarLayout2.setVisibility(View.VISIBLE);
+                            // Set the title on the second Toolbar with id toolbar2
+                            Toolbar toolbar2 = appBarLayout2.findViewById(R.id.toolbar2);
+                            TextView titleTextView = toolbar2.findViewById(R.id.tv_title2);
+                            titleTextView.setText(productList.get(position).getTitle());
+                        }
+                        ProductFragment productFragment = new ProductFragment();
+                        // Pass the clicked position to the SubCategoryFragment
+                        Bundle args = new Bundle();
+                        args.putInt("position", position);
+                        productFragment.setArguments(args);
+                        Log.d("ItemClick", "Clicked position: " + position);
+                        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.fragment_section, productFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                    }
+                });
+        add_to_cart_rec_product.setAdapter(subCategoryAdapter);
+        subCategoryAdapter.notifyDataSetChanged();
+    }
+
+
+    private void fetchAndDisplayProducts(ProductDatabaseHelper dbHelper) {
+        Cursor cursor = dbHelper.getProducts();
+
+        // Check if cursor is not null and has data
+        if (cursor != null && cursor.moveToFirst()) {
+
+            do {
+                String product_id = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_ID));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_NAME));
+                String description = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_DESCRIPTION));
+                String rate = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_RATE));
+                String mrp = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_MRP));
+                String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_IMAGE));
+                String quantity = String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow((ProductDatabaseHelper.COLUMN_PRODUCT_QUANTITY)))); // Get quantity from the database
+                SubCategoryModel product = new SubCategoryModel(product_id, title, description, rate, mrp, imageUrl, quantity);
+                productList.add(product);
+            } while (cursor.moveToNext());
+
+            cursor.close();
+            if (subCategoryAdapter != null) {
+                subCategoryAdapter.notifyDataSetChanged();
+            }
+            // Initialize the adapter if it's null and set it to the RecyclerView
+        }
+    }
+
+    private void setAdapter(ArrayList<SubCategoryModel> productList) {
+        // You don't need to initialize the adapter here again, as it's already initialized in onCreateView
+        if (subCategoryAdapter != null) {
+            subCategoryAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void showProductDetails(SubCategoryModel product) {
+        FragmentProductDetails fragmentProductDetails = new FragmentProductDetails();
+        Bundle args = new Bundle();
+        args.putString("title", product.getTitle());
+        args.putString("description", product.getDescription());
+        args.putString("mrp", product.getMrp());
+        args.putString("rate", product.getRate());
+        args.putString("imageUrl", product.getImageUrl());
+        fragmentProductDetails.setArguments(args);
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_section, fragmentProductDetails);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void navigateToHomeFragment() {
+        // Replace the current fragment with the HomeFragment
+        HomeFragment homeFragment = new HomeFragment();
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_section, homeFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 
@@ -173,29 +289,20 @@ public class HomeFragment extends Fragment {
                         TextView titleTextView = toolbar2.findViewById(R.id.tv_title2);
                         titleTextView.setText(cList.get(position).getTitle());
                     }
-                    SubCategoryFragment subCategoryFragment = new SubCategoryFragment();
-                    // Pass the clicked position to the SubCategoryFragment
-                    Bundle args = new Bundle();
-                    args.putInt("circularPosition", position); // Pass the clicked position
-                    subCategoryFragment.setArguments(args);
-                    Log.d("ItemClick", "Clicked position: " + position);
-                    FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragment_section, subCategoryFragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+
+                    rec_circular.setAdapter(circularAdapter);
+                    circularAdapter.notifyDataSetChanged();
                 }
             });
-            rec_circular.setAdapter(circularAdapter);
-            circularAdapter.notifyDataSetChanged();
         }
     }
-
 
     @NonNull
     @Override
     public CreationExtras getDefaultViewModelCreationExtras() {
         return super.getDefaultViewModelCreationExtras();
     }
+
 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -218,5 +325,10 @@ public class HomeFragment extends Fragment {
             transaction.replace(R.id.fragment_section, editProfileFragment);
             transaction.commit();
         }
+    }
+
+    @Override
+    public void onQuantityChanged(int position, int newQuantity) {
+
     }
 }

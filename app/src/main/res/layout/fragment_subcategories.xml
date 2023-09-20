@@ -15,7 +15,7 @@
             android:weightSum="5">
 
             <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/slider_frag"
+                android:id="@+id/slider_frag_1"
                 android:layout_width="match_parent"
                 android:layout_height="123dp"
                 android:layout_weight="1"

@@ -124,6 +124,6 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.OnIte
     public void onItemClick(int position) {
         String itemName = hList.get(position).getTitle();
         getSupportActionBar().setTitle(itemName); // Update the Toolbar title
-        openFragment(new SubCategoryFragment());
+        openFragment(new HomeFragment());
     }
 }
