@@ -122,22 +122,36 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
         return root;
     }
 
-    private void loadDataForSelectedPosition(ProductDatabaseHelper dbHelper) {
-        dbHelper.clearProducts();
-        dbHelper.insertProduct("Shirt 1", "Men Regular...", "500", "1000", url44, "1", "0");
-        dbHelper.insertProduct("HR fashion 1", "Men Regular...", "500", "1000", url55, "1", "0");
-        dbHelper.insertProduct("Shirt 2", "Men Regular...", "500", "1000", url44, "1", "0");
-        dbHelper.insertProduct("Iphone 14", "RED,128 GB..", "500", "1000", url66, "1", "0");
-        dbHelper.insertProduct("POCO M6 PRO", "BLACK, 128 GB...", "500", "1000", url77, "1", "0");
-        dbHelper.insertProduct("POCO M6 PRO 2", "BLACK, 128 GB...", "500", "1000", url77, "1", "0");
+    private ArrayList<SubCategoryModel> getProductItemsFromDataSource() {
+        ArrayList<SubCategoryModel> productItems = new ArrayList<>();
+        // Example: Fetch cart items from the database
+        ProductDatabaseHelper dbHelper = new ProductDatabaseHelper(getContext());
+        productItems = dbHelper.getProductItems();
+        return productItems;
+    }
 
-        fetchAndDisplayProducts(dbHelper);
+    private void loadDataForSelectedPosition(ProductDatabaseHelper dbHelper) {
+//        dbHelper.clearProducts();
+        if (getProductItemsFromDataSource().size() > 0) {
+//           productList = dbHelper.getProductItems();
+            fetchAndDisplayProducts(dbHelper);
+        } else {
+            dbHelper.insertProduct("Shirt 1", "Men Regular...", "500", "1000", url44, "1", "0");
+            dbHelper.insertProduct("HR fashion 1", "Men Regular...", "500", "1000", url55, "1", "0");
+            dbHelper.insertProduct("Shirt 2", "Men Regular...", "500", "1000", url44, "1", "0");
+            dbHelper.insertProduct("Iphone 14", "RED,128 GB..", "500", "1000", url66, "1", "0");
+            dbHelper.insertProduct("POCO M6 PRO", "BLACK, 128 GB...", "500", "1000", url77, "1", "0");
+            dbHelper.insertProduct("POCO M6 PRO 2", "BLACK, 128 GB...", "500", "1000", url77, "1", "0");
+
+            fetchAndDisplayProducts(dbHelper);
+        }
+//        fetchAndDisplayProducts(dbHelper);
         subCategoryAdapter = new SubCategoryAdapter(
                 getContext(),
                 productList,
                 new SubCategoryAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(int position, String imageUrl) {
+                    public void onItemClick(int position) {
                         AppBarLayout appBarLayout1 = requireActivity().findViewById(R.id.appBar);
                         AppBarLayout appBarLayout2 = requireActivity().findViewById(R.id.appBar2);
                         if (appBarLayout1 != null && appBarLayout2 != null) {
@@ -148,16 +162,6 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
                             TextView titleTextView = toolbar2.findViewById(R.id.tv_title2);
                             titleTextView.setText(productList.get(position).getTitle());
                         }
-                        ProductFragment productFragment = new ProductFragment();
-                        // Pass the clicked position to the SubCategoryFragment
-                        Bundle args = new Bundle();
-                        args.putInt("position", position);
-                        productFragment.setArguments(args);
-                        Log.d("ItemClick", "Clicked position: " + position);
-                        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.fragment_section, productFragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
                     }
                 });
         add_to_cart_rec_product.setAdapter(subCategoryAdapter);

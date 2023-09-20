@@ -28,10 +28,12 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     private CartDatabaseHelper dbcartHelp;
     private Context context;
     private ArrayList<SubCategoryModel> productList;
-    private OnItemClickListener listener;
-    private ProductDatabaseHelper dbProductHelper;
+    private SubCategoryAdapter.OnItemClickListener listener;
 
-//    public SubCategoryAdapter(Context context, ArrayList<SubCategoryModel> productList, OnItemClickListener listener, CartAdapter cartAdapter, SubCategoryFragment quantityChangeListener, ProductDatabaseHelper dbHelper,CartDatabaseHelper cartDbHelper) {
+    private ProductDatabaseHelper dbProductHelper;
+    private SubCategoryAdapter.OnItemClickListener mListener;
+
+    //    public SubCategoryAdapter(Context context, ArrayList<SubCategoryModel> productList, OnItemClickListener listener, CartAdapter cartAdapter, SubCategoryFragment quantityChangeListener, ProductDatabaseHelper dbHelper,CartDatabaseHelper cartDbHelper) {
 //        this.context = context;
 //        this.productList = productList;
 //        this.listener = listener;
@@ -73,6 +75,16 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         holder.rateTextView.setText(item.getRate());
         holder.mrpTextView.setText(item.getMrp());
         Glide.with(context).load(item.getImageUrl()).into(holder.imageView);
+        if (Integer.parseInt(item.getQuantity()) > 0) {
+            holder.addToCartButton.setVisibility(View.GONE);
+            holder.elegantLayout.setVisibility(View.VISIBLE);
+            holder.numberButton.setVisibility(View.VISIBLE);
+            holder.numberButton.setNumber(item.getQuantity());
+        } else {
+            holder.addToCartButton.setVisibility(View.VISIBLE);
+            holder.elegantLayout.setVisibility(View.GONE);
+            holder.numberButton.setVisibility(View.GONE);
+        }
 
         holder.addToCartButton.setOnClickListener(v -> {
             holder.addToCartButton.setVisibility(View.GONE);
@@ -138,7 +150,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                     holder.addToCartButton.setVisibility(View.GONE);
                     dbcartHelp.updateProductQuantityInCart(productId, newValue);
                 }
-                selectedItem.setQuantity(newValue);
+                selectedItem.setQuantity(String.valueOf(newValue));
             }
         });
 
@@ -146,6 +158,9 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(position); // Call the click listener method
+                }
                 // Get the clicked item's data
                 SubCategoryModel selectedItem = productList.get(position);
 
@@ -169,6 +184,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
     }
 
+
     @Override
     public int getItemCount() {
         return productList.size();
@@ -180,7 +196,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
 
     public interface OnItemClickListener {
-        void onItemClick(int position, String imageUrl);
+        void onItemClick(int position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -192,6 +208,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         Button addToCartButton;
         LinearLayout elegantLayout;
         ElegantNumberButton numberButton;
+        ImageView img_icon;
+        TextView tv_title;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -203,6 +221,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             addToCartButton = itemView.findViewById(R.id.addToCartButton);
             elegantLayout = itemView.findViewById(R.id.elegantLayout);
             numberButton = itemView.findViewById(R.id.numberButton);
+            img_icon = itemView.findViewById(R.id.img_icon);
+            tv_title = itemView.findViewById(R.id.tv_title);
         }
     }
 }

@@ -49,6 +49,15 @@ public class CartFragment extends Fragment {
         CartDatabaseHelper dbHelper = new CartDatabaseHelper(getContext());
         cartItems = dbHelper.getCartItems();
 
+//        if (cartItems.size()>0){
+//            //not insert
+////            fetch data from database
+////            cartItems = dbHelper.getCartItems();// like this
+//        }else {
+//            // insert(temp product list)
+//
+//        }
+
         return cartItems;
     }
 }

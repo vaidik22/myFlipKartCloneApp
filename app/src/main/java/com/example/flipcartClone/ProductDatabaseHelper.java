@@ -1,11 +1,14 @@
 package com.example.flipcartClone;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 class ProductDatabaseHelper extends SQLiteOpenHelper {
     static final String TABLE_PRODUCTS = "products";
@@ -18,7 +21,7 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
     static final String COLUMN_PRODUCT_QUANTITY = "product_quantity";
     static final String COLUMN_CART_QUANTITY = "cart_quantity";
     private static final String DATABASE_NAME = "myapp.db";
-    private static final int DATABASE_VERSION = 17;
+    private static final int DATABASE_VERSION = 20;
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_PRODUCTS + " (" +
                     COLUMN_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -81,6 +84,53 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
         );
 
         return cursor;
+    }
+
+    public ArrayList<SubCategoryModel> getProductItems() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                COLUMN_PRODUCT_ID,
+                COLUMN_PRODUCT_NAME,
+                COLUMN_PRODUCT_DESCRIPTION,
+                COLUMN_PRODUCT_RATE,
+                COLUMN_PRODUCT_MRP,
+                COLUMN_PRODUCT_IMAGE,
+                COLUMN_PRODUCT_QUANTITY
+        };
+
+        String selection = COLUMN_PRODUCT_ID + " > 0";
+
+        Cursor cursor = db.query(
+                TABLE_PRODUCTS,
+                projection,
+                selection,
+                null,
+                null,
+                null,
+                null
+        );
+
+        ArrayList<SubCategoryModel> productList = new ArrayList<>();
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                @SuppressLint("Range") String productId = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_ID));
+                @SuppressLint("Range") String title = String.valueOf(cursor.getDouble(cursor.getColumnIndex(COLUMN_PRODUCT_NAME)));
+                @SuppressLint("Range") String description = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_DESCRIPTION));
+                @SuppressLint("Range") String rate = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_RATE));
+                @SuppressLint("Range") String mrp = String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_MRP)));
+                @SuppressLint("Range") String imageUrl = String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_IMAGE)));
+                @SuppressLint("Range") String quantity = String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_QUANTITY)));
+
+                // Create a CartItemModel object and add it to the list
+                SubCategoryModel productItem = new SubCategoryModel(productId, title, description, rate, mrp, imageUrl, quantity);
+                productList.add(productItem);
+            }
+            cursor.close();
+        }
+
+        return productList;
     }
 
     public void updateProductQuantity(String productId, int newQuantity) {

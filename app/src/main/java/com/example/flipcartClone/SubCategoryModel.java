@@ -13,7 +13,7 @@ public class SubCategoryModel extends RecyclerView.Adapter {
     String description;
     String mrp;
     String imageUrl;
-    int quantity;
+    String quantity;
     public SubCategoryModel(String productId, String title, String description, String rate, String mrp, String imageUrl, String quantity) {
         this.ProductId = productId;
         this.title = title;
@@ -21,7 +21,7 @@ public class SubCategoryModel extends RecyclerView.Adapter {
         this.rate = rate;
         this.mrp = mrp;
         this.imageUrl = imageUrl;
-        this.quantity = (Integer.parseInt(quantity));
+        this.quantity = quantity;
     }
 
     public int getStocks() {
@@ -72,11 +72,11 @@ public class SubCategoryModel extends RecyclerView.Adapter {
         this.imageUrl = imageUrl;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
