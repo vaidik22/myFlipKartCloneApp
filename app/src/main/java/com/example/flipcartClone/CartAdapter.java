@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -79,6 +80,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(context);
                 cartDatabaseHelper.deleteProduct(productId);
 
+
                 // Notify the listener about the quantity change (in this case, it's 0)
                 if (quantityChangeListener != null) {
                     quantityChangeListener.onQuantityChanged(position, 0);
@@ -103,6 +105,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     cartItems.remove(position);
                     notifyDataSetChanged();
                     cartDatabaseHelper.deleteProduct(productId);
+
                 } else {
                     cartDatabaseHelper.updateProductQuantityInCart(productId, newValue);
                 }
@@ -159,6 +162,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         ImageView cart_Product_image;
         ElegantNumberButton elegantButton;
         ImageButton delete_button;
+        ElegantNumberButton numberButton;
+        Button addToCartButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -168,6 +173,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             cartProductQuantity = itemView.findViewById(R.id.quantity);
             elegantButton = itemView.findViewById(R.id.elegantButton);
             delete_button = itemView.findViewById(R.id.delete_button);
+            numberButton = itemView.findViewById(R.id.numberButton);
+            addToCartButton = itemView.findViewById(R.id.addToCartButton);
 //            elegantButton.setOnValueChangeListener((view, oldValue, newValue) -> {
 //                int position = getAdapterPosition();
 //                if (position != RecyclerView.NO_POSITION) {
