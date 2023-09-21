@@ -72,8 +72,9 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         Log.e("SubCategoryModel_data", item.toString());
         holder.titleTextView.setText(item.getTitle());
         holder.descriptionTextView.setText(item.getDescription());
-        holder.rateTextView.setText(item.getRate());
-        holder.mrpTextView.setText(item.getMrp());
+        int rate = item.getRate();
+        holder.rateTextView.setText("₹" + item.getRate());
+        holder.mrpTextView.setText("₹" + item.getMrp());
         Glide.with(context).load(item.getImageUrl()).into(holder.imageView);
         if (Integer.parseInt(item.getQuantity()) > 0) {
             holder.addToCartButton.setVisibility(View.GONE);

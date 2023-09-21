@@ -39,6 +39,12 @@ public class CartFragment extends Fragment {
         cartAdapter = new CartAdapter(getContext(), cartItems);
         recyclerView.setAdapter(cartAdapter);
         cartAdapter.notifyDataSetChanged();
+        double totalCost = 0.0;
+        for (CartItemModel item : cartItems) {
+            totalCost += item.getProductRate() * item.getQuantity();
+        }
+        TextView totalCostTextView = view.findViewById(R.id.totalCostTextView);
+        totalCostTextView.setText(String.format("Total Cost: ₹%.2f", totalCost));
 
         return view;
     }

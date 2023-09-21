@@ -19,6 +19,7 @@ public class FragmentProductDetails extends Fragment {
     private TextView mrpTextView;
     private TextView rateTextView;
     private ImageView productImageView;
+    TextView percentage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,19 +31,30 @@ public class FragmentProductDetails extends Fragment {
         mrpTextView = root.findViewById(R.id.Product_mrp);
         rateTextView = root.findViewById(R.id.Product_rate);
         productImageView = root.findViewById(R.id.productImageView);
+        percentage = root.findViewById(R.id.percentage);
 
         // Retrieve data from arguments
         Bundle args = getArguments();
         if (args != null) {
             String title = args.getString("title");
             String description = args.getString("description");
-            String mrp = args.getString("mrp");
-            String rate = args.getString("rate");
+            String mrpStr = args.getString("mrp");
+            String rateStr = args.getString("rate");
             String imageUrl = args.getString("imageUrl");
+
+            // Convert MRP and rate strings to numeric values
+            double mrp = Double.parseDouble(mrpStr);
+            double rate = Double.parseDouble(rateStr);
+
+            // Calculate the percentage difference
+            double percentageDifference = ((mrp - rate) / mrp) * 100;
+
+            // Set text for TextViews
             titleTextView.setText(title);
             descriptionTextView.setText(description);
-            mrpTextView.setText(mrp);
-            rateTextView.setText(rate);
+            mrpTextView.setText("₹" + mrpStr);
+            rateTextView.setText("₹" + rateStr);
+            percentage.setText(String.format("%.2f%% off", percentageDifference)); // Display percentage difference
             Glide.with(this).load(imageUrl).into(productImageView);
         }
         return root;

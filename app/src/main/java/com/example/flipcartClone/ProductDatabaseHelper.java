@@ -118,7 +118,7 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
                 @SuppressLint("Range") String productId = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_ID));
                 @SuppressLint("Range") String title = String.valueOf(cursor.getDouble(cursor.getColumnIndex(COLUMN_PRODUCT_NAME)));
                 @SuppressLint("Range") String description = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_DESCRIPTION));
-                @SuppressLint("Range") String rate = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_RATE));
+                @SuppressLint("Range") int rate = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_RATE)));
                 @SuppressLint("Range") String mrp = String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_MRP)));
                 @SuppressLint("Range") String imageUrl = String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_IMAGE)));
                 @SuppressLint("Range") String quantity = String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_QUANTITY)));

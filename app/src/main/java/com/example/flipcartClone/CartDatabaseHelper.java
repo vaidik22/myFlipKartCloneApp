@@ -69,7 +69,7 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void insertCartItem(int productId, String title, String rate, String imageUrl, String quantity) {
+    public void insertCartItem(int productId, String title, int rate, String imageUrl, String quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_PRODUCT_ID, productId);
@@ -116,7 +116,7 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
             while (cursor.moveToNext()) {
                 @SuppressLint("Range") String productId = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_ID));
                 @SuppressLint("Range") String productName = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_NAME));
-                @SuppressLint("Range") String productRate = String.valueOf(cursor.getDouble(cursor.getColumnIndex(COLUMN_PRODUCT_RATE)));
+                @SuppressLint("Range") int productRate = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_RATE));
                 @SuppressLint("Range") String productImageUrl = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_IMAGE_URL));
                 @SuppressLint("Range") int productQuantity = cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY));
 

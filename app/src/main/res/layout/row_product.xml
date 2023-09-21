@@ -61,7 +61,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:text="New Text" />
+                android:text="\u20B9" />
 
             <TextView
                 android:id="@+id/product_discription"
@@ -81,7 +81,7 @@
                 android:layout_marginTop="1dp"
                 android:layout_marginEnd="1dp"
                 android:foreground="@drawable/strickthrough"
-                android:text="TextView" />
+                android:text="\u20B9" />
 
 
         </RelativeLayout>

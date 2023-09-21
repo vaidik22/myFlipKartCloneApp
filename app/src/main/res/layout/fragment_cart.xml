@@ -5,33 +5,56 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/cart_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:text="Your Cart"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cart_recycler_view"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/cart_title" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/checkout_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#FFA500"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="Checkout"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <TextView
+                android:id="@+id/cart_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:text="Your Cart"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cart_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/cart_title"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:id="@+id/totalCostTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/checkout_button"
+                android:text="Total cost:"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+
+            <Button
+                android:id="@+id/checkout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#FFA500"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="Place Order"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +20,6 @@ import com.example.flicpcartClone.R;
 import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
-    CartDatabaseHelper db_cart_helper;
     private Context context;
     private ArrayList<CartItemModel> cartItems;
     private OnQuantityChangeListener quantityChangeListener;
@@ -43,6 +41,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         CartItemModel cartItem = cartItems.get(position);
@@ -58,7 +57,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         // Bind data to the ViewHolder views
         holder.cartProductName.setText(cartItem.getProductName());
-        holder.cartProductRate.setText(String.format("$%.2f", Double.parseDouble(cartItem.getProductRate())));
+        holder.cartProductRate.setText(String.format("₹%.2f", Double.parseDouble(String.valueOf(cartItem.getProductRate()))));
         holder.cartProductQuantity.setText("Quantity: " + cartItem.getQuantity());
         Glide.with(context)
                 .load(cartItem.getImageUrl()) // Load the image from the URL or resource ID
@@ -96,18 +95,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 Log.d("SubCategoryAdapter", "Old Value: " + oldValue);
                 Log.d("SubCategoryAdapter", "New Value: " + newValue);
 
+                ProductDatabaseHelper productDatabaseHelper = new ProductDatabaseHelper(context);
                 CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(context);
                 // Update the product database with the new quantity
-                cartDatabaseHelper.updateProductQuantityInCart(productId, newValue);
-
-
+                productDatabaseHelper.updateProductQuantity(productId, newValue);
                 if (newValue == 0) {
                     cartItems.remove(position);
                     notifyDataSetChanged();
                     cartDatabaseHelper.deleteProduct(productId);
+                    productDatabaseHelper.updateProductQuantity(productId, newValue);
 
                 } else {
                     cartDatabaseHelper.updateProductQuantityInCart(productId, newValue);
+                    productDatabaseHelper.updateProductQuantity(productId, newValue);
                 }
                 if (quantityChangeListener != null) {
                     quantityChangeListener.onQuantityChanged(position, newValue);
@@ -162,9 +162,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         ImageView cart_Product_image;
         ElegantNumberButton elegantButton;
         ImageButton delete_button;
-        ElegantNumberButton numberButton;
-        Button addToCartButton;
-
+        TextView totalCostTextView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cartProductName = itemView.findViewById(R.id.cart_product_name);
@@ -173,8 +171,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             cartProductQuantity = itemView.findViewById(R.id.quantity);
             elegantButton = itemView.findViewById(R.id.elegantButton);
             delete_button = itemView.findViewById(R.id.delete_button);
-            numberButton = itemView.findViewById(R.id.numberButton);
-            addToCartButton = itemView.findViewById(R.id.addToCartButton);
+            totalCostTextView = itemView.findViewById(R.id.totalCostTextView);
 //            elegantButton.setOnValueChangeListener((view, oldValue, newValue) -> {
 //                int position = getAdapterPosition();
 //                if (position != RecyclerView.NO_POSITION) {

@@ -3,11 +3,11 @@ package com.example.flipcartClone;
 public class CartItemModel {
     private String productId;
     private String productName;
-    private String productRate;
+    private int productRate;
     private String imageUrl;
     private int quantity;
 
-    public CartItemModel(String productId, String productName, String productRate, String imageUrl, int quantity) {
+    public CartItemModel(String productId, String productName, int productRate, String imageUrl, int quantity) {
         this.productId = productId;
         this.productName = productName;
         this.productRate = productRate;
@@ -39,11 +39,11 @@ public class CartItemModel {
         this.productName = productName;
     }
 
-    public String getProductRate() {
+    public int getProductRate() {
         return productRate;
     }
 
-    public void setProductRate(String productRate) {
+    public void setProductRate(int productRate) {
         this.productRate = productRate;
     }
 

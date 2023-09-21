@@ -136,12 +136,12 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
 //           productList = dbHelper.getProductItems();
             fetchAndDisplayProducts(dbHelper);
         } else {
-            dbHelper.insertProduct("Shirt 1", "Men Regular...", "500", "1000", url44, "1", "0");
-            dbHelper.insertProduct("HR fashion 1", "Men Regular...", "500", "1000", url55, "1", "0");
-            dbHelper.insertProduct("Shirt 2", "Men Regular...", "500", "1000", url44, "1", "0");
-            dbHelper.insertProduct("Iphone 14", "RED,128 GB..", "500", "1000", url66, "1", "0");
-            dbHelper.insertProduct("POCO M6 PRO", "BLACK, 128 GB...", "500", "1000", url77, "1", "0");
-            dbHelper.insertProduct("POCO M6 PRO 2", "BLACK, 128 GB...", "500", "1000", url77, "1", "0");
+            dbHelper.insertProduct("Shirt 1", "Men Regular...", "₹500", "₹1000", url44, "1", "0");
+            dbHelper.insertProduct("HR fashion 1", "Men Regular...", "₹500", "₹1000", url55, "1", "0");
+            dbHelper.insertProduct("Shirt 2", "Men Regular...", "₹500", "₹1000", url44, "1", "0");
+            dbHelper.insertProduct("Iphone 14", "RED,128 GB..", "₹500", "₹1000", url66, "1", "0");
+            dbHelper.insertProduct("POCO M6 PRO", "BLACK, 128 GB...", "₹500", "₹1000", url77, "1", "0");
+            dbHelper.insertProduct("POCO M6 PRO 2", "BLACK, 128 GB...", "₹500", "₹1000", url77, "1", "0");
 
             fetchAndDisplayProducts(dbHelper);
         }
@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
                 String product_id = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_ID));
                 String title = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_NAME));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_DESCRIPTION));
-                String rate = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_RATE));
+                int rate = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_RATE)));
                 String mrp = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_MRP));
                 String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_IMAGE));
                 String quantity = String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow((ProductDatabaseHelper.COLUMN_PRODUCT_QUANTITY)))); // Get quantity from the database
@@ -208,7 +208,7 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
         args.putString("title", product.getTitle());
         args.putString("description", product.getDescription());
         args.putString("mrp", product.getMrp());
-        args.putString("rate", product.getRate());
+        args.putInt("rate", product.getRate());
         args.putString("imageUrl", product.getImageUrl());
         fragmentProductDetails.setArguments(args);
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
