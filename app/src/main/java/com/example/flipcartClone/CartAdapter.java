@@ -113,33 +113,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         return cartItems.size();
     }
 
-    public void onAddToCart(CartItemModel cartItem) {
-        addToCart(cartItem);
-        Log.d("CartAdapter", "Added to cart: " + cartItem.getProductId());
-    }
-
-    private void addToCart(CartItemModel cartItem) {
-        boolean itemFound = false;
-
-        for (int i = 0; i < cartItems.size(); i++) {
-            CartItemModel existingCartItem = cartItems.get(i);
-            if (existingCartItem.getProductId() != null && cartItem.getProductId() != null) {
-                if (existingCartItem.getProductId().equals(cartItem.getProductId())) {
-                    // Update the quantity of the existing cart item
-                    existingCartItem.setQuantity(cartItem.getQuantity());
-                    existingCartItem.setImageUrl(cartItem.getImageUrl());
-                    itemFound = true;
-                    break;
-                }
-            }
-        }
-
-        if (!itemFound) {
-            // Add a new cart item to the list
-            cartItems.add(cartItem);
-        }
-    }
-
     public interface OnQuantityChangeListener {
         void onQuantityChanged(int position, int newQuantity);
     }

@@ -38,7 +38,7 @@
                 android:layout_width="31dp"
                 android:layout_height="30dp"
                 android:layout_gravity="top|end"
-                android:background="@drawable/crossIcon"
+                android:background="@drawable/crossicon"
                 android:visibility="gone" />
         </FrameLayout>
 
