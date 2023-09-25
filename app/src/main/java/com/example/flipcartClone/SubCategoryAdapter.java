@@ -72,7 +72,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         Log.e("SubCategoryModel_data", item.toString());
         holder.titleTextView.setText(item.getTitle());
         holder.descriptionTextView.setText(item.getDescription());
-        int rate = item.getRate();
+        float rate = item.getRate();
         holder.rateTextView.setText("₹" + item.getRate());
         holder.mrpTextView.setText("₹" + item.getMrp());
         Glide.with(context).load(item.getImageUrl()).into(holder.imageView);
@@ -101,6 +101,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                     item.getProductId(),
                     item.getTitle(),
                     item.getRate(),
+                    item.getMrp(),
                     item.getImageUrl(),
                     String.valueOf(initialQuantity)
             );
@@ -171,7 +172,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                 args.putString("title", selectedItem.getTitle());
                 args.putString("description", selectedItem.getDescription());
                 args.putString("rate", String.valueOf(selectedItem.getRate()));
-                args.putString("mrp", selectedItem.getMrp());
+                args.putString("mrp", String.valueOf(selectedItem.getMrp()));
                 args.putString("imageUrl", selectedItem.getImageUrl());
                 fragmentProductDetails.setArguments(args);
                 // Replace the current fragment with FragmentProductDetails

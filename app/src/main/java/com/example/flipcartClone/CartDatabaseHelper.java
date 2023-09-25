@@ -17,11 +17,12 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_QUANTITY = "quantity";
     public static final String COLUMN_DESCRIPTION = "description";
     private static final String DATABASE_NAME = "cart.db";
-    private static final int DATABASE_VERSION = 14;
+    private static final int DATABASE_VERSION = 17;
 
     // Define table and column names
     private static final String COLUMN_PRODUCT_NAME = "product_name";
     private static final String COLUMN_PRODUCT_RATE = "product_rate";
+    private static final String COLUMN_PRODUCT_MRP = "product_mrp";
     private static final String COLUMN_PRODUCT_IMAGE_URL = "product_image_url";
 
     // Create table query
@@ -29,6 +30,7 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
             COLUMN_PRODUCT_ID + " TEXT PRIMARY KEY," +
             COLUMN_PRODUCT_NAME + " TEXT," +
             COLUMN_PRODUCT_RATE + " REAL," +
+            COLUMN_PRODUCT_MRP + " REAL," +
             COLUMN_DESCRIPTION + " REAL," +
             COLUMN_PRODUCT_IMAGE_URL + " TEXT," +
             COLUMN_QUANTITY + " INTEGER" +
@@ -69,12 +71,13 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void insertCartItem(int productId, String title, int rate, String imageUrl, String quantity) {
+    public void insertCartItem(int productId, String title, float rate, float mrp, String imageUrl, String quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_PRODUCT_ID, productId);
         values.put(COLUMN_PRODUCT_NAME, title);
         values.put(COLUMN_PRODUCT_RATE, rate);
+        values.put(COLUMN_PRODUCT_MRP, mrp);
         values.put(COLUMN_PRODUCT_IMAGE_URL, imageUrl);
         values.put(COLUMN_QUANTITY, quantity);
 
@@ -94,6 +97,7 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_PRODUCT_ID,
                 COLUMN_PRODUCT_NAME,
                 COLUMN_PRODUCT_RATE,
+                COLUMN_PRODUCT_MRP,
                 COLUMN_PRODUCT_IMAGE_URL,
                 COLUMN_QUANTITY
         };
@@ -117,11 +121,12 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
                 @SuppressLint("Range") String productId = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_ID));
                 @SuppressLint("Range") String productName = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_NAME));
                 @SuppressLint("Range") int productRate = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_RATE));
+                @SuppressLint("Range") int productMrp = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_MRP));
                 @SuppressLint("Range") String productImageUrl = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_IMAGE_URL));
                 @SuppressLint("Range") int productQuantity = cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY));
 
                 // Create a CartItemModel object and add it to the list
-                CartItemModel cartItem = new CartItemModel(productId, productName, productRate, productImageUrl, productQuantity);
+                CartItemModel cartItem = new CartItemModel(productId, productName, productRate, productMrp, productImageUrl, productQuantity);
                 cartItems.add(cartItem);
             }
 

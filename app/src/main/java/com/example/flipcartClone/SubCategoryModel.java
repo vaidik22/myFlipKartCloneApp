@@ -9,13 +9,13 @@ public class SubCategoryModel extends RecyclerView.Adapter {
     String title;
     String ProductId;
     int stocks;
-    int rate;
+    float rate;
     String description;
-    String mrp;
+    float mrp;
     String imageUrl;
     String quantity;
 
-    public SubCategoryModel(String productId, String title, String description, int rate, String mrp, String imageUrl, String quantity) {
+    public SubCategoryModel(String productId, String title, String description, float rate, float mrp, String imageUrl, String quantity) {
         this.ProductId = productId;
         this.title = title;
         this.description = description;
@@ -41,11 +41,11 @@ public class SubCategoryModel extends RecyclerView.Adapter {
         this.ProductId = productId;
     }
 
-    public String getMrp() {
+    public float getMrp() {
         return mrp;
     }
 
-    public void setMrp(String mrp) {
+    public void setMrp(float mrp) {
         this.mrp = mrp;
     }
 
@@ -57,11 +57,11 @@ public class SubCategoryModel extends RecyclerView.Adapter {
         this.description = description;
     }
 
-    public int getRate() {
+    public float getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(float rate) {
         this.rate = rate;
     }
 

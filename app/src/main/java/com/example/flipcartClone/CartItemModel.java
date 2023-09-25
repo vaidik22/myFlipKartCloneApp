@@ -1,18 +1,37 @@
 package com.example.flipcartClone;
 
-public class CartItemModel {
+import android.annotation.SuppressLint;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+@SuppressLint("ParcelCreator")
+public class CartItemModel implements Parcelable {
     private String productId;
     private String productName;
     private int productRate;
-    private String imageUrl;
-    private int quantity;
+    private int productMrp;
 
-    public CartItemModel(String productId, String productName, int productRate, String imageUrl, int quantity) {
+    public CartItemModel(String productId, String productName, int productRate, int productMrp, String imageUrl, int quantity) {
         this.productId = productId;
         this.productName = productName;
         this.productRate = productRate;
+        this.productMrp = productMrp;
         this.quantity = quantity;
         this.imageUrl = imageUrl;
+    }
+
+    public int getProductMrp() {
+        return productMrp;
+    }
+
+    private String imageUrl;
+
+    private int quantity;
+
+    public void setProductMrp(int productMrp) {
+        this.productMrp = productMrp;
     }
 
     public String getImageUrl() {
@@ -53,5 +72,15 @@ public class CartItemModel {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+
     }
 }

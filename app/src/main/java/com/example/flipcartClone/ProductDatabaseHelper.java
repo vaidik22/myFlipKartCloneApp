@@ -21,7 +21,7 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
     static final String COLUMN_PRODUCT_QUANTITY = "product_quantity";
     static final String COLUMN_CART_QUANTITY = "cart_quantity";
     private static final String DATABASE_NAME = "myapp.db";
-    private static final int DATABASE_VERSION = 21;
+    private static final int DATABASE_VERSION = 30;
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_PRODUCTS + " (" +
                     COLUMN_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -93,8 +93,8 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_PRODUCT_ID,
                 COLUMN_PRODUCT_NAME,
                 COLUMN_PRODUCT_DESCRIPTION,
-                COLUMN_PRODUCT_RATE,
-                COLUMN_PRODUCT_MRP,
+                COLUMN_PRODUCT_RATE, // Change this to COLUMN_PRODUCT_RATE
+                COLUMN_PRODUCT_MRP,  // Change this to COLUMN_PRODUCT_MRP
                 COLUMN_PRODUCT_IMAGE,
                 COLUMN_PRODUCT_QUANTITY
         };
@@ -116,14 +116,14 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 @SuppressLint("Range") String productId = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_ID));
-                @SuppressLint("Range") String title = String.valueOf(cursor.getDouble(cursor.getColumnIndex(COLUMN_PRODUCT_NAME)));
+                @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_NAME));
                 @SuppressLint("Range") String description = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_DESCRIPTION));
-                @SuppressLint("Range") int rate = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_RATE)));
-                @SuppressLint("Range") String mrp = String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_MRP)));
-                @SuppressLint("Range") String imageUrl = String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_IMAGE)));
+                @SuppressLint("Range") float rate = cursor.getFloat(cursor.getColumnIndex(COLUMN_PRODUCT_RATE)); // Parse as float
+                @SuppressLint("Range") float mrp = cursor.getFloat(cursor.getColumnIndex(COLUMN_PRODUCT_MRP));   // Parse as float
+                @SuppressLint("Range") String imageUrl = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_IMAGE));
                 @SuppressLint("Range") String quantity = String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_QUANTITY)));
 
-                // Create a CartItemModel object and add it to the list
+                // Create a SubCategoryModel object and add it to the list
                 SubCategoryModel productItem = new SubCategoryModel(productId, title, description, rate, mrp, imageUrl, quantity);
                 productList.add(productItem);
             }
@@ -132,6 +132,7 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
 
         return productList;
     }
+
 
     public void updateProductQuantity(String productId, int newQuantity) {
 

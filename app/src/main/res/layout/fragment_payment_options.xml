@@ -1,0 +1,93 @@
+<!-- fragment_payment_options.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_suggested_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Suggested for you"
+        android:textStyle="italic" />
+    <!-- Google Pay UPI Section -->
+
+    <RadioButton
+        android:id="@+id/radio_google_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_suggested_heading"
+        android:layout_marginBottom="8dp"
+        android:text="Google Pay UPI"
+        android:textStyle="bold" />
+
+    <!-- UPI Payment Option -->
+    <TextView
+        android:id="@+id/tv_other_pay_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radio_google_pay"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Other Payment Option"
+        android:textStyle="italic" />
+
+    <RadioGroup
+        android:id="@+id/radio_group_payment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_other_pay_heading"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp">
+
+        <RadioButton
+            android:id="@+id/radio_upi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_other_pay_heading"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="UPI" />
+
+        <!-- Cash On Delivery Payment Option -->
+        <RadioButton
+            android:id="@+id/radio_cash_on_delivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radio_upi"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Cash On Delivery" />
+    </RadioGroup>
+
+    <!-- Price Details Section -->
+    <TextView
+        android:id="@+id/tv_price_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radio_group_payment"
+        android:layout_marginTop="16dp"
+        android:text="Price Details"
+        android:textStyle="bold" />
+
+    <!-- Price Details: Total Amount -->
+    <TextView
+        android:id="@+id/tv_total_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_price_details"
+        android:layout_marginTop="8dp"
+        android:text="Total Amount: ₹999.99" />
+
+    <!-- Continue Button -->
+    <Button
+        android:id="@+id/btn_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_total_amount"
+        android:layout_marginTop="16dp"
+        android:text="Continue" />
+</RelativeLayout>

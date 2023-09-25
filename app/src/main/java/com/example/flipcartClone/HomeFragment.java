@@ -179,8 +179,10 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
                 String product_id = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_ID));
                 String title = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_NAME));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_DESCRIPTION));
-                int rate = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_RATE)));
-                String mrp = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_MRP));
+                String rateStr = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_RATE));
+                int rate = Integer.parseInt(rateStr.replaceAll("[^0-9]", ""));
+                String mrpStr = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_MRP));
+                int mrp = Integer.parseInt(mrpStr.replaceAll("[^0-9]", ""));
                 String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_IMAGE));
                 String quantity = String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow((ProductDatabaseHelper.COLUMN_PRODUCT_QUANTITY)))); // Get quantity from the database
                 SubCategoryModel product = new SubCategoryModel(product_id, title, description, rate, mrp, imageUrl, quantity);
@@ -200,21 +202,6 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
         if (subCategoryAdapter != null) {
             subCategoryAdapter.notifyDataSetChanged();
         }
-    }
-
-    private void showProductDetails(SubCategoryModel product) {
-        FragmentProductDetails fragmentProductDetails = new FragmentProductDetails();
-        Bundle args = new Bundle();
-        args.putString("title", product.getTitle());
-        args.putString("description", product.getDescription());
-        args.putString("mrp", product.getMrp());
-        args.putInt("rate", product.getRate());
-        args.putString("imageUrl", product.getImageUrl());
-        fragmentProductDetails.setArguments(args);
-        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_section, fragmentProductDetails);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
     private void navigateToHomeFragment() {

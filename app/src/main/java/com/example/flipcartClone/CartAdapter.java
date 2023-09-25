@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -88,7 +89,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         });
         holder.elegantButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
-                CartItemModel selectedItem = new CartItemModel(cartItem.getProductId(), cartItem.getProductName(), cartItem.getProductRate(), cartItem.getImageUrl(), cartItem.getQuantity());
+                CartItemModel selectedItem = new CartItemModel(cartItem.getProductId(), cartItem.getProductName(), cartItem.getProductRate(), cartItem.getProductMrp(), cartItem.getImageUrl(), cartItem.getQuantity());
                 String productId = String.valueOf(selectedItem.getProductId());
 
                 Log.d("SubCategoryAdapter", "Product ID: " + productId);
@@ -163,6 +164,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         ElegantNumberButton elegantButton;
         ImageButton delete_button;
         TextView totalCostTextView;
+        Button placeOrder;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cartProductName = itemView.findViewById(R.id.cart_product_name);
@@ -172,6 +175,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             elegantButton = itemView.findViewById(R.id.elegantButton);
             delete_button = itemView.findViewById(R.id.delete_button);
             totalCostTextView = itemView.findViewById(R.id.totalCostTextView);
+            placeOrder = itemView.findViewById(R.id.place_order);
 //            elegantButton.setOnValueChangeListener((view, oldValue, newValue) -> {
 //                int position = getAdapterPosition();
 //                if (position != RecyclerView.NO_POSITION) {
@@ -184,7 +188,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 //                        quantityChangeListener.onQuantityChanged(position, cartItem.getQuantity());
 //                    }
         }
+    }
 //            });
 //        }
     }
-}
