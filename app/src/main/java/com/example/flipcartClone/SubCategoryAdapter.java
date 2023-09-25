@@ -212,6 +212,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         ElegantNumberButton numberButton;
         ImageView img_icon;
         TextView tv_title;
+        ImageView wishlistIcon;
+        ImageView crossIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -224,6 +226,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             elegantLayout = itemView.findViewById(R.id.elegantLayout);
             numberButton = itemView.findViewById(R.id.numberButton);
             img_icon = itemView.findViewById(R.id.img_icon);
+            wishlistIcon = itemView.findViewById(R.id.wishlistIcon);
+            crossIcon = itemView.findViewById(R.id.crossIcon);
             tv_title = itemView.findViewById(R.id.tv_title);
         }
     }

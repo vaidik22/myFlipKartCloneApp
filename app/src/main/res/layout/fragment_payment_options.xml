@@ -3,51 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
+    <!-- UPI Payment Option -->
 
     <TextView
-        android:id="@+id/tv_suggested_heading"
-        android:layout_width="wrap_content"
+        android:id="@+id/text_option"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Suggested for you"
-        android:textStyle="italic" />
-    <!-- Google Pay UPI Section -->
+        android:text="Payment Options"></TextView>
 
-    <RadioButton
-        android:id="@+id/radio_google_pay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_suggested_heading"
-        android:layout_marginBottom="8dp"
-        android:text="Google Pay UPI"
-        android:textStyle="bold" />
-
-    <!-- UPI Payment Option -->
-    <TextView
-        android:id="@+id/tv_other_pay_heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/radio_google_pay"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Other Payment Option"
-        android:textStyle="italic" />
 
     <RadioGroup
         android:id="@+id/radio_group_payment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_other_pay_heading"
+        android:layout_below="@+id/text_option"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp">
+
+        <RadioButton
+            android:id="@+id/radio_google_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_suggested_heading"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Google Pay UPI" />
 
         <RadioButton
             android:id="@+id/radio_upi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_other_pay_heading"
+            android:layout_below="@id/radio_google_pay"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="UPI" />

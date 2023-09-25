@@ -12,7 +12,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/cart_items"
             android:orientation="vertical"
+            android:visibility="gone"
             android:weightSum="5">
 
             <TextView
@@ -40,7 +42,9 @@
                 android:layout_above="@+id/checkout_button"
                 android:text="Total cost:"
                 android:textSize="20dp"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold">
+
+            </TextView>
 
             <Button
                 android:id="@+id/place_order"
@@ -56,5 +60,30 @@
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/empty_cart_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/cart_empty_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your cart is empty"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/continue_shopping_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Continue Shopping" />
+    </LinearLayout>
 </RelativeLayout>

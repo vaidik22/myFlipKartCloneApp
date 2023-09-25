@@ -32,6 +32,14 @@
                 android:layout_height="30dp"
                 android:layout_gravity="top|end"
                 android:background="@drawable/wishlist" />
+
+            <ImageButton
+                android:id="@+id/crossIcon"
+                android:layout_width="31dp"
+                android:layout_height="30dp"
+                android:layout_gravity="top|end"
+                android:background="@drawable/crossIcon"
+                android:visibility="gone" />
         </FrameLayout>
 
         <View

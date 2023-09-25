@@ -25,7 +25,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private ArrayList<CartItemModel> cartItems;
     private OnQuantityChangeListener quantityChangeListener;
 
-
     public CartAdapter(Context context, ArrayList<CartItemModel> cartItems) {
         this.context = context;
         this.cartItems = cartItems;
@@ -46,17 +45,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         CartItemModel cartItem = cartItems.get(position);
-//        CartItemModel cartItems = new CartItemModel(
-//                cartItem.getProductId(),
-//                cartItem.getProductName(),
-//                cartItem.getProductRate(),
-//                cartItem.getImageUrl(),
-//                cartItem.getQuantity()
-//        );
-//        cartAdapter.onAddToCart(cartItem);
-//        cartAdapter.notifyDataSetChanged();
-
-        // Bind data to the ViewHolder views
         holder.cartProductName.setText(cartItem.getProductName());
         holder.cartProductRate.setText(String.format("₹%.2f", Double.parseDouble(String.valueOf(cartItem.getProductRate()))));
         holder.cartProductQuantity.setText("Quantity: " + cartItem.getQuantity());
