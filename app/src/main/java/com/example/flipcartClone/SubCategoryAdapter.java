@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     private SubCategoryAdapter.OnItemClickListener listener;
 
     private ProductDatabaseHelper dbProductHelper;
+    private WishListDatabaseHelper dbWishListHelper;
+
     private SubCategoryAdapter.OnItemClickListener mListener;
 
     //    public SubCategoryAdapter(Context context, ArrayList<SubCategoryModel> productList, OnItemClickListener listener, CartAdapter cartAdapter, SubCategoryFragment quantityChangeListener, ProductDatabaseHelper dbHelper,CartDatabaseHelper cartDbHelper) {
@@ -52,6 +55,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         this.listener = listener;
         dbcartHelp = new CartDatabaseHelper(context);
         dbProductHelper = new ProductDatabaseHelper(context);
+        dbWishListHelper = new WishListDatabaseHelper(context);
+
     }
 
     // Setter method to set the listener
@@ -72,10 +77,18 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         Log.e("SubCategoryModel_data", item.toString());
         holder.titleTextView.setText(item.getTitle());
         holder.descriptionTextView.setText(item.getDescription());
-        float rate = item.getRate();
         holder.rateTextView.setText("₹" + item.getRate());
         holder.mrpTextView.setText("₹" + item.getMrp());
         Glide.with(context).load(item.getImageUrl()).into(holder.imageView);
+        boolean isInWishlist = dbWishListHelper.isProductInWishlist(item.getProductId());
+        if (isInWishlist) {
+            holder.crossIcon.setVisibility(View.VISIBLE);
+            holder.wishlistIcon.setVisibility(View.GONE);
+        } else {
+            holder.crossIcon.setVisibility(View.GONE);
+            holder.wishlistIcon.setVisibility(View.VISIBLE);
+
+        }
         if (Integer.parseInt(item.getQuantity()) > 0) {
             holder.addToCartButton.setVisibility(View.GONE);
             holder.elegantLayout.setVisibility(View.VISIBLE);
@@ -107,24 +120,43 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             );
             dbProductHelper.updateProductQuantity(String.valueOf(item.getProductId()), 1);
 
-//            if (selectedItem.getProductId() != null) {
-//
-//                // Update the cart UI by notifying the cartAdapter
-//                CartItemModel cartItem = new CartItemModel(
-//                        selectedItem.getProductId(),
-//                        selectedItem.getTitle(),
-//                        selectedItem.getRate(),
-//                        selectedItem.getImageUrl(),
-//                        selectedItem.getQuantity(),
-//                        selectedItem.getDescription(),
-//                        selectedItem.getMrp()
-//                );
-//
-////                cartAdapter.onAddToCart(cartItem);
-////                cartAdapter.notifyDataSetChanged();
-//            } else {
-//                // Handle the case where productId is null (e.g., log an error or show a message)
-//            }
+        });
+        holder.wishlistIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isInWishlist = dbWishListHelper.isProductInWishlist(item.getProductId());
+
+                if (!isInWishlist) {
+                    // Product is not in wishlist, add it
+                    holder.wishlistIcon.setVisibility(View.GONE);
+                    holder.crossIcon.setVisibility(View.VISIBLE);
+                    dbWishListHelper.addToWishlist(
+                            item.getProductId(),
+                            item.getTitle(),
+                            item.getRate(),
+                            item.getMrp(),
+                            item.getImageUrl(),
+                            String.valueOf(Integer.parseInt(holder.numberButton.getNumber()))
+                    );
+                    Toast.makeText(context, item.getTitle() + " added to wishlist", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, item.getTitle() + " is already in your wishlist", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        holder.crossIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dbWishListHelper.isProductInWishlist(item.getProductId())) {
+                    holder.wishlistIcon.setVisibility(View.GONE);
+                    holder.crossIcon.setVisibility(View.VISIBLE);
+                }
+                dbWishListHelper.deleteProduct(String.valueOf(item.getProductId()));
+                Toast.makeText(context, item.getTitle() + " removed from wishlist", Toast.LENGTH_SHORT).show();
+                holder.crossIcon.setVisibility(View.GONE);
+                holder.wishlistIcon.setVisibility(View.VISIBLE);
+            }
         });
 
 
@@ -132,11 +164,6 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
                 SubCategoryModel selectedItem = productList.get(position);
                 String productId = String.valueOf(selectedItem.getProductId());
-
-                Log.d("SubCategoryAdapter", "Product ID: " + productId);
-                Log.d("SubCategoryAdapter", "Old Value: " + oldValue);
-                Log.d("SubCategoryAdapter", "New Value: " + newValue);
-                Log.e("imageurl", item.getImageUrl());
 
                 // Update the product database with the new quantity
                 dbProductHelper.updateProductQuantity(productId, newValue);
@@ -212,8 +239,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         ElegantNumberButton numberButton;
         ImageView img_icon;
         TextView tv_title;
-        ImageView wishlistIcon;
-        ImageView crossIcon;
+        ImageButton wishlistIcon;
+        ImageButton crossIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

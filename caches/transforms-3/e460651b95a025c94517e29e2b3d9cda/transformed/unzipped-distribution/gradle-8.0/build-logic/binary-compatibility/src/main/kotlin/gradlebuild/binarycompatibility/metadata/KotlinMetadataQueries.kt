@@ -106,7 +106,6 @@ object KotlinMetadataQueries {
             is CtConstructor ->
                 if (parameterTypes.isEmpty()) "$name$signature"
                 else "<init>$signature"
-
             is CtMethod -> "$name$signature"
             else -> throw IllegalArgumentException("Unsupported javassist member type '${this::class}'")
         }

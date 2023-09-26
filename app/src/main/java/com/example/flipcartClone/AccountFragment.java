@@ -21,6 +21,23 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         Button editProfileButton = view.findViewById(R.id.editprofile);
+        Button wishlistButton = view.findViewById(R.id.wishlist); // Find the Wishlist button
+
+        // Set a click listener for the Wishlist button
+        wishlistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an instance of the WishListFragment
+                WishListFragment wishListFragment = new WishListFragment();
+
+                // Replace the current fragment with the WishListFragment
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_section, wishListFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -15,30 +15,30 @@
   -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
   <item>
-    <shape>
-        <solid android:color="?attr/colorSurface" />
+      <shape>
+          <solid android:color="?attr/colorSurface" />
 
-        <corners
-            android:bottomLeftRadius="4dp"
-            android:bottomRightRadius="4dp"
-            android:topLeftRadius="4dp"
-            android:topRightRadius="4dp" />
+          <corners
+              android:bottomLeftRadius="4dp"
+              android:bottomRightRadius="4dp"
+              android:topLeftRadius="4dp"
+              android:topRightRadius="4dp" />
 
-    </shape>
+      </shape>
   </item>
   <item>
-    <shape>
-        <solid android:color="@color/mtrl_popupmenu_overlay_color" />
-        <corners
-            android:bottomLeftRadius="4dp"
-            android:bottomRightRadius="4dp"
-            android:topLeftRadius="4dp"
-            android:topRightRadius="4dp" />
+      <shape>
+          <solid android:color="@color/mtrl_popupmenu_overlay_color" />
+          <corners
+              android:bottomLeftRadius="4dp"
+              android:bottomRightRadius="4dp"
+              android:topLeftRadius="4dp"
+              android:topRightRadius="4dp" />
 
-        <padding
-            android:bottom="8dp"
-            android:top="8dp" />
-    </shape>
+          <padding
+              android:bottom="8dp"
+              android:top="8dp" />
+      </shape>
   </item>
 </layer-list>
 

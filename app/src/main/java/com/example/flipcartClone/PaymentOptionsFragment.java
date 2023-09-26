@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class PaymentOptionsFragment extends Fragment {
     private ArrayList<CartItemModel> cartItems;
+    private static final int UPI_PAYMENT_REQUEST_CODE = 101; // You can choose any value
 
 
     public PaymentOptionsFragment() {
@@ -31,20 +32,20 @@ public class PaymentOptionsFragment extends Fragment {
         for (CartItemModel item : cartItems) {
             totalAmount += item.getProductRate() * item.getQuantity() + 40;
         }
-
-        EasyUpiPayment easyUpiPayment = new EasyUpiPayment.Builder()
-                .with(getActivity()) // Use getActivity() to get the activity associated with the fragment
-                .setPayeeVpa("test@upi") // Recipient's UPI ID
-                .setPayeeName("vaidik nigam") // Recipient's name
-                .setTransactionId("123456789") // Transaction ID
-                .setTransactionRefId("987654321") // Transaction reference ID
-                .setDescription("Payment for Order") // Payment description
-                .setAmount("50.0") // Payment amount
-                .build();
         TextView totalAmountTextView = rootView.findViewById(R.id.tv_total_amount);
         totalAmountTextView.setText(String.format("Total Amount: ₹%.2f", totalAmount));
         Button continueButton = rootView.findViewById(R.id.btn_continue);
         RadioGroup radioGroupPayment = rootView.findViewById(R.id.radio_group_payment);
+        final EasyUpiPayment easyUpiPayment = new EasyUpiPayment.Builder()
+                .with(this.getActivity())
+                .setPayeeVpa("vaidik.nigam.jhs@okhdfcbank")
+                .setPayeeName("vaidik nigam")
+                .setTransactionId("20190603022401")
+                .setTransactionRefId("0120192019060302240")
+                .setDescription("For Dress")
+                .setAmount("90.00")
+                .build();
+
         radioGroupPayment.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -69,6 +70,7 @@ public class PaymentOptionsFragment extends Fragment {
                     // Handle Google Pay UPI payment logic here
                     // You can open Google Pay app or initiate the payment process
                     easyUpiPayment.startPayment();
+
                 } else if (selectedId == R.id.radio_upi) {
                     // UPI radio button is selected
                     // Handle UPI payment logic here
@@ -92,6 +94,7 @@ public class PaymentOptionsFragment extends Fragment {
                 .addToBackStack(null) // Add to back stack so the user can navigate back
                 .commit();
     }
+
 
     private ArrayList<CartItemModel> getCartItemsFromDataSource() {
         ArrayList<CartItemModel> cartItems = new ArrayList<>();
