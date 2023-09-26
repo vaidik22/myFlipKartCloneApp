@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +37,7 @@ public class WishListFragment extends Fragment {
 
         // Initialize the WishListAdapter with the wishlistItems list
         wishListAdapter = new WishListAdapter(wishlistItems, getContext());
+        recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
 
         recyclerView.setAdapter(wishListAdapter);
         dbWishListHelper = new WishListDatabaseHelper(getActivity());

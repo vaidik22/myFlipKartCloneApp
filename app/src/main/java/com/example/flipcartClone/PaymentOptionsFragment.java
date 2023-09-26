@@ -43,7 +43,7 @@ public class PaymentOptionsFragment extends Fragment {
                 .setTransactionId("20190603022401")
                 .setTransactionRefId("0120192019060302240")
                 .setDescription("For Dress")
-                .setAmount("90.00")
+                .setAmount(String.valueOf(totalAmount))
                 .build();
 
         radioGroupPayment.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

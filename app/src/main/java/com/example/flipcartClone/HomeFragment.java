@@ -106,6 +106,7 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
         sliderView.startAutoCycle();
         hList = new ArrayList<>();
         rec_home = root.findViewById(R.id.rec_home);
+        rec_home.setLayoutManager(new LinearLayoutManager(getContext()));
         //rec_home.setLayoutManager(new GridLayoutManager(getContext(), 1, LinearLayoutManager.HORIZONTAL, false));
         //rec_home.setLayoutManager(new LinearLayoutManager(this.getContext()));// vertical
         // rec_home.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));// horizontal

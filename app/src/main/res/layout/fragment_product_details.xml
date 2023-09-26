@@ -29,13 +29,6 @@
                     android:src="@drawable/earphones" />
 
                 <ImageButton
-                    android:id="@+id/wishlistIcon"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="top|end"
-                    android:background="@drawable/wishlist" />
-
-                <ImageButton
                     android:id="@+id/share"
                     android:layout_width="32dp"
                     android:layout_height="32dp"

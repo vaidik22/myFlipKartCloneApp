@@ -1,46 +1,63 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="20dp">
+    android:background="#e6e6e6"
+    android:padding="16dp"
+    android:paddingLeft="16dp">
 
+    <!-- Product Image -->
     <ImageView
         android:id="@+id/wishlistItemImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/gucci" />
 
-    <LinearLayout
-        android:id="@+id/detailsLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/wishlistItemImage"
-        android:orientation="vertical">
+    <!-- Close Button (Cross Sign) -->
 
-        <TextView
-            android:id="@+id/wishlistItemName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="Product Name" />
-
-        <TextView
-            android:id="@+id/wishlistItemRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="Product Rate" />
-
-    </LinearLayout>
+    <!-- Product Name -->
 
     <ImageButton
         android:id="@+id/wishlistItemImageButton"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_alignTop="@id/wishlistItemImage"
+        android:layout_alignEnd="@id/wishlistItemImage"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="-22dp"
         android:background="@drawable/crossicon2" />
 
+    <TextView
+        android:id="@+id/wishlistItemName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wishlistItemImage"
+        android:layout_marginTop="8dp"
+        android:text="Product Name"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Product Amount -->
+    <TextView
+        android:id="@+id/wishlistItemRate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wishlistItemName"
+        android:layout_marginTop="4dp"
+        android:text="$19.99"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <!-- Buy Now Button -->
+    <Button
+        android:id="@+id/buy_now_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wishlistItemRate"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FFA500"
+        android:text="Buy Now"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
 </RelativeLayout>
