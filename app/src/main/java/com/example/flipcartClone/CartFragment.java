@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +41,13 @@ public class CartFragment extends Fragment {
 
         // Get cart items from the database or your data source
         cartItems = getCartItemsFromDataSource();
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Navigate back to the HomeFragment
+                navigateToHomeFragment();
+            }
+        });
         Log.e("cart_list", String.valueOf(cartItems.size()));
 
         Button placeOrder = view.findViewById(R.id.place_order);

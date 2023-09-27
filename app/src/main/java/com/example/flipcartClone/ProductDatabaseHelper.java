@@ -20,8 +20,9 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
     static final String COLUMN_PRODUCT_IMAGE = "product_image";
     static final String COLUMN_PRODUCT_QUANTITY = "product_quantity";
     static final String COLUMN_CART_QUANTITY = "cart_quantity";
+    static final String COLUMN_PRODUCT_STOCK = "cart_stocks";
     private static final String DATABASE_NAME = "myapp.db";
-    private static final int DATABASE_VERSION = 35;
+    private static final int DATABASE_VERSION = 41;
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_PRODUCTS + " (" +
                     COLUMN_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -31,7 +32,9 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_PRODUCT_MRP + " REAL, " +
                     COLUMN_PRODUCT_IMAGE + " TEXT, " +
                     COLUMN_CART_QUANTITY + " TEXT, " +
-                    COLUMN_PRODUCT_QUANTITY + " INTEGER DEFAULT 0)";
+                    COLUMN_PRODUCT_QUANTITY + " INTEGER DEFAULT 0, " +
+                    COLUMN_PRODUCT_STOCK + " INTEGER DEFAULT 0)";
+
 
     public ProductDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -47,7 +50,17 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertProduct(String productName, String description, String productRate, String productMrp, String imageUrl, String quantity, String cart_quantity) {
+    public void deleteProduct(String productId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int rowsAffected = db.delete(TABLE_PRODUCTS, COLUMN_PRODUCT_ID + "=?", new String[]{productId});
+
+        Log.d("DeleteProduct", "Rows affected: " + rowsAffected);
+
+        db.close();
+    }
+
+    public long insertProduct(String productName, String description, String productRate, String productMrp, String imageUrl, String quantity, String cart_quantity, int stock) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_PRODUCT_NAME, productName);
@@ -57,8 +70,10 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_PRODUCT_IMAGE, imageUrl);
         values.put(COLUMN_PRODUCT_QUANTITY, quantity);
         values.put(COLUMN_CART_QUANTITY, cart_quantity);
+        values.put(COLUMN_PRODUCT_STOCK, stock);
         return db.insert(TABLE_PRODUCTS, null, values);
     }
+
 
     public void clearProducts() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -70,7 +85,7 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
 
         String[] projection = {
                 COLUMN_PRODUCT_ID, COLUMN_PRODUCT_NAME,
-                COLUMN_PRODUCT_DESCRIPTION, COLUMN_PRODUCT_RATE, COLUMN_PRODUCT_MRP, COLUMN_PRODUCT_IMAGE, COLUMN_PRODUCT_QUANTITY
+                COLUMN_PRODUCT_DESCRIPTION, COLUMN_PRODUCT_RATE, COLUMN_PRODUCT_MRP, COLUMN_PRODUCT_IMAGE, COLUMN_PRODUCT_QUANTITY, COLUMN_PRODUCT_STOCK
         };
 
         Cursor cursor = db.query(
@@ -93,10 +108,11 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_PRODUCT_ID,
                 COLUMN_PRODUCT_NAME,
                 COLUMN_PRODUCT_DESCRIPTION,
-                COLUMN_PRODUCT_RATE, // Change this to COLUMN_PRODUCT_RATE
-                COLUMN_PRODUCT_MRP,  // Change this to COLUMN_PRODUCT_MRP
+                COLUMN_PRODUCT_RATE,
+                COLUMN_PRODUCT_MRP,
                 COLUMN_PRODUCT_IMAGE,
-                COLUMN_PRODUCT_QUANTITY
+                COLUMN_PRODUCT_QUANTITY,
+                COLUMN_PRODUCT_STOCK // Include stock column
         };
 
         String selection = COLUMN_PRODUCT_ID + " > 0";
@@ -118,13 +134,14 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
                 @SuppressLint("Range") String productId = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_ID));
                 @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_NAME));
                 @SuppressLint("Range") String description = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_DESCRIPTION));
-                @SuppressLint("Range") float rate = cursor.getFloat(cursor.getColumnIndex(COLUMN_PRODUCT_RATE)); // Parse as float
-                @SuppressLint("Range") float mrp = cursor.getFloat(cursor.getColumnIndex(COLUMN_PRODUCT_MRP));   // Parse as float
+                @SuppressLint("Range") float rate = cursor.getFloat(cursor.getColumnIndex(COLUMN_PRODUCT_RATE));
+                @SuppressLint("Range") float mrp = cursor.getFloat(cursor.getColumnIndex(COLUMN_PRODUCT_MRP));
                 @SuppressLint("Range") String imageUrl = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_IMAGE));
                 @SuppressLint("Range") String quantity = String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_QUANTITY)));
+                @SuppressLint("Range") int stock = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_STOCK)); // Get stock value
 
                 // Create a SubCategoryModel object and add it to the list
-                SubCategoryModel productItem = new SubCategoryModel(productId, title, description, rate, mrp, imageUrl, quantity);
+                SubCategoryModel productItem = new SubCategoryModel(productId, title, description, rate, mrp, imageUrl, quantity, stock);
                 productList.add(productItem);
             }
             cursor.close();

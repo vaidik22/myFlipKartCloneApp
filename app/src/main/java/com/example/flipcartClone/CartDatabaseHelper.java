@@ -17,11 +17,12 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_QUANTITY = "quantity";
     public static final String COLUMN_DESCRIPTION = "description";
     private static final String DATABASE_NAME = "cart.db";
-    private static final int DATABASE_VERSION = 18;
+    private static final int DATABASE_VERSION = 19;
 
     // Define table and column names
     private static final String COLUMN_PRODUCT_NAME = "product_name";
     private static final String COLUMN_PRODUCT_RATE = "product_rate";
+    private static final String COLUMN_PRODUCT_STOCK = "product_stock";
     private static final String COLUMN_PRODUCT_MRP = "product_mrp";
     private static final String COLUMN_PRODUCT_IMAGE_URL = "product_image_url";
 
@@ -31,6 +32,7 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
             COLUMN_PRODUCT_NAME + " TEXT," +
             COLUMN_PRODUCT_RATE + " REAL," +
             COLUMN_PRODUCT_MRP + " REAL," +
+            COLUMN_PRODUCT_STOCK + " REAL," +
             COLUMN_DESCRIPTION + " REAL," +
             COLUMN_PRODUCT_IMAGE_URL + " TEXT," +
             COLUMN_QUANTITY + " INTEGER" +
@@ -71,7 +73,7 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void insertCartItem(int productId, String title, float rate, float mrp, String imageUrl, String quantity) {
+    public void insertCartItem(int productId, String title, float rate, float mrp, String imageUrl, int stocks, String quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_PRODUCT_ID, productId);
@@ -79,6 +81,7 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_PRODUCT_RATE, rate);
         values.put(COLUMN_PRODUCT_MRP, mrp);
         values.put(COLUMN_PRODUCT_IMAGE_URL, imageUrl);
+        values.put(COLUMN_PRODUCT_STOCK, stocks);
         values.put(COLUMN_QUANTITY, quantity);
 
         try {
@@ -90,6 +93,23 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public boolean isProductInCart(int productId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                TABLE_CART,
+                new String[]{COLUMN_PRODUCT_ID},
+                COLUMN_PRODUCT_ID + " = ?",
+                new String[]{String.valueOf(productId)},
+                null,
+                null,
+                null
+        );
+
+        boolean isInWishlist = cursor.getCount() > 0;
+        cursor.close();
+        return isInWishlist;
+    }
+
     public ArrayList<CartItemModel> getCartItems() {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -99,7 +119,8 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_PRODUCT_RATE,
                 COLUMN_PRODUCT_MRP,
                 COLUMN_PRODUCT_IMAGE_URL,
-                COLUMN_QUANTITY
+                COLUMN_QUANTITY,
+                COLUMN_PRODUCT_STOCK
         };
 
         String selection = COLUMN_PRODUCT_ID + " > 0"; // Filter products with quantity greater than 0
@@ -123,10 +144,11 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
                 @SuppressLint("Range") int productRate = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_RATE));
                 @SuppressLint("Range") int productMrp = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_MRP));
                 @SuppressLint("Range") String productImageUrl = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_IMAGE_URL));
+                @SuppressLint("Range") String stocks = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_STOCK));
                 @SuppressLint("Range") int productQuantity = cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY));
 
                 // Create a CartItemModel object and add it to the list
-                CartItemModel cartItem = new CartItemModel(productId, productName, productRate, productMrp, productImageUrl, productQuantity);
+                CartItemModel cartItem = new CartItemModel(productId, productName, productRate, productMrp, productImageUrl, stocks, productQuantity);
                 cartItems.add(cartItem);
             }
 

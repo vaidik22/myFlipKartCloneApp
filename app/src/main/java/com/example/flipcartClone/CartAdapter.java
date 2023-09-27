@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -67,6 +68,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 // Remove the item from the database
                 CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(context);
                 cartDatabaseHelper.deleteProduct(productId);
+                cartDatabaseHelper.updateProductQuantityInCart(productId, 0);
+                ProductDatabaseHelper productDatabaseHelper = new ProductDatabaseHelper(context);
+                productDatabaseHelper.updateProductQuantity(productId, 0);
 
 
                 // Notify the listener about the quantity change (in this case, it's 0)
@@ -77,7 +81,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         });
         holder.elegantButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
-                CartItemModel selectedItem = new CartItemModel(cartItem.getProductId(), cartItem.getProductName(), cartItem.getProductRate(), cartItem.getProductMrp(), cartItem.getImageUrl(), cartItem.getQuantity());
+                CartItemModel selectedItem = new CartItemModel(cartItem.getProductId(), cartItem.getProductName(), cartItem.getProductRate(), cartItem.getProductMrp(), cartItem.getImageUrl(), cartItem.getStocks(), cartItem.getQuantity());
                 String productId = String.valueOf(selectedItem.getProductId());
 
                 Log.d("SubCategoryAdapter", "Product ID: " + productId);
@@ -88,20 +92,28 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(context);
                 // Update the product database with the new quantity
                 productDatabaseHelper.updateProductQuantity(productId, newValue);
-                if (newValue == 0) {
+                int availableStock = Integer.parseInt(selectedItem.getStocks());
+                if (newValue < 1 && availableStock > 1) {
                     cartItems.remove(position);
                     notifyDataSetChanged();
                     cartDatabaseHelper.deleteProduct(productId);
                     productDatabaseHelper.updateProductQuantity(productId, newValue);
+                    holder.outofstock1.setVisibility(View.GONE);
 
                 } else {
                     cartDatabaseHelper.updateProductQuantityInCart(productId, newValue);
                     productDatabaseHelper.updateProductQuantity(productId, newValue);
+                    holder.outofstock1.setVisibility(View.GONE);
                 }
-                if (quantityChangeListener != null) {
+                if (newValue > availableStock) {
+                    Toast.makeText(context, "Insufficient stock", Toast.LENGTH_SHORT).show();
+                    holder.elegantButton.setNumber(String.valueOf(oldValue));
+                    holder.outofstock1.setVisibility(View.VISIBLE);
+
+                } else if (quantityChangeListener != null) {
                     quantityChangeListener.onQuantityChanged(position, newValue);
                 }
-                holder.cartProductQuantity.setText("Quantity: " + newValue);
+                holder.cartProductQuantity.setText("Quantity: " + oldValue);
 
             }
         });
@@ -126,6 +138,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         ImageButton delete_button;
         TextView totalCostTextView;
         Button placeOrder;
+        TextView outofstock1;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -137,6 +150,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             delete_button = itemView.findViewById(R.id.delete_button);
             totalCostTextView = itemView.findViewById(R.id.totalCostTextView);
             placeOrder = itemView.findViewById(R.id.place_order);
+            outofstock1 = itemView.findViewById(R.id.outofstock1);
 //            elegantButton.setOnValueChangeListener((view, oldValue, newValue) -> {
 //                int position = getAdapterPosition();
 //                if (position != RecyclerView.NO_POSITION) {

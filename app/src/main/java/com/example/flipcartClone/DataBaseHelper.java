@@ -16,7 +16,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
     static final String COLUMN_USERNAME = "username";
     static final String COLUMN_PASSWORD = "password";
     private static final String DATABASE_NAME = "myapp.db";
-    private static final int DATABASE_VERSION = 35;
+    private static final int DATABASE_VERSION = 41;
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_USERS + " (" +
                     COLUMN_ID + " TEXT PRIMARY KEY, " +

@@ -80,6 +80,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         holder.rateTextView.setText("₹" + item.getRate());
         holder.mrpTextView.setText("₹" + item.getMrp());
         Glide.with(context).load(item.getImageUrl()).into(holder.imageView);
+        SubCategoryModel selectedItem = productList.get(position);
         boolean isInWishlist = dbWishListHelper.isProductInWishlist(item.getProductId());
         if (isInWishlist) {
             holder.crossIcon.setVisibility(View.VISIBLE);
@@ -105,7 +106,6 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             holder.elegantLayout.setVisibility(View.VISIBLE);
             holder.numberButton.setVisibility(View.VISIBLE);
             holder.numberButton.setNumber("1");
-            SubCategoryModel selectedItem = productList.get(position);
             Toast.makeText(context, selectedItem.getTitle() + " added to cart", Toast.LENGTH_SHORT).show();
 
 
@@ -116,6 +116,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                     item.getRate(),
                     item.getMrp(),
                     item.getImageUrl(),
+                    item.getStocks(),
                     String.valueOf(initialQuantity)
             );
             dbProductHelper.updateProductQuantity(String.valueOf(item.getProductId()), 1);
@@ -165,21 +166,35 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                 SubCategoryModel selectedItem = productList.get(position);
                 String productId = String.valueOf(selectedItem.getProductId());
 
-                // Update the product database with the new quantity
-                dbProductHelper.updateProductQuantity(productId, newValue);
+                // Check if the new quantity is within stock limits
+                int availableStock = selectedItem.getStocks();
+                Log.d("Stock Debug", "Product ID: " + productId + ", Available Stock: " + availableStock + ", New Quantity: " + newValue);
+                if (newValue <= availableStock) {
+                    // Update the product database with the new quantity
+                    dbProductHelper.updateProductQuantity(productId, newValue);
 
-                if (newValue < 1) {
-//                    dbProductHelper.deleteProduct(productId);
-                    dbcartHelp.deleteProduct(productId);
-                    holder.numberButton.setVisibility(View.GONE);
-                    holder.addToCartButton.setVisibility(View.VISIBLE);
-                } else {
-                    holder.numberButton.setVisibility(View.VISIBLE);
-                    holder.numberButton.setNumber(String.valueOf(newValue));
-                    holder.addToCartButton.setVisibility(View.GONE);
-                    dbcartHelp.updateProductQuantityInCart(productId, newValue);
+                    if (newValue < 1 && availableStock > 1) {
+                        dbcartHelp.deleteProduct(productId);
+                        holder.numberButton.setVisibility(View.GONE);
+                        holder.addToCartButton.setVisibility(View.VISIBLE);
+                        holder.outofstock.setVisibility(View.GONE);
+                    } else {
+                        holder.numberButton.setVisibility(View.VISIBLE);
+                        holder.numberButton.setNumber(String.valueOf(newValue));
+                        holder.addToCartButton.setVisibility(View.GONE);
+                        holder.outofstock.setVisibility(View.GONE);
+                        dbcartHelp.updateProductQuantityInCart(productId, newValue);
+
+                        // Update stock
+
+                        selectedItem.setQuantity(String.valueOf(newValue));
+                    }
+                } else if (newValue >= availableStock) {
+                    Toast.makeText(context, "Insufficient stock", Toast.LENGTH_SHORT).show();
+                    holder.numberButton.setNumber(String.valueOf(oldValue));
+                    holder.outofstock.setVisibility(View.VISIBLE);
+                    holder.outofstock.setText("Out of Stocks");
                 }
-                selectedItem.setQuantity(String.valueOf(newValue));
             }
         });
 
@@ -220,6 +235,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     }
 
     public interface OnQuantityChangeListener {
+        void onBackPressed();
+
         void onQuantityChanged(int position, int newQuantity);
     }
 
@@ -241,6 +258,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         TextView tv_title;
         ImageButton wishlistIcon;
         ImageButton crossIcon;
+        TextView outofstock;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -256,6 +274,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             wishlistIcon = itemView.findViewById(R.id.wishlistIcon);
             crossIcon = itemView.findViewById(R.id.crossIcon);
             tv_title = itemView.findViewById(R.id.tv_title);
+            outofstock = itemView.findViewById(R.id.outofstock);
         }
     }
 }

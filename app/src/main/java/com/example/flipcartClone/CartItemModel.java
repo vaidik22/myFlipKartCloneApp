@@ -11,15 +11,26 @@ public class CartItemModel implements Parcelable {
     private String productId;
     private String productName;
     private int productRate;
-    private int productMrp;
+    private String stocks;
 
-    public CartItemModel(String productId, String productName, int productRate, int productMrp, String imageUrl, int quantity) {
+    public CartItemModel(String productId, String productName, int productRate, int productMrp, String imageUrl, String stocks, int quantity) {
         this.productId = productId;
         this.productName = productName;
         this.productRate = productRate;
         this.productMrp = productMrp;
         this.quantity = quantity;
+        this.stocks = stocks;
         this.imageUrl = imageUrl;
+    }
+
+    public String getStocks() {
+        return stocks;
+    }
+
+    private int productMrp;
+
+    public void setStocks(String stocks) {
+        this.stocks = stocks;
     }
 
     public int getProductMrp() {

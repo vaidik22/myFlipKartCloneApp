@@ -12,13 +12,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.flicpcartClone.R;
 import com.shreyaspatil.EasyUpiPayment.EasyUpiPayment;
+import com.shreyaspatil.EasyUpiPayment.listener.PaymentStatusListener;
+import com.shreyaspatil.EasyUpiPayment.model.TransactionDetails;
 
 import java.util.ArrayList;
 
-public class PaymentOptionsFragment extends Fragment {
+public class PaymentOptionsFragment extends Fragment implements PaymentStatusListener {
     private ArrayList<CartItemModel> cartItems;
-    private static final int UPI_PAYMENT_REQUEST_CODE = 101; // You can choose any value
-
 
     public PaymentOptionsFragment() {
         // Required empty public constructor
@@ -43,7 +43,7 @@ public class PaymentOptionsFragment extends Fragment {
                 .setTransactionId("20190603022401")
                 .setTransactionRefId("0120192019060302240")
                 .setDescription("For Dress")
-                .setAmount(String.valueOf(totalAmount))
+                .setAmount(String.valueOf(1.00))
                 .build();
 
         radioGroupPayment.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -69,12 +69,14 @@ public class PaymentOptionsFragment extends Fragment {
                     // Google Pay UPI radio button is selected
                     // Handle Google Pay UPI payment logic here
                     // You can open Google Pay app or initiate the payment process
+                    easyUpiPayment.setPaymentStatusListener(PaymentOptionsFragment.this);
                     easyUpiPayment.startPayment();
 
                 } else if (selectedId == R.id.radio_upi) {
                     // UPI radio button is selected
                     // Handle UPI payment logic here
                     // You can open a UPI payment app or initiate the payment process
+                    easyUpiPayment.setPaymentStatusListener(PaymentOptionsFragment.this);
                     easyUpiPayment.startPayment();
                 }
                 // Handle other payment options or continue with the selected payment method
@@ -83,7 +85,6 @@ public class PaymentOptionsFragment extends Fragment {
 
         return rootView;
     }
-
     private void navigateToThankYouFragment() {
         // Create an instance of the ThankYouFragment
         ThankYouFragment thankYouFragment = new ThankYouFragment();
@@ -91,7 +92,6 @@ public class PaymentOptionsFragment extends Fragment {
         // Replace the current fragment with the ThankYouFragment
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_section, thankYouFragment)
-                .addToBackStack(null) // Add to back stack so the user can navigate back
                 .commit();
     }
 
@@ -101,5 +101,36 @@ public class PaymentOptionsFragment extends Fragment {
         CartDatabaseHelper dbHelper = new CartDatabaseHelper(getContext());
         cartItems = dbHelper.getCartItems();
         return cartItems;
+    }
+
+    @Override
+    public void onTransactionCompleted(TransactionDetails transactionDetails) {
+        navigateToThankYouFragment();
+
+    }
+
+    @Override
+    public void onTransactionSuccess() {
+        navigateToThankYouFragment();
+    }
+
+    @Override
+    public void onTransactionSubmitted() {
+        navigateToThankYouFragment();
+    }
+
+    @Override
+    public void onTransactionFailed() {
+        navigateToThankYouFragment();
+    }
+
+    @Override
+    public void onTransactionCancelled() {
+        navigateToThankYouFragment();
+    }
+
+    @Override
+    public void onAppNotFound() {
+        navigateToThankYouFragment();
     }
 }

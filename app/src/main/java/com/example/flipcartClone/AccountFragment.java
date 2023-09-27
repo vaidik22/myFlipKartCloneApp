@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -24,6 +25,13 @@ public class AccountFragment extends Fragment {
         Button wishlistButton = view.findViewById(R.id.wishlist); // Find the Wishlist button
 
         // Set a click listener for the Wishlist button
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Navigate back to the HomeFragment
+                navigateToHomeFragment();
+            }
+        });
         wishlistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,5 +59,13 @@ public class AccountFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void navigateToHomeFragment() {
+        HomeFragment homeFragment = new HomeFragment();
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_section, homeFragment);
+        transaction.addToBackStack(null); // Add to back stack so the user can navigate back
+        transaction.commit();// Go back to the previous fragment
     }
 }

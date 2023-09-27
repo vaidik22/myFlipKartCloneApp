@@ -40,6 +40,14 @@
             android:layout_height="wrap_content"
             android:text="0"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/outofstock1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="out of stock"
+            android:textColor="@color/red"
+            android:visibility="gone" />
     </LinearLayout>
 
     <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton

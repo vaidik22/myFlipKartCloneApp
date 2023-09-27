@@ -91,8 +91,19 @@
                 android:foreground="@drawable/strickthrough"
                 android:text="\u20B9" />
 
-
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/outofstock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="out of stock"
+            android:textColor="@color/red"
+            android:visibility="gone">
+
+        </TextView>
 
         <LinearLayout
             android:layout_width="match_parent"

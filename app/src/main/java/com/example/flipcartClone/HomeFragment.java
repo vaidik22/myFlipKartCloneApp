@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
         // Initially show the hint text
         searchHintText.setVisibility(View.VISIBLE);
 
+
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -132,19 +133,17 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
     }
 
     private void loadDataForSelectedPosition(ProductDatabaseHelper dbHelper) {
-//        dbHelper.clearProducts();
+//     dbHelper.clearProducts();
         if (getProductItemsFromDataSource().size() > 0) {
 //           productList = dbHelper.getProductItems();
             fetchAndDisplayProducts(dbHelper);
         } else {
-            dbHelper.insertProduct("Shirt 1", "Men Regular...", "₹500", "₹1000", url44, "1", "0");
-            dbHelper.insertProduct("HR fashion 1", "Men Regular...", "₹500", "₹1000", url55, "1", "0");
-            dbHelper.insertProduct("Shirt 2", "Men Regular...", "₹500", "₹1000", url44, "1", "0");
-            dbHelper.insertProduct("Iphone 14", "RED,128 GB..", "₹500", "₹1000", url66, "1", "0");
-            dbHelper.insertProduct("POCO M6 PRO", "BLACK, 128 GB...", "₹500", "₹1000", url77, "1", "0");
-            dbHelper.insertProduct("POCO M6 PRO 2", "BLACK, 128 GB...", "₹500", "₹1000", url77, "1", "0");
-
-            fetchAndDisplayProducts(dbHelper);
+            dbHelper.insertProduct("Shirt 1", "Men Regular...", "₹500", "₹1000", url44, "1", "0", 5);
+            dbHelper.insertProduct("HR fashion 1", "Men Regular...", "₹500", "₹1000", url55, "1", "0", 5);
+            dbHelper.insertProduct("Shirt 2", "Men Regular...", "₹500", "₹1000", url44, "1", "0", 5);
+            dbHelper.insertProduct("Iphone 14", "RED,128 GB..", "₹500", "₹1000", url66, "1", "0", 5);
+            dbHelper.insertProduct("POCO M6 PRO", "BLACK, 128 GB...", "₹500", "₹1000", url77, "1", "0", 5);
+            dbHelper.insertProduct("POCO M6 PRO 2", "BLACK, 128 GB...", "₹500", "₹1000", url77, "1", "0", 5);
         }
 //        fetchAndDisplayProducts(dbHelper);
         subCategoryAdapter = new SubCategoryAdapter(
@@ -186,7 +185,9 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
                 int mrp = Integer.parseInt(mrpStr.replaceAll("[^0-9]", ""));
                 String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_IMAGE));
                 String quantity = String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow((ProductDatabaseHelper.COLUMN_PRODUCT_QUANTITY)))); // Get quantity from the database
-                SubCategoryModel product = new SubCategoryModel(product_id, title, description, rate, mrp, imageUrl, quantity);
+                String stockStr = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_STOCK));
+                int stock = Integer.parseInt(stockStr.replaceAll("[^0-9]", ""));
+                SubCategoryModel product = new SubCategoryModel(product_id, title, description, rate, mrp, imageUrl, quantity, stock);
                 productList.add(product);
             } while (cursor.moveToNext());
 
@@ -317,6 +318,11 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
             transaction.replace(R.id.fragment_section, editProfileFragment);
             transaction.commit();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
     @Override
