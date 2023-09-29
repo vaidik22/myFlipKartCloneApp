@@ -1,19 +1,29 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#e6e6e6"
-    android:padding="16dp"
-    android:paddingLeft="16dp">
+    android:paddingLeft="8dp"
+    android:paddingTop="8dp"
+    android:paddingRight="8dp"
+    android:paddingBottom="8dp">
 
-    <!-- Product Image -->
-    <ImageView
-        android:id="@+id/wishlistItemImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/gucci" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/recycler_view"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp">
 
-    <!-- Close Button (Cross Sign) -->
+        <!-- Product Image -->
+        <ImageView
+            android:id="@+id/wishlistItemImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/gucci" />
+
+        <!-- Close Button (Cross Sign) -->
 
     <!-- Product Name -->
 
@@ -60,4 +70,6 @@
         android:text="Buy Now"
         android:textColor="@color/black"
         android:textStyle="bold" />
-</RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

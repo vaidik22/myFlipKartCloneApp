@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#e6e6e6"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="1dp">
+    android:paddingLeft="5dp"
+    android:paddingTop="5dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:layout_height="match_parent"
+        android:layout_margin="0.5dp"
         android:orientation="vertical"
-        android:padding="1.5dp">
+        android:background="@drawable/recycler_view"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
 
         <FrameLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
@@ -59,6 +71,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:textStyle="bold"
                 android:layout_marginTop="2dp"
                 android:text="New Text" />
 
@@ -68,6 +83,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:textStyle="bold"
                 android:layout_alignParentRight="true"
                 android:text="\u20B9" />
 
@@ -76,6 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rate"
+                android:textSize="12dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:text="New Text" />
@@ -88,28 +107,18 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="1dp"
                 android:layout_marginEnd="1dp"
+                android:textSize="12dp"
                 android:foreground="@drawable/strickthrough"
                 android:text="\u20B9" />
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/outofstock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="out of stock"
-            android:textColor="@color/red"
-            android:visibility="gone">
-
-        </TextView>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingTop="10dp"
+            android:paddingBottom="1dp">
 
             <!-- Other views for product information -->
 
@@ -117,33 +126,29 @@
             <Button
                 android:id="@+id/addToCartButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="0dp"
+                android:paddingBottom="0dp"
                 android:backgroundTint="#FFA500"
+                android:textSize="10dp"
                 android:text="Add to Cart" />
 
             <!-- "Elegant" Button and Quantity Controls -->
-            <LinearLayout
-                android:id="@+id/elegantLayout"
+
+            <!-- "Elegant" Button -->
+
+            <!-- Minus Button -->
+            <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                android:id="@+id/numberButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_height="50dp"
+                android:gravity="center"
                 android:visibility="gone">
-                <!-- "Elegant" Button -->
 
-                <!-- Minus Button -->
-                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
-                    android:id="@+id/numberButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-
-                    android:gravity="center">
-
-                </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
-
-            </LinearLayout>
-
-            <!-- ... Other views for product information ... -->
+            </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
 
         </LinearLayout>
     </LinearLayout>
+
+    <!-- ... Other views for product information ... -->
 </LinearLayout>

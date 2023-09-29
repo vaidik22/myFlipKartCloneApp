@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -14,28 +12,23 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardUseCompatPadding="true">
 
-                <ImageView
-                    android:id="@+id/productImageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="371dp"
-                    android:contentDescription="Product Image"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/earphones" />
+            <ImageButton
+                android:id="@+id/share"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity=""
+                android:background="@drawable/share" />
 
-                <ImageButton
-                    android:id="@+id/share"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity=""
-                    android:background="@drawable/share" />
-
-            </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/productImageView"
+                android:layout_width="379dp"
+                android:layout_height="323dp"
+                android:layout_gravity="center"
+                android:background="@drawable/recycler_view"
+                android:contentDescription="Product Image"
+                android:foregroundGravity="center"
+                android:src="@drawable/earphones" />
 
             <TextView
                 android:id="@+id/title"
@@ -43,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:textColor="@android:color/black"
-                android:textSize="25dp"
+                android:textSize="20dp"
                 android:textStyle="bold">
 
             </TextView>
@@ -60,7 +53,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/percentage"
@@ -68,19 +61,21 @@
                     android:layout_height="wrap_content"
                     android:text="-50%"
                     android:textColor="#228B22"
-                    android:textSize="30dp">
+                    android:textSize="20dp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/Product_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rs299"
+                    android:textColor="@color/black"
+                    android:textSize="22dp">
 
                 </TextView>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/Product_rate"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Rs299"
-                android:textColor="@color/black"
-                android:textSize="30dp"></TextView>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -143,35 +138,25 @@
                     android:textColor="@color/white" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <Button
-                    android:id="@+id/add_To_Cart_Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#FFDD3C"
-                    android:text="Add to Cart"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/buyButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#FFA500"
-                    android:text="Buy Now"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/black"
+            android:text="Buy Now"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 </RelativeLayout>

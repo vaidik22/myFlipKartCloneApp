@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flicpcartClone.R;
 
@@ -41,10 +39,7 @@ public class OrderSummaryFragment extends Fragment {
             nameEditText.setText("Hello!   " + name);
         }
         cartItems = getCartItemsFromDataSource();
-        RecyclerView recyclerView = rootView.findViewById(R.id.product_details_summary);
         OrderSummaryAdapter orderSummaryAdapter = new OrderSummaryAdapter(getContext(), cartItems);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(orderSummaryAdapter);
         // Calculate the rate and total amount based on cart items
         double totalAmount = 0.0;
         for (CartItemModel item : cartItems) {
@@ -59,7 +54,6 @@ public class OrderSummaryFragment extends Fragment {
         double discountAmount = totalcost - totalAmount;
         TextView discountTextView = rootView.findViewById(R.id.discount_value);
         discountTextView.setText(String.format("-₹%.2f", discountAmount));
-
         // Now, you can display the total amount in your TextView
         TextView totalAmountTextView = rootView.findViewById(R.id.total_amount_value);
         totalAmountTextView.setText(String.format("₹%.2f", totalAmount + 40));

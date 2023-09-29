@@ -38,9 +38,21 @@ public class CartFragment extends Fragment {
         empty_cart = view.findViewById(R.id.empty_cart_items);
         cart_items_present = view.findViewById(R.id.cart_items);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         // Get cart items from the database or your data source
         cartItems = getCartItemsFromDataSource();
+        cartAdapter = new CartAdapter(getContext(), cartItems);
+        TextView totalCostTextView = view.findViewById(R.id.totalCostTextView);
+        cartAdapter = new CartAdapter(getContext(), cartItems, totalCostTextView);
+
+        cartAdapter.setOnRemoveItemClickListener(new CartAdapter.OnRemoveItemClickListener() {
+            @Override
+            public void onRemoveItemClick(int position) {
+                // Handle item removal here
+                removeCartItem(position);
+            }
+        });
+        recyclerView.setAdapter(cartAdapter);
+
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -48,6 +60,7 @@ public class CartFragment extends Fragment {
                 navigateToHomeFragment();
             }
         });
+
         Log.e("cart_list", String.valueOf(cartItems.size()));
 
         Button placeOrder = view.findViewById(R.id.place_order);
@@ -77,26 +90,6 @@ public class CartFragment extends Fragment {
         return view;
     }
 
-    private void showEmptyCartMessage(View view) {
-        // Hide the RecyclerView
-        cart_items_present.setVisibility((View.GONE));
-
-        // Show the "Your cart is empty" message
-        empty_cart.setVisibility(View.VISIBLE);
-
-        // Show the "Continue Shopping" button
-        Button continueShoppingButton = view.findViewById(R.id.continue_shopping_button);
-        continueShoppingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle "Continue Shopping" button click here
-                // You can navigate to the home fragment or implement the desired behavior
-                // For now, let's navigate to the home fragment
-                navigateToHomeFragment();
-            }
-        });
-    }
-
     private void showCartItems(View view) {
         // Hide the "Your cart is empty" message
         empty_cart.setVisibility(View.GONE);
@@ -104,6 +97,9 @@ public class CartFragment extends Fragment {
         // Initialize the CartAdapter with the retrieved cart items
         TextView totalCostTextView = view.findViewById(R.id.totalCostTextView);
         cartAdapter = new CartAdapter(getContext(), cartItems);
+
+        cartAdapter = new CartAdapter(getContext(), cartItems, totalCostTextView);
+
         recyclerView.setAdapter(cartAdapter);
         cartAdapter.notifyDataSetChanged();
         double totalCost = 0.0;
@@ -148,8 +144,43 @@ public class CartFragment extends Fragment {
         cartItems = dbHelper.getCartItems();
         return cartItems;
     }
-}
 
+    private void removeCartItem(int position) {
+        // Remove the item from the cartItems list
+        cartItems.remove(position);
+
+        // Notify the adapter about the item removal
+        cartAdapter.notifyItemRemoved(position);
+
+        // Check if the cart is empty after removal and update UI accordingly
+        if (cartItems.isEmpty()) {
+            showEmptyCartMessage(getView());
+        } else {
+            // Update the total cost and other UI elements
+            showCartItems(getView());
+        }
+    }
+
+    private void showEmptyCartMessage(View view) {
+        // Hide the RecyclerView
+        recyclerView.setVisibility(View.GONE);
+
+        // Show the "Your cart is empty" message
+        empty_cart.setVisibility(View.VISIBLE);
+
+        // Show the "Continue Shopping" button
+        Button continueShoppingButton = view.findViewById(R.id.continue_shopping_button);
+        continueShoppingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle "Continue Shopping" button click here
+                // You can navigate to the home fragment or implement the desired behavior
+                // For now, let's navigate to the home fragment
+                navigateToHomeFragment();
+            }
+        });
+    }
+}
 
 
 

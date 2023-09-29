@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.flicpcartClone.R;
@@ -20,8 +22,8 @@ public class FragmentProductDetails extends Fragment {
     private TextView rateTextView;
     private ImageView productImageView;
     TextView percentage;
+    Button buyButton;
 
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_product_details, container, false);
 
@@ -32,7 +34,14 @@ public class FragmentProductDetails extends Fragment {
         rateTextView = root.findViewById(R.id.Product_rate);
         productImageView = root.findViewById(R.id.productImageView);
         percentage = root.findViewById(R.id.percentage);
-
+        buyButton = root.findViewById(R.id.buyButton);
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Navigate to BuyProductFragment
+                navigateToBuyProductFragment();
+            }
+        });
         // Retrieve data from arguments
         Bundle args = getArguments();
         if (args != null) {
@@ -60,6 +69,22 @@ public class FragmentProductDetails extends Fragment {
         return root;
     }
 
+    private void navigateToBuyProductFragment() {
+        // Create a new instance of BuyProductFragment
+        BuyProductFragment buyProductFragment = new BuyProductFragment();
+        Bundle args = new Bundle();
+        args.putString("productMRP", mrpTextView.getText().toString());
+        args.putString("productRate", rateTextView.getText().toString());
+
+        // Set the arguments for the BuyProductFragment
+        buyProductFragment.setArguments(args);
+
+        // Perform the fragment transaction to replace the current fragment with BuyProductFragment
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_section, buyProductFragment); // Replace "fragment_container" with your actual container ID
+        transaction.addToBackStack(null); // This allows the user to navigate back to the previous fragment
+        transaction.commit();
+    }
     private void navigateBackToSubCategoryFragment() {
         requireActivity().getSupportFragmentManager().popBackStack();
     }

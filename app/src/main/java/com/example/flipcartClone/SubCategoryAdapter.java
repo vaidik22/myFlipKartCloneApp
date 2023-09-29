@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,21 +91,18 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         }
         if (Integer.parseInt(item.getQuantity()) > 0) {
             holder.addToCartButton.setVisibility(View.GONE);
-            holder.elegantLayout.setVisibility(View.VISIBLE);
             holder.numberButton.setVisibility(View.VISIBLE);
             holder.numberButton.setNumber(item.getQuantity());
         } else {
             holder.addToCartButton.setVisibility(View.VISIBLE);
-            holder.elegantLayout.setVisibility(View.GONE);
             holder.numberButton.setVisibility(View.GONE);
         }
 
         holder.addToCartButton.setOnClickListener(v -> {
             holder.addToCartButton.setVisibility(View.GONE);
-            holder.elegantLayout.setVisibility(View.VISIBLE);
             holder.numberButton.setVisibility(View.VISIBLE);
             holder.numberButton.setNumber("1");
-            Toast.makeText(context, selectedItem.getTitle() + " added to cart", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, " added to cart", Toast.LENGTH_SHORT).show();
 
 
             int initialQuantity = Integer.parseInt(holder.numberButton.getNumber());
@@ -139,9 +135,9 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                             item.getImageUrl(),
                             String.valueOf(Integer.parseInt(holder.numberButton.getNumber()))
                     );
-                    Toast.makeText(context, item.getTitle() + " added to wishlist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, " added to wishlist", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, item.getTitle() + " is already in your wishlist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, " is already in your wishlist", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -154,7 +150,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                     holder.crossIcon.setVisibility(View.VISIBLE);
                 }
                 dbWishListHelper.deleteProduct(String.valueOf(item.getProductId()));
-                Toast.makeText(context, item.getTitle() + " removed from wishlist", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, " removed from wishlist", Toast.LENGTH_SHORT).show();
                 holder.crossIcon.setVisibility(View.GONE);
                 holder.wishlistIcon.setVisibility(View.VISIBLE);
             }
@@ -177,23 +173,17 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                         dbcartHelp.deleteProduct(productId);
                         holder.numberButton.setVisibility(View.GONE);
                         holder.addToCartButton.setVisibility(View.VISIBLE);
-                        holder.outofstock.setVisibility(View.GONE);
                     } else {
                         holder.numberButton.setVisibility(View.VISIBLE);
                         holder.numberButton.setNumber(String.valueOf(newValue));
                         holder.addToCartButton.setVisibility(View.GONE);
-                        holder.outofstock.setVisibility(View.GONE);
                         dbcartHelp.updateProductQuantityInCart(productId, newValue);
 
                         // Update stock
-
-                        selectedItem.setQuantity(String.valueOf(newValue));
                     }
                 } else if (newValue >= availableStock) {
                     Toast.makeText(context, "Insufficient stock", Toast.LENGTH_SHORT).show();
                     holder.numberButton.setNumber(String.valueOf(oldValue));
-                    holder.outofstock.setVisibility(View.VISIBLE);
-                    holder.outofstock.setText("Out of Stocks");
                 }
             }
         });
@@ -252,13 +242,11 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         TextView rateTextView;
         TextView mrpTextView;
         Button addToCartButton;
-        LinearLayout elegantLayout;
         ElegantNumberButton numberButton;
         ImageView img_icon;
         TextView tv_title;
         ImageButton wishlistIcon;
         ImageButton crossIcon;
-        TextView outofstock;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -268,13 +256,11 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             rateTextView = itemView.findViewById(R.id.rate);
             mrpTextView = itemView.findViewById(R.id.MRP);
             addToCartButton = itemView.findViewById(R.id.addToCartButton);
-            elegantLayout = itemView.findViewById(R.id.elegantLayout);
             numberButton = itemView.findViewById(R.id.numberButton);
             img_icon = itemView.findViewById(R.id.img_icon);
             wishlistIcon = itemView.findViewById(R.id.wishlistIcon);
             crossIcon = itemView.findViewById(R.id.crossIcon);
             tv_title = itemView.findViewById(R.id.tv_title);
-            outofstock = itemView.findViewById(R.id.outofstock);
         }
     }
 }

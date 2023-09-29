@@ -41,18 +41,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/product_details_summary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-            <!-- Cart Products Here -->
-            <!-- Use a RecyclerView or a series of TextViews to display cart items -->
-        </LinearLayout>
+            android:orientation="vertical" />
     </ScrollView>
 
     <!-- Price Details Section -->

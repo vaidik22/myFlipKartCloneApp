@@ -1,11 +1,9 @@
 package com.example.flipcartClone;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +27,6 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.OnIte
     AppBarLayout appBarLayoutTwo;
     ArrayList<HomeModel> hList;
     Toolbar toolbar;
-    Button logoutButton;
     private SessionManager sessionManager;
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
@@ -40,14 +37,6 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.OnIte
         appBarLayout = findViewById(R.id.appBar);
         appBarLayoutTwo = findViewById(R.id.appBar2);
         toolbar = findViewById(R.id.toolbar2);
-        logoutButton = findViewById(R.id.logoutButton);
-        logoutButton.setOnClickListener(view -> {
-            sessionManager.logoutUser();
-            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-        });
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

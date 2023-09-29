@@ -15,7 +15,6 @@ public class ProductDetailsAdapter {
     private int currentQuantity = 1; // Initial quantity
 
     public ProductDetailsAdapter(View rootView) {
-        addToCartButton = rootView.findViewById(R.id.add_To_Cart_Button);
         elegantLayout = rootView.findViewById(R.id.elegant_Layout);
         quantityTextView = rootView.findViewById(R.id.quantity_Text_View);
 
