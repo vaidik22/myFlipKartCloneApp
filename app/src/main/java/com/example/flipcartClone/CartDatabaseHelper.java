@@ -159,6 +159,13 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         return cartItems;
     }
 
+    public void clearCart() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CART, null, null);
+        db.close();
+    }
+
+
     public void clearProducts() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_CART, null, null);

@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,12 +21,13 @@ import com.example.flicpcartClone.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WishListFragment extends Fragment {
+public class WishListFragment extends Fragment implements WishListAdapter.WishlistEmptyListener {
 
     private RecyclerView recyclerView;
     private WishListAdapter wishListAdapter;
     private WishListDatabaseHelper dbWishListHelper;
     private List<WishListItem> wishlistItems; // Create a model class for wishlist items
+    private LinearLayout emptyWishlistMessage;
 
 
     @SuppressLint("MissingInflatedId")
@@ -32,18 +36,46 @@ public class WishListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_wishlist, container, false);
 
         recyclerView = rootView.findViewById(R.id.recyclerWishlist);
+        emptyWishlistMessage = rootView.findViewById(R.id.emptyWishlistMessage); // Initialize the TextView
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         wishlistItems = new ArrayList<>(); // Initialize the wishlistItems list
 
         // Initialize the WishListAdapter with the wishlistItems list
         wishListAdapter = new WishListAdapter(wishlistItems, getContext());
         recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+        wishListAdapter = new WishListAdapter(wishlistItems, getContext(), this);
 
         recyclerView.setAdapter(wishListAdapter);
         dbWishListHelper = new WishListDatabaseHelper(getActivity());
         fetchWishlistItems();
+        if (wishlistItems.isEmpty()) {
+            emptyWishlistMessage.setVisibility(View.VISIBLE);
+        } else {
+            emptyWishlistMessage.setVisibility(View.GONE);
+        }
+        Button continueShoppingButton = rootView.findViewById(R.id.continue_adding_button);
+        continueShoppingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToHomeFragment();
+            }
+        });
 
         return rootView;
+    }
+
+    @Override
+    public void onWishlistEmpty() {
+        // Wishlist is empty, show the "Your wishlist is empty" message
+        emptyWishlistMessage.setVisibility(View.VISIBLE);
+    }
+
+    private void navigateToHomeFragment() {
+        HomeFragment homeFragment = new HomeFragment();
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_section, homeFragment);
+        transaction.addToBackStack(null); // Add to back stack so the user can navigate back
+        transaction.commit();// Go back to the previous fragment
     }
 
     private void fetchWishlistItems() {
@@ -76,5 +108,11 @@ public class WishListFragment extends Fragment {
 
         // Notify the adapter that the dataset has changed
         wishListAdapter.notifyDataSetChanged();
+        if (wishlistItems.isEmpty()) {
+            emptyWishlistMessage.setVisibility(View.VISIBLE);
+        } else {
+            emptyWishlistMessage.setVisibility(View.GONE);
+        }
     }
+
 }

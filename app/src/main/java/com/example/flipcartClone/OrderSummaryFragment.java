@@ -21,6 +21,7 @@ public class OrderSummaryFragment extends Fragment {
     private ArrayList<CartItemModel> cartItems;
     EditText addressEditText;
 
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.order_summary, container, false);
         SessionManager sessionManager = new SessionManager(requireContext());
@@ -71,6 +72,10 @@ public class OrderSummaryFragment extends Fragment {
                     // Address field is empty, show a toast message
                     Toast.makeText(requireContext(), "Please enter your address", Toast.LENGTH_SHORT).show();
                 } else {
+                    CartDatabaseHelper dbhelper = new CartDatabaseHelper(getContext());
+                    ProductDatabaseHelper producthelper = new ProductDatabaseHelper(getContext());
+                    dbhelper.clearCart();
+                    producthelper.updateAllProductQuantitiesToZero();
                     // Address is entered, navigate to the next fragment
                     navigateToPaymentOptionsFragment();
                 }

@@ -25,36 +25,25 @@ import java.util.List;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private Context context;
     private ArrayList<CartItemModel> cartItems;
-    CartAdapter cartAdapter;
     private List<CartItemModel> items;
     private OnRemoveItemClickListener removeItemClickListener;
 
     private OnQuantityChangeListener quantityChangeListener;
     private TextView totalCostTextView;
+    CartDatabaseHelper databaseHelpercart;
+    private CartListEmptyListener cartListEmptyListener;
 
-    public CartAdapter(Context context, ArrayList<CartItemModel> cartItems) {
-        this.context = context;
+    public CartAdapter(Context context, ArrayList<CartItemModel> cartItems, CartListEmptyListener listener, TextView totalCostTextView) {
         this.cartItems = cartItems;
-
-    }
-
-    public CartAdapter(Context context, ArrayList<CartItemModel> cartItems, TextView totalCostTextView) {
         this.context = context;
-        this.cartItems = cartItems;
+        this.databaseHelpercart = new CartDatabaseHelper(context);
         this.totalCostTextView = totalCostTextView;
-    }
-
-    public void setItems(List<CartItemModel> items) {
-        this.items = items;
-
-    }
-
-    public void setOnRemoveItemClickListener(OnRemoveItemClickListener listener) {
-        this.removeItemClickListener = listener;
+        this.cartListEmptyListener = listener;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+
         CartItemModel cartItem = cartItems.get(position);
         holder.cartProductName.setText(cartItem.getProductName());
         holder.cartProductRate.setText(String.format("₹%.2f", Double.parseDouble(String.valueOf(cartItem.getProductRate()))));
@@ -67,14 +56,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
             @Override
             public void onClick(View view) {
+                cartItems.remove(position);
                 // Get the product ID of the item to be deleted
                 String productId = cartItem.getProductId();
 
                 // Remove the item from the list
-                cartItems.remove(position);
-
 
                 // Update the adapter
+                notifyDataSetChanged();
 
                 // Remove the item from the database
                 CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(context);
@@ -82,14 +71,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 cartDatabaseHelper.updateProductQuantityInCart(productId, 0);
                 ProductDatabaseHelper productDatabaseHelper = new ProductDatabaseHelper(context);
                 productDatabaseHelper.updateProductQuantity(productId, 0);
-                notifyDataSetChanged();
 
                 // Notify the listener about the quantity change (in this case, it's 0)
                 if (quantityChangeListener != null) {
                     quantityChangeListener.onQuantityChanged(position, 0);
                 }
+                if (cartItems.isEmpty() && cartListEmptyListener != null) {
+                    // Cart is empty, notify the fragment
+                    cartListEmptyListener.onCartListEmpty();
+                }
             }
         });
+
         holder.elegantButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
             @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
@@ -102,58 +95,93 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
                 ProductDatabaseHelper productDatabaseHelper = new ProductDatabaseHelper(context);
                 CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(context);
-                // Update the product database with the new quantity
-                productDatabaseHelper.updateProductQuantity(productId, newValue);
+
                 int availableStock = Integer.parseInt(selectedItem.getStocks());
-                if (newValue < 1 && availableStock > 1) {
+
+                if (newValue < 1) {
+                    // Handle the case where the quantity is less than 1
                     cartItems.remove(position);
-                    notifyDataSetChanged();
                     cartDatabaseHelper.deleteProduct(productId);
                     productDatabaseHelper.updateProductQuantity(productId, newValue);
+                    notifyDataSetChanged();
+                    holder.elegantButton.setNumber(String.valueOf(newValue));
                     holder.outofstock1.setVisibility(View.GONE);
-                    double totalCost = 0.0;
-                    for (CartItemModel item : cartItems) {
-                        totalCost += item.getProductRate() * item.getQuantity();
+
+                    if (cartItems.isEmpty() && cartListEmptyListener != null) {
+                        cartListEmptyListener.onCartListEmpty();
                     }
-                    // Update the totalCostTextView in CartFragment
-                    totalCostTextView.setText(String.format("Total Cost: ₹%.2f", totalCost));
+
+                } else if (newValue <= availableStock) {
+                    // Handle the case where the quantity is within or equal to the available stock
+                    cartItems.get(position).setQuantity(newValue);
+                    cartDatabaseHelper.updateProductQuantityInCart(productId, newValue);
+                    productDatabaseHelper.updateProductQuantity(productId, newValue);
+                    holder.elegantButton.setNumber(String.valueOf(newValue));
+                    holder.outofstock1.setVisibility(View.GONE);
+
+                    // Calculate the new total cost after handling the quantity change
+                    double newTotalCost = calculateTotalCost(cartItems, position, newValue);
+
+                    // Update the totalCostTextView in CartFragment with the new total cost
+                    totalCostTextView.setText(String.format("Total Cost: ₹%.2f", newTotalCost));
+
+                    if (cartItems.isEmpty() && cartListEmptyListener != null) {
+                        cartListEmptyListener.onCartListEmpty();
+                    }
+
 
                 } else {
-                    cartDatabaseHelper.updateProductQuantityInCart(productId, oldValue);
-                    productDatabaseHelper.updateProductQuantity(productId, oldValue);
-                    holder.outofstock1.setVisibility(View.GONE);
-
-                    double totalCost = 0.0;
-                    for (CartItemModel item : cartItems) {
-                        totalCost += item.getProductRate() * item.getQuantity();
-                    }
-
-                    // Update the totalCostTextView in CartFragment
-                    totalCostTextView.setText(String.format("Total Cost: ₹%.2f", totalCost));
-                }
-                if (newValue > availableStock) {
+                    // Handle the case where the quantity exceeds available stock
                     Toast.makeText(context, "Insufficient stock", Toast.LENGTH_SHORT).show();
                     holder.elegantButton.setNumber(String.valueOf(oldValue));
                     cartDatabaseHelper.updateProductQuantityInCart(productId, oldValue);
+                    productDatabaseHelper.updateProductQuantity(productId, oldValue);
                     holder.outofstock1.setVisibility(View.VISIBLE);
-                    double totalCost = 0.0;
-                    for (CartItemModel item : cartItems) {
-                        totalCost += item.getProductRate() * item.getQuantity();
+
+                    if (cartItems.isEmpty() && cartListEmptyListener != null) {
+                        cartListEmptyListener.onCartListEmpty();
                     }
-
-                    // Update the totalCostTextView in CartFragment
-                    totalCostTextView.setText(String.format("Total Cost: ₹%.2f", totalCost));
-
                 }
+
                 holder.cartProductQuantity.setText("Quantity: " + holder.elegantButton.getNumber());
 
                 if (quantityChangeListener != null) {
                     quantityChangeListener.onQuantityChanged(position, oldValue);
                 }
-
             }
         });
 
+    }
+
+    public void setItems(List<CartItemModel> items) {
+        this.items = items;
+
+    }
+
+    public void setOnRemoveItemClickListener(OnRemoveItemClickListener listener) {
+        this.removeItemClickListener = listener;
+    }
+
+    // Modify the removeCartItem method to call checkAndUpdateCartStatus
+    private double calculateTotalCost(ArrayList<CartItemModel> cartItems, int positionToUpdate, int newValue) {
+        double totalCost = 0.0;
+
+        // Iterate through the cartItems to calculate the total cost
+        for (int i = 0; i < cartItems.size(); i++) {
+            if (i == positionToUpdate) {
+                // Use the updated quantity for the item at the specified position
+                totalCost += cartItems.get(i).getProductRate() * newValue;
+            } else {
+                // Use the existing quantity for other items
+                totalCost += cartItems.get(i).getProductRate() * cartItems.get(i).getQuantity();
+            }
+        }
+
+        return totalCost;
+    }
+
+    public interface CartListEmptyListener {
+        void onCartListEmpty();
     }
 
 

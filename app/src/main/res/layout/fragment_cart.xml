@@ -14,7 +14,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/cart_items"
             android:orientation="vertical"
-            android:visibility="gone"
             android:weightSum="5">
 
             <TextView
@@ -69,7 +68,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         android:weightSum="2">
 
         <TextView

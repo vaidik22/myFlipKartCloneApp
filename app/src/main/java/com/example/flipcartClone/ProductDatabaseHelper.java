@@ -74,10 +74,22 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_PRODUCTS, null, values);
     }
 
-
-    public void clearProducts() {
+    public void updateAllProductQuantitiesToZero() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_PRODUCTS, null, null);
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PRODUCT_QUANTITY, 0); // Set quantity to 0 for all products
+
+        int rowsAffected = db.update(
+                TABLE_PRODUCTS,
+                values,
+                null,
+                null
+        );
+
+        Log.d("UpdateAllQuantities", "Rows affected: " + rowsAffected);
+
+        db.close();
     }
 
     public Cursor getProducts() {

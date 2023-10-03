@@ -124,6 +124,16 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
         return root;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        // Clear the ArrayList when the view is destroyed
+        if (productList != null) {
+            productList.clear();
+        }
+    }
+
     private ArrayList<SubCategoryModel> getProductItemsFromDataSource() {
         ArrayList<SubCategoryModel> productItems = new ArrayList<>();
         // Example: Fetch cart items from the database

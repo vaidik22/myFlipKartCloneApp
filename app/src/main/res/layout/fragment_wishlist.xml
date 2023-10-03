@@ -8,4 +8,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!-- Add this TextView for displaying the "Empty Wishlist" message -->
+    <LinearLayout
+        android:id="@+id/emptyWishlistMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/wishlist_empty_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Wishlist is empty"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/continue_adding_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Continue Adding" />
+    </LinearLayout>
+
+
 </RelativeLayout>

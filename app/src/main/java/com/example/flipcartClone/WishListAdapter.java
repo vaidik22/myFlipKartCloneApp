@@ -21,19 +21,20 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
     WishListDatabaseHelper dbwishlisthelper;
     private List<WishListItem> wishlistItems;
     private Context context;
-    private WishListAdapter wishListAdapter;
+    private WishlistEmptyListener wishlistEmptyListener;
+
+    public WishListAdapter(List<WishListItem> wishlistItems, Context context, WishlistEmptyListener listener) {
+        this.wishlistItems = wishlistItems;
+        this.context = context;
+        this.dbwishlisthelper = new WishListDatabaseHelper(context);
+        this.wishlistEmptyListener = listener;
+    }
+
 
     public WishListAdapter(List<WishListItem> wishlistItems, Context context) {
         this.wishlistItems = wishlistItems;
         this.context = context;
         dbwishlisthelper = new WishListDatabaseHelper(context);
-    }
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.wishlist_items, parent, false);
-        return new ViewHolder(view);
     }
 
     @Override
@@ -58,10 +59,25 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
                 // Remove the item from the database
                 WishListDatabaseHelper wishListDatabaseHelper = new WishListDatabaseHelper(context);
                 wishListDatabaseHelper.deleteProduct(productId);
+                if (wishlistItems.isEmpty() && wishlistEmptyListener != null) {
+                    wishlistEmptyListener.onWishlistEmpty();
+                }
             }
         });
 
 
+    }
+
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.wishlist_items, parent, false);
+        return new ViewHolder(view);
+    }
+
+    public interface WishlistEmptyListener {
+        void onWishlistEmpty();
     }
 
     @Override

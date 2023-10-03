@@ -1,6 +1,6 @@
 package com.example.flipcartClone;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +18,6 @@ public class ThankYouFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_thank_you, container, false);
@@ -34,13 +33,16 @@ public class ThankYouFragment extends Fragment {
         rootView.findViewById(R.id.btn_continue_shopping).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HomeFragment homeFragment = new HomeFragment();
-
-                // Replace the current fragment with the ThankYouFragment
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_section, homeFragment)
-                        .addToBackStack(null) // Add to back stack so the user can navigate back
-                        .commit();
+                Intent intent = new Intent(getContext(), HomeActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+//                HomeFragment homeFragment = new HomeFragment();
+//
+//                // Replace the current fragment with the ThankYouFragment
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.fragment_section, homeFragment)
+//                        .addToBackStack(null) // Add to back stack so the user can navigate back
+//                        .commit();
 
             }
         });

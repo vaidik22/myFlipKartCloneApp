@@ -169,7 +169,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                     // Update the product database with the new quantity
                     dbProductHelper.updateProductQuantity(productId, newValue);
 
-                    if (newValue < 1 && availableStock > 1) {
+                    if (newValue < 1) {
                         dbcartHelp.deleteProduct(productId);
                         holder.numberButton.setVisibility(View.GONE);
                         holder.addToCartButton.setVisibility(View.VISIBLE);
