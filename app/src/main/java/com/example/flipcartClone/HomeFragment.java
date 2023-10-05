@@ -43,15 +43,11 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
     String url2 = "https://dog55574plkkx.cloudfront.net/images/flipkart-big-billion-days-offer.jpg";
     String url3 = "https://cdn.flipshope.com/blog/wp-content/uploads/2023/05/Flipkart-Big-Bachat-Dhamaal-sale.jpg";
     SubCategoryAdapter subCategoryAdapter;
-    String url11 = "https://flashsaletricks.com/wp-content/uploads/2016/12/Flipkart_Fashion_Sale_24-26Dec.png";
-    String url22 = "https://flashsaletricks.com/wp-content/uploads/2016/12/Flipkart_Fashion_Sale_Womens_Clothing_offer_24-26Dec.png";
-    String url33 = "https://images.freekaamaal.com/post_images/1637727957.PNG";
     String url44 = "https://rukminim2.flixcart.com/image/450/500/xif0q/shirt/3/j/v/xxl-st10-vebnor-original-imagnvrqgv7e5crg.jpeg?q=90&crop=false";
     String url55 = "https://rukminim2.flixcart.com/image/550/650/kmthz0w0/dress/d/e/6/s-hr-0073-s-hr-fashion-original-imagfn8tfkhxh2xh.jpeg?q=90&crop=false";
     String url66 = "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/k/o/-original-imaghx9qtwbnhwvy.jpeg?q=70";
     String url77 = "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/d/h/q/m6-pro-5g-mzb0eprin-poco-original-imags3e7vewsafst.jpeg?q=70";
     ProductDatabaseHelper dbHelper;
-    private ArrayList<CartItemModel> cartItems = new ArrayList<>();
     private ArrayList<SubCategoryModel> productList = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -148,12 +144,12 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
 //           productList = dbHelper.getProductItems();
             fetchAndDisplayProducts(dbHelper);
         } else {
-            dbHelper.insertProduct("Shirt 1", "Men Regular...", "₹500", "₹1000", url44, "1", "0", 5);
-            dbHelper.insertProduct("HR fashion 1", "Men Regular...", "₹500", "₹1000", url55, "1", "0", 5);
-            dbHelper.insertProduct("Shirt 2", "Men Regular...", "₹500", "₹1000", url44, "1", "0", 5);
-            dbHelper.insertProduct("Iphone 14", "RED,128 GB..", "₹500", "₹1000", url66, "1", "0", 5);
-            dbHelper.insertProduct("POCO M6 PRO", "BLACK, 128 GB...", "₹500", "₹1000", url77, "1", "0", 5);
-            dbHelper.insertProduct("POCO M6 PRO 2", "BLACK, 128 GB...", "₹500", "₹1000", url77, "1", "0", 5);
+            dbHelper.insertProduct("Shirt 1", "Men Regular...", "₹500", "₹1000", url44, "1", 5);
+            dbHelper.insertProduct("HR fashion 1", "Men Regular...", "₹500", "₹1000", url55, "1", 5);
+            dbHelper.insertProduct("Shirt 2", "Men Regular...", "₹500", "₹1000", url44, "1", 5);
+            dbHelper.insertProduct("Iphone 14", "RED,128 GB..", "₹500", "₹1000", url66, "1", 5);
+            dbHelper.insertProduct("POCO M6 PRO", "BLACK, 128 GB...", "₹500", "₹1000", url77, "1", 5);
+            dbHelper.insertProduct("POCO M6 PRO 2", "BLACK, 128 GB...", "₹500", "₹1000", url77, "1", 5);
         }
 //        fetchAndDisplayProducts(dbHelper);
         subCategoryAdapter = new SubCategoryAdapter(

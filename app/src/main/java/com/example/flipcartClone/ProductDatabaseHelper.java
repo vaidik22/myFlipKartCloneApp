@@ -19,10 +19,9 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
     static final String COLUMN_PRODUCT_MRP = "product_mrp";
     static final String COLUMN_PRODUCT_IMAGE = "product_image";
     static final String COLUMN_PRODUCT_QUANTITY = "product_quantity";
-    static final String COLUMN_CART_QUANTITY = "cart_quantity";
-    static final String COLUMN_PRODUCT_STOCK = "cart_stocks";
+    static final String COLUMN_PRODUCT_STOCK = "product_stocks";
     private static final String DATABASE_NAME = "myapp.db";
-    private static final int DATABASE_VERSION = 41;
+    private static final int DATABASE_VERSION = 64;
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_PRODUCTS + " (" +
                     COLUMN_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -31,7 +30,6 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_PRODUCT_RATE + " REAL, " +
                     COLUMN_PRODUCT_MRP + " REAL, " +
                     COLUMN_PRODUCT_IMAGE + " TEXT, " +
-                    COLUMN_CART_QUANTITY + " TEXT, " +
                     COLUMN_PRODUCT_QUANTITY + " INTEGER DEFAULT 0, " +
                     COLUMN_PRODUCT_STOCK + " INTEGER DEFAULT 0)";
 
@@ -60,7 +58,7 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public long insertProduct(String productName, String description, String productRate, String productMrp, String imageUrl, String quantity, String cart_quantity, int stock) {
+    public long insertProduct(String productName, String description, String productRate, String productMrp, String imageUrl, String quantity, int stock) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_PRODUCT_NAME, productName);
@@ -69,11 +67,9 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_PRODUCT_MRP, productMrp);
         values.put(COLUMN_PRODUCT_IMAGE, imageUrl);
         values.put(COLUMN_PRODUCT_QUANTITY, quantity);
-        values.put(COLUMN_CART_QUANTITY, cart_quantity);
         values.put(COLUMN_PRODUCT_STOCK, stock);
         return db.insert(TABLE_PRODUCTS, null, values);
     }
-
     public void updateAllProductQuantitiesToZero() {
         SQLiteDatabase db = this.getWritableDatabase();
 
