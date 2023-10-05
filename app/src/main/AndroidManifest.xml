@@ -49,9 +49,6 @@
             android:name="com.example.flipcartClone.HomeActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.flipcartClone.PaymentOptionActivity"
-            android:exported="false" />
-        <activity
             android:name="com.example.flipcartClone.RegisterActivity"
             android:exported="false" />
         <activity
