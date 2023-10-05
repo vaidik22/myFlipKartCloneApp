@@ -98,6 +98,7 @@ public class OrderSummaryFragment extends Fragment {
         transaction.commit();
     }
 
+
     private ArrayList<CartItemModel> getCartItemsFromDataSource() {
         ArrayList<CartItemModel> cartItems = new ArrayList<>();
         CartDatabaseHelper dbHelper = new CartDatabaseHelper(getContext());

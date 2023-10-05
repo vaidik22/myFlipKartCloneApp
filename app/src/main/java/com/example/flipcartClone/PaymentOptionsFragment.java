@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.flicpcartClone.R;
 import com.shreyaspatil.EasyUpiPayment.EasyUpiPayment;
@@ -114,13 +114,12 @@ public class PaymentOptionsFragment extends Fragment implements PaymentStatusLis
     }
 
     public void navigateToThankYouFragment() {
-        Log.e("navigateToThankYouFragment", "yes");
         // Create an instance of the ThankYouFragment
         ThankYouFragment thankYouFragment = new ThankYouFragment();
-        // Replace the current fragment with the ThankYouFragment
-        requireActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_section, thankYouFragment).addToBackStack(null)
-                .commit();
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_section, thankYouFragment); // Replace 'fragment_container' with the actual container ID
+        transaction.addToBackStack(null);
+        transaction.commitAllowingStateLoss();
     }
 
 
@@ -140,25 +139,30 @@ public class PaymentOptionsFragment extends Fragment implements PaymentStatusLis
     @Override
     public void onTransactionSuccess() {
         navigateToThankYouFragment();
+
     }
 
     @Override
     public void onTransactionSubmitted() {
         navigateToThankYouFragment();
+
     }
 
     @Override
     public void onTransactionFailed() {
         navigateToThankYouFragment();
+
     }
 
     @Override
     public void onTransactionCancelled() {
         navigateToThankYouFragment();
+
     }
 
     @Override
     public void onAppNotFound() {
         navigateToThankYouFragment();
+
     }
 }

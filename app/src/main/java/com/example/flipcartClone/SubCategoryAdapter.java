@@ -72,15 +72,15 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        final SubCategoryModel item = productList.get(position);
+         SubCategoryModel item = productList.get(position);
         Log.e("SubCategoryModel_data", item.toString());
         holder.titleTextView.setText(item.getTitle());
         holder.descriptionTextView.setText(item.getDescription());
         holder.rateTextView.setText("₹" + item.getRate());
         holder.mrpTextView.setText("₹" + item.getMrp());
         Glide.with(context).load(item.getImageUrl()).into(holder.imageView);
-        SubCategoryModel selectedItem = productList.get(position);
         boolean isInWishlist = dbWishListHelper.isProductInWishlist(item.getProductId());
+        boolean isInCart = dbcartHelp.isProductInCart(item.getProductId());
         if (isInWishlist) {
             holder.crossIcon.setVisibility(View.VISIBLE);
             holder.wishlistIcon.setVisibility(View.GONE);
@@ -89,7 +89,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             holder.wishlistIcon.setVisibility(View.VISIBLE);
 
         }
-        if (Integer.parseInt(item.getQuantity()) > 0) {
+        if (isInCart) {
             holder.addToCartButton.setVisibility(View.GONE);
             holder.numberButton.setVisibility(View.VISIBLE);
             holder.numberButton.setNumber(item.getQuantity());
@@ -97,7 +97,6 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             holder.addToCartButton.setVisibility(View.VISIBLE);
             holder.numberButton.setVisibility(View.GONE);
         }
-
         holder.addToCartButton.setOnClickListener(v -> {
             holder.addToCartButton.setVisibility(View.GONE);
             holder.numberButton.setVisibility(View.VISIBLE);

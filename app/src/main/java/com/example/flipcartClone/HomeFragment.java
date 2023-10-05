@@ -104,8 +104,8 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
         hList = new ArrayList<>();
         rec_home = root.findViewById(R.id.rec_home);
         rec_home.setLayoutManager(new LinearLayoutManager(getContext()));
-        //rec_home.setLayoutManager(new GridLayoutManager(getContext(), 1, LinearLayoutManager.HORIZONTAL, false));
-        //rec_home.setLayoutManager(new LinearLayoutManager(this.getContext()));// vertical
+        // rec_home.setLayoutManager(new GridLayoutManager(getContext(), 1, LinearLayoutManager.HORIZONTAL, false));
+        // rec_home.setLayoutManager(new LinearLayoutManager(this.getContext()));// vertical
         // rec_home.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));// horizontal
         rec_home.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
         //rec_home.setLayoutManager(new GridLayoutManager(this,1,LinearLayoutManager.HORIZONTAL,false));
@@ -119,7 +119,6 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
         loadDataForSelectedPosition(dbHelper);
         return root;
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
