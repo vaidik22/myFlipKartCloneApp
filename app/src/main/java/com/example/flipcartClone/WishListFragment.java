@@ -114,5 +114,4 @@ public class WishListFragment extends Fragment implements WishListAdapter.Wishli
             emptyWishlistMessage.setVisibility(View.GONE);
         }
     }
-
 }

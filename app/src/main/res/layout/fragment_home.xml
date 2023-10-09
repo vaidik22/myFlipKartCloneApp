@@ -76,6 +76,7 @@
                 android:paddingLeft="15dp"
                 android:text="DAILY PRODUCTS"
                 android:textColor="@color/black"
+                android:visibility="gone"
                 android:textSize="20dp"
                 android:textStyle="italic">
 
@@ -98,6 +99,7 @@
                 android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp">
 

@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
         // rec_home.setLayoutManager(new GridLayoutManager(getContext(), 1, LinearLayoutManager.HORIZONTAL, false));
         // rec_home.setLayoutManager(new LinearLayoutManager(this.getContext()));// vertical
         // rec_home.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));// horizontal
-        rec_home.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+        rec_home.setLayoutManager(new GridLayoutManager(this.getContext(), 1));
         //rec_home.setLayoutManager(new GridLayoutManager(this,1,LinearLayoutManager.HORIZONTAL,false));
         getCategoryList();
         cList = new ArrayList<>();

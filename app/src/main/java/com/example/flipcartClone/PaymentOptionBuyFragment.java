@@ -1,6 +1,7 @@
 package com.example.flipcartClone;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +15,8 @@ import androidx.fragment.app.Fragment;
 import com.example.flicpcartClone.R;
 import com.shreyaspatil.EasyUpiPayment.EasyUpiPayment;
 import com.shreyaspatil.EasyUpiPayment.listener.PaymentStatusListener;
+import com.shreyaspatil.EasyUpiPayment.model.PaymentApp;
 import com.shreyaspatil.EasyUpiPayment.model.TransactionDetails;
-
-import java.util.ArrayList;
 
 public class PaymentOptionBuyFragment extends Fragment implements PaymentStatusListener {
 
@@ -27,20 +27,20 @@ public class PaymentOptionBuyFragment extends Fragment implements PaymentStatusL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_payment_buy_options, container, false);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
-        TextView totalAmountTextView = rootView.findViewById(R.id.tv_total_amount);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button continueButton = rootView.findViewById(R.id.btn_continue);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RadioGroup radioGroupPayment = rootView.findViewById(R.id.radio_group_payment);
 
         // Set the total amount to the TextView
         Bundle args = getArguments();
         if (args != null) {
             double totalAmount = args.getDouble("totalAmount", 0.0); // Default value is 0.0 if not found
-            totalAmountTextView.setText(String.valueOf(totalAmount));
+            // Now, you can set the total amount in your TextView
+            TextView totalAmountTextView = rootView.findViewById(R.id.tv_total_amount);
+            totalAmountTextView.setText(String.format("₹%.2f", totalAmount + 40));
         }
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button continueButton = rootView.findViewById(R.id.btn_continue);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RadioGroup radioGroupPayment = rootView.findViewById(R.id.radio_group_payment);
         final EasyUpiPayment easyUpiPayment = new EasyUpiPayment.Builder()
                 .with(this.getActivity())
-                .setPayeeVpa("vaidik.nigam.jhs@okhdfcbank")
+                .setPayeeVpa("sahuisha2681@ybl")
                 .setPayeeName("vaidik nigam")
                 .setTransactionId("20190603022401")
                 .setTransactionRefId("0120192019060302240")
@@ -67,12 +67,20 @@ public class PaymentOptionBuyFragment extends Fragment implements PaymentStatusL
                 if (selectedId == R.id.radio_cash_on_delivery) {
                     // "Cash On Delivery" radio button is selected, navigate to the ThankYouFragment
                     navigateToThankYouFragment();
+                    CartDatabaseHelper dbhelper = new CartDatabaseHelper(getContext());
+                    ProductDatabaseHelper producthelper = new ProductDatabaseHelper(getContext());
+                    dbhelper.clearCart();
+                    producthelper.updateAllProductQuantitiesToZero();
                 } else if (selectedId == R.id.radio_google_pay) {
                     // Google Pay UPI radio button is selected
                     // Handle Google Pay UPI payment logic here
                     // You can open Google Pay app or initiate the payment process
-                    easyUpiPayment.setPaymentStatusListener(PaymentOptionBuyFragment.this);
+                    easyUpiPayment.setDefaultPaymentApp(PaymentApp.GOOGLE_PAY);
                     easyUpiPayment.startPayment();
+                    CartDatabaseHelper dbhelper = new CartDatabaseHelper(getContext());
+                    ProductDatabaseHelper producthelper = new ProductDatabaseHelper(getContext());
+                    dbhelper.clearCart();
+                    producthelper.updateAllProductQuantitiesToZero();
 
                 } else if (selectedId == R.id.radio_upi) {
                     // UPI radio button is selected
@@ -80,6 +88,10 @@ public class PaymentOptionBuyFragment extends Fragment implements PaymentStatusL
                     // You can open a UPI payment app or initiate the payment process
                     easyUpiPayment.setPaymentStatusListener(PaymentOptionBuyFragment.this);
                     easyUpiPayment.startPayment();
+                    CartDatabaseHelper dbhelper = new CartDatabaseHelper(getContext());
+                    ProductDatabaseHelper producthelper = new ProductDatabaseHelper(getContext());
+                    dbhelper.clearCart();
+                    producthelper.updateAllProductQuantitiesToZero();
                 }
                 // Handle other payment options or continue with the selected payment method
             }
@@ -88,22 +100,10 @@ public class PaymentOptionBuyFragment extends Fragment implements PaymentStatusL
         return rootView;
     }
 
-    private void navigateToThankYouFragment() {
+    public void navigateToThankYouFragment() {
         // Create an instance of the ThankYouFragment
-        ThankYouFragment thankYouFragment = new ThankYouFragment();
-
-        // Replace the current fragment with the ThankYouFragment
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_section, thankYouFragment)
-                .commit();
-    }
-
-
-    private ArrayList<CartItemModel> getCartItemsFromDataSource() {
-        ArrayList<CartItemModel> cartItems = new ArrayList<>();
-        CartDatabaseHelper dbHelper = new CartDatabaseHelper(getContext());
-        cartItems = dbHelper.getCartItems();
-        return cartItems;
+        Intent intent = new Intent(requireContext(), ThankYouActivity.class);
+        startActivity(intent);
     }
 
     @Override

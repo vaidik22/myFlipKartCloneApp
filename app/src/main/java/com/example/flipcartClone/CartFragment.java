@@ -53,6 +53,15 @@ public class CartFragment extends Fragment implements CartAdapter.CartListEmptyL
         });
 
         Log.e("cart_list", String.valueOf(cartItems.size()));
+        TextView delete_cart_button = view.findViewById(R.id.delete_cart_button);
+        delete_cart_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Call the deleteAllCartItems method when the button is clicked
+                deleteAllCartItems();
+            }
+        });
+
 
         Button placeOrder = view.findViewById(R.id.place_order);
         placeOrder.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +117,7 @@ public class CartFragment extends Fragment implements CartAdapter.CartListEmptyL
                 navigateToOrderSummaryFragment();
             }
         });
+
     }
 
     private void navigateToOrderSummaryFragment() {
@@ -136,6 +146,29 @@ public class CartFragment extends Fragment implements CartAdapter.CartListEmptyL
         cartItems = dbHelper.getCartItems();
         return cartItems;
     }
+
+    private void deleteAllCartItems() {
+        // Clear the cartItems list
+        cartItems.clear();
+
+        // Update the RecyclerView by notifying the adapter
+        cartAdapter.notifyDataSetChanged();
+
+        // Delete all cart items from the database
+        CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(getContext());
+        cartDatabaseHelper.clearCart();
+
+        if (cartItems.isEmpty()) {
+            // Cart is empty, show the message and continue shopping button
+            showEmptyCartMessage(requireView());
+        } else {
+            // Cart has items, show the cart items
+            showCartItems(requireView());
+        }
+
+        // Notify the listener about the cart list being empty
+    }
+
     private void showEmptyCartMessage(View view) {
         // Hide the RecyclerView
         cart_items_present.setVisibility(View.GONE);

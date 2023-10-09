@@ -64,6 +64,7 @@ public class OrderSummaryFragment extends Fragment {
         continueButton = rootView.findViewById(R.id.continue_button);
 
         // Disable the "Continue" button initially
+        double finalTotalAmount = totalAmount;
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,12 +73,12 @@ public class OrderSummaryFragment extends Fragment {
                     // Address field is empty, show a toast message
                     Toast.makeText(requireContext(), "Please enter your address", Toast.LENGTH_SHORT).show();
                 } else {
-                    CartDatabaseHelper dbhelper = new CartDatabaseHelper(getContext());
-                    ProductDatabaseHelper producthelper = new ProductDatabaseHelper(getContext());
-                    dbhelper.clearCart();
-                    producthelper.updateAllProductQuantitiesToZero();
+//                    CartDatabaseHelper dbhelper = new CartDatabaseHelper(getContext());
+//                    ProductDatabaseHelper producthelper = new ProductDatabaseHelper(getContext());
+//                    dbhelper.clearCart();
+//                    producthelper.updateAllProductQuantitiesToZero();
                     // Address is entered, navigate to the next fragment
-                    navigateToPaymentOptionsFragment();
+                    navigateToPaymentOptionsFragment(finalTotalAmount);
                 }
             }
         });
@@ -87,9 +88,14 @@ public class OrderSummaryFragment extends Fragment {
 
     // ...
 
-    private void navigateToPaymentOptionsFragment() {
-        // Create an instance of the PaymentOptionsFragment
-        PaymentOptionsFragment paymentOptionsFragment = new PaymentOptionsFragment();
+    private void navigateToPaymentOptionsFragment(double totalAmount) {
+        // Create an instance of the PaymentOptionBuyFragment
+        PaymentOptionBuyFragment paymentOptionsFragment = new PaymentOptionBuyFragment();
+
+        // Create a Bundle to pass data to the PaymentOptionBuyFragment
+        Bundle args = new Bundle();
+        args.putDouble("totalAmount", totalAmount);
+        paymentOptionsFragment.setArguments(args);
 
         // Replace the current fragment with PaymentOptionsFragment
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
@@ -97,6 +103,7 @@ public class OrderSummaryFragment extends Fragment {
         transaction.addToBackStack(null); // If you want to allow back navigation
         transaction.commit();
     }
+
 
 
     private ArrayList<CartItemModel> getCartItemsFromDataSource() {

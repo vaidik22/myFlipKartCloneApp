@@ -40,15 +40,15 @@ public class BuyProductFragment extends Fragment {
             productRate = productRate.replaceAll("[^\\d.]+", "");
 
             // Set MRP and rate values to your TextViews
-            total_cost_EditText.setText("" + productMRP);
-            discount_EditText.setText("" + productRate);
+            total_cost_EditText.setText("₹" + productMRP);
+            discount_EditText.setText("₹" + productRate);
             double totalAmount = Double.parseDouble(productRate);
 
             // Add 40 to the total amount
             totalAmount += 40;
 
             // Set the total amount to the TextView
-            totalAmountTextView.setText("" + String.valueOf(totalAmount));
+            totalAmountTextView.setText("" + String.valueOf("₹" + totalAmount));
         }
         DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
         String userId = sessionManager.getPhoneNumber();

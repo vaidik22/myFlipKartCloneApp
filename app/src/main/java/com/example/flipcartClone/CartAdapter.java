@@ -71,6 +71,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 cartDatabaseHelper.updateProductQuantityInCart(productId, 0);
                 ProductDatabaseHelper productDatabaseHelper = new ProductDatabaseHelper(context);
                 productDatabaseHelper.updateProductQuantity(productId, 0);
+                double newTotalCost = calculateTotalCost(cartItems, position, 0);
+
+                // Update the totalCostTextView in CartFragment with the new total cost
+                totalCostTextView.setText(String.format("Total Cost: ₹%.2f", newTotalCost));
 
                 // Notify the listener about the quantity change (in this case, it's 0)
                 if (quantityChangeListener != null) {
@@ -82,7 +86,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 }
             }
         });
-
         holder.elegantButton.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
             @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
@@ -106,6 +109,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     notifyDataSetChanged();
                     holder.elegantButton.setNumber(String.valueOf(newValue));
                     holder.outofstock1.setVisibility(View.GONE);
+                    double newTotalCost = calculateTotalCost(cartItems, position, 0);
+
+                    // Update the totalCostTextView in CartFragment with the new total cost
+                    totalCostTextView.setText(String.format("Total Cost: ₹%.2f", newTotalCost));
 
                     if (cartItems.isEmpty() && cartListEmptyListener != null) {
                         cartListEmptyListener.onCartListEmpty();
@@ -216,6 +223,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         ImageView cart_Product_image;
         ElegantNumberButton elegantButton;
         ImageButton delete_button;
+        ImageButton delete_cart_button;
         TextView totalCostTextView;
         Button placeOrder;
         TextView outofstock1;
@@ -228,6 +236,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             cartProductQuantity = itemView.findViewById(R.id.quantity);
             elegantButton = itemView.findViewById(R.id.elegantButton);
             delete_button = itemView.findViewById(R.id.delete_button);
+            delete_cart_button = itemView.findViewById(R.id.delete_cart_button);
             totalCostTextView = itemView.findViewById(R.id.totalCostTextView);
             placeOrder = itemView.findViewById(R.id.place_order);
             outofstock1 = itemView.findViewById(R.id.outofstock1);

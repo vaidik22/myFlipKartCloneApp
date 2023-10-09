@@ -5,11 +5,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -44,6 +47,15 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
         holder.itemNameTextView.setText(item.getProductName());
         holder.itemRateTextView.setText("₹" + item.getProductRate());
         Glide.with(context).load(item.getImageUrl()).into(holder.itemImageView);
+
+        holder.buy_now_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                navigateToBuyProductFragment();
+            }
+
+        });
         holder.wishlistItemImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +80,17 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
 
     }
 
+    private void navigateToBuyProductFragment() {
+        // Create a new instance of BuyProductFragment
+        BuyProductFragment buyProductFragment = new BuyProductFragment();
+
+        // Perform the fragment transaction to replace the current fragment with BuyProductFragment
+        FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_section, buyProductFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 
     @NonNull
     @Override
@@ -90,6 +113,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
         TextView itemNameTextView;
         TextView itemRateTextView;
         ImageButton wishlistItemImageButton;
+        Button buy_now_button;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +121,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
             itemNameTextView = itemView.findViewById(R.id.wishlistItemName);
             itemRateTextView = itemView.findViewById(R.id.wishlistItemRate);
             wishlistItemImageButton = itemView.findViewById(R.id.wishlistItemImageButton);
+            buy_now_button = itemView.findViewById(R.id.buy_now_button);
         }
     }
 }

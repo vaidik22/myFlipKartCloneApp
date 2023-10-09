@@ -83,8 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:textColor="@color/black"
-                android:textSize="12dp"
+                android:textColor="#008000"
+                android:textSize="18dp"
                 android:textStyle="bold"
                 android:layout_alignParentRight="true"
                 android:text="\u20B9" />
@@ -106,6 +106,7 @@
                 android:layout_below="@+id/rate"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="1dp"
+                android:textColor="@color/red"
                 android:layout_marginEnd="1dp"
                 android:textSize="12dp"
                 android:foreground="@drawable/strickthrough"
@@ -126,7 +127,7 @@
             <Button
                 android:id="@+id/addToCartButton"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="58dp"
                 android:layout_marginBottom="0dp"
                 android:paddingBottom="0dp"
                 android:visibility="gone"
@@ -143,9 +144,7 @@
                 android:id="@+id/numberButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center"
                 android:visibility="gone">
-
             </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
 
         </LinearLayout>

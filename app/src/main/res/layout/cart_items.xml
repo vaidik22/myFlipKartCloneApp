@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Product Name"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -58,6 +59,7 @@
         android:layout_gravity="center">
 
     </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+
 
     <ImageButton
         android:id="@+id/delete_button"
