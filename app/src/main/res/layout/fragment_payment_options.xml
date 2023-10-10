@@ -76,5 +76,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_total_amount"
         android:layout_marginTop="16dp"
+        android:backgroundTint="#FFA500"
         android:text="Continue" />
 </RelativeLayout>

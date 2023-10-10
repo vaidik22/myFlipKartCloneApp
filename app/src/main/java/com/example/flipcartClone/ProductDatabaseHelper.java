@@ -21,7 +21,7 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
     static final String COLUMN_PRODUCT_QUANTITY = "product_quantity";
     static final String COLUMN_PRODUCT_STOCK = "product_stocks";
     private static final String DATABASE_NAME = "product.db";
-    private static final int DATABASE_VERSION = 65;
+    private static final int DATABASE_VERSION = 66;
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_PRODUCTS + " (" +
                     COLUMN_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -48,13 +48,9 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void deleteProduct(String productId) {
+    public void clearProducts() {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        int rowsAffected = db.delete(TABLE_PRODUCTS, COLUMN_PRODUCT_ID + "=?", new String[]{productId});
-
-        Log.d("DeleteProduct", "Rows affected: " + rowsAffected);
-
+        db.delete(TABLE_PRODUCTS, null, null);
         db.close();
     }
 
@@ -87,6 +83,49 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
 
         db.close();
     }
+
+    public void updateProductStock(String productId, int newStock) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PRODUCT_STOCK, newStock);
+
+        String selection = COLUMN_PRODUCT_ID + "=?";
+        String[] selectionArgs = {productId};
+
+        db.update(TABLE_PRODUCTS, values, selection, selectionArgs);
+        db.close();
+    }
+
+    @SuppressLint("Range")
+    public int getProductStock(String productId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int stock = 0;
+
+        String[] projection = {COLUMN_PRODUCT_STOCK};
+        String selection = COLUMN_PRODUCT_ID + "=?";
+        String[] selectionArgs = {productId};
+
+        Cursor cursor = db.query(
+                TABLE_PRODUCTS,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            stock = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_STOCK));
+            cursor.close();
+        }
+
+        db.close();
+
+        return stock;
+    }
+
 
     public Cursor getProducts() {
         SQLiteDatabase db = this.getReadableDatabase();

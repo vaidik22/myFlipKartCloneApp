@@ -2,6 +2,7 @@ package com.example.flipcartClone;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,8 +34,6 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
     private ProductDatabaseHelper dbProductHelper;
     private WishListDatabaseHelper dbWishListHelper;
-
-    private SubCategoryAdapter.OnItemClickListener mListener;
 
     //    public SubCategoryAdapter(Context context, ArrayList<SubCategoryModel> productList, OnItemClickListener listener, CartAdapter cartAdapter, SubCategoryFragment quantityChangeListener, ProductDatabaseHelper dbHelper,CartDatabaseHelper cartDbHelper) {
 //        this.context = context;
@@ -70,9 +70,11 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-         SubCategoryModel item = productList.get(position);
+        SubCategoryModel item = productList.get(position);
+
         Log.e("SubCategoryModel_data", item.toString());
         holder.titleTextView.setText(item.getTitle());
         holder.descriptionTextView.setText(item.getDescription());
@@ -81,6 +83,20 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         Glide.with(context).load(item.getImageUrl()).into(holder.imageView);
         boolean isInWishlist = dbWishListHelper.isProductInWishlist(item.getProductId());
         boolean isInCart = dbcartHelp.isProductInCart(item.getProductId());
+        int updatedStock = dbProductHelper.getProductStock(String.valueOf(item.getProductId()));
+
+        if (updatedStock == 0) {
+            holder.out_of_stock.setVisibility(View.VISIBLE);
+            holder.addToCartButton.setEnabled(false);
+            int greyColor = ContextCompat.getColor(context, R.color.disabledGreyColor);
+            holder.addToCartButton.setBackgroundTintList(ColorStateList.valueOf(greyColor));
+        } else {
+            holder.out_of_stock.setVisibility(View.GONE);
+            holder.addToCartButton.setEnabled(true);
+            int normalColor = ContextCompat.getColor(context, R.color.yellow);
+            holder.addToCartButton.setBackgroundTintList(ColorStateList.valueOf(normalColor));
+        }
+
         if (isInWishlist) {
             holder.crossIcon.setVisibility(View.VISIBLE);
             holder.wishlistIcon.setVisibility(View.GONE);
@@ -244,6 +260,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         ElegantNumberButton numberButton;
         ImageView img_icon;
         TextView tv_title;
+        ImageView out_of_stock;
         ImageButton wishlistIcon;
         ImageButton crossIcon;
 
@@ -260,6 +277,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             wishlistIcon = itemView.findViewById(R.id.wishlistIcon);
             crossIcon = itemView.findViewById(R.id.crossIcon);
             tv_title = itemView.findViewById(R.id.tv_title);
+            out_of_stock = itemView.findViewById(R.id.out_of_stock);
         }
     }
 }

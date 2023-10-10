@@ -67,20 +67,20 @@ public class PaymentOptionBuyFragment extends Fragment implements PaymentStatusL
                 if (selectedId == R.id.radio_cash_on_delivery) {
                     // "Cash On Delivery" radio button is selected, navigate to the ThankYouFragment
                     navigateToThankYouFragment();
-                    CartDatabaseHelper dbhelper = new CartDatabaseHelper(getContext());
-                    ProductDatabaseHelper producthelper = new ProductDatabaseHelper(getContext());
-                    dbhelper.clearCart();
-                    producthelper.updateAllProductQuantitiesToZero();
+//                    CartDatabaseHelper dbhelper = new CartDatabaseHelper(getContext());
+//                    ProductDatabaseHelper producthelper = new ProductDatabaseHelper(getContext());
+//                    dbhelper.clearCart();
+//                    producthelper.updateAllProductQuantitiesToZero();
                 } else if (selectedId == R.id.radio_google_pay) {
                     // Google Pay UPI radio button is selected
                     // Handle Google Pay UPI payment logic here
                     // You can open Google Pay app or initiate the payment process
                     easyUpiPayment.setDefaultPaymentApp(PaymentApp.GOOGLE_PAY);
                     easyUpiPayment.startPayment();
-                    CartDatabaseHelper dbhelper = new CartDatabaseHelper(getContext());
-                    ProductDatabaseHelper producthelper = new ProductDatabaseHelper(getContext());
-                    dbhelper.clearCart();
-                    producthelper.updateAllProductQuantitiesToZero();
+//                    CartDatabaseHelper dbhelper = new CartDatabaseHelper(getContext());
+//                    ProductDatabaseHelper producthelper = new ProductDatabaseHelper(getContext());
+//                    dbhelper.clearCart();
+//                    producthelper.updateAllProductQuantitiesToZero();
 
                 } else if (selectedId == R.id.radio_upi) {
                     // UPI radio button is selected
@@ -88,10 +88,10 @@ public class PaymentOptionBuyFragment extends Fragment implements PaymentStatusL
                     // You can open a UPI payment app or initiate the payment process
                     easyUpiPayment.setPaymentStatusListener(PaymentOptionBuyFragment.this);
                     easyUpiPayment.startPayment();
-                    CartDatabaseHelper dbhelper = new CartDatabaseHelper(getContext());
-                    ProductDatabaseHelper producthelper = new ProductDatabaseHelper(getContext());
-                    dbhelper.clearCart();
-                    producthelper.updateAllProductQuantitiesToZero();
+//                    CartDatabaseHelper dbhelper = new CartDatabaseHelper(getContext());
+//                    ProductDatabaseHelper producthelper = new ProductDatabaseHelper(getContext());
+//                    dbhelper.clearCart();
+//                    producthelper.updateAllProductQuantitiesToZero();
                 }
                 // Handle other payment options or continue with the selected payment method
             }

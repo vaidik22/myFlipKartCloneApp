@@ -81,11 +81,22 @@ public class BuyProductFragment extends Fragment {
     }
 
     private double calculateTotalAmount() {
-        // Calculate the total amount based on your logic
-        double productRate = Double.parseDouble(discount_EditText.getText().toString());
-        double totalAmount = productRate + 40;
-        return totalAmount;
+        // Get the text from the EditText and remove non-numeric characters
+        String text = discount_EditText.getText().toString();
+        text = text.replaceAll("[^\\d.]", ""); // Remove all non-numeric characters except decimal point
+
+        // Check if the resulting string is not empty
+        if (!text.isEmpty()) {
+            double productRate = Double.parseDouble(text);
+            double totalAmount = productRate;
+            return totalAmount;
+        } else {
+            // Handle the case where the input is not a valid number
+            // You can return a default value or show an error message
+            return 0.0; // Default value, you can change this as needed
+        }
     }
+
 
     private void navigateToPaymentOptionsFragment(double totalAmount) {
         // Create an instance of the PaymentOptionsFragment

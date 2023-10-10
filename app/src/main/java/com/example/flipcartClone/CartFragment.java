@@ -72,6 +72,7 @@ public class CartFragment extends Fragment implements CartAdapter.CartListEmptyL
                 navigateToOrderSummaryFragment();
                 Bundle args = new Bundle();
                 args.putParcelableArrayList("cartItems", (ArrayList<CartItemModel>) cartItems);
+
 // Create an instance of OrderSummaryFragment and set the arguments
                 OrderSummaryFragment orderSummaryFragment = new OrderSummaryFragment();
                 orderSummaryFragment.setArguments(args);
@@ -110,6 +111,7 @@ public class CartFragment extends Fragment implements CartAdapter.CartListEmptyL
         totalCostTextView.setText(String.format("Total Cost: ₹%.2f", totalCost));
         Button placeOrder = view.findViewById(R.id.place_order);
         placeOrder.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 // Handle "Place Order" button click here

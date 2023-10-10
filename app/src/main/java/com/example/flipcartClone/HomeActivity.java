@@ -1,6 +1,7 @@
 package com.example.flipcartClone;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity implements HomeAdapter.OnItemClickListener {
+public class HomeActivity extends AppCompatActivity {
     private static final int NAVIGATION_HOME = R.id.navigation_home;
     private static final int NAVIGATION_ACCOUNT = R.id.navigation_Account;
     private static final int NAVIGATION_CART = R.id.navigation_cart;
@@ -49,13 +50,15 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.OnIte
         }
         getSupportFragmentManager().addOnBackStackChangedListener(() -> {
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_section);
-            String fragmentName = fragment.getClass().getSimpleName();
-            if (fragmentName.contains("HomeFragment")) {
-                appBarLayout.setVisibility(View.VISIBLE);
-                appBarLayoutTwo.setVisibility(View.GONE);
-            } else {
-                appBarLayout.setVisibility(View.GONE);
-                appBarLayoutTwo.setVisibility(View.VISIBLE);
+            if (fragment != null) { // Check if the fragment is not null
+                String fragmentName = fragment.getClass().getSimpleName();
+                if (fragmentName.contains("HomeFragment")) {
+                    appBarLayout.setVisibility(View.VISIBLE);
+                    appBarLayoutTwo.setVisibility(View.GONE);
+                } else {
+                    appBarLayout.setVisibility(View.GONE);
+                    appBarLayoutTwo.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -102,6 +105,42 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.OnIte
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_section); // Replace 'R.id.fragment_container' with the actual ID of your fragment container
+        if (currentFragment instanceof HomeFragment) {
+            showExitConfirmationDialog();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    private void showExitConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.exit_dialog, null);
+        builder.setView(dialogView);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dialog.findViewById(R.id.confirm_exit_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Exit the app
+                finish();
+            }
+        });
+
+        dialog.findViewById(R.id.cancel_exit_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dismiss the dialog
+                dialog.dismiss();
+            }
+        });
+    }
+
     private void openFragment(Fragment yourFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_section, yourFragment);
@@ -109,7 +148,6 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.OnIte
         transaction.commit();
     }
 
-    @Override
     public void onItemClick(int position) {
         String itemName = hList.get(position).getTitle();
         getSupportActionBar().setTitle(itemName); // Update the Toolbar title

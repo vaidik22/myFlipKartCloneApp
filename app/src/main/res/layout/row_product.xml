@@ -52,6 +52,16 @@
                 android:layout_gravity="top|end"
                 android:background="@drawable/crossicon1"
                 android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/out_of_stock"
+                android:layout_width="124dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@color/black"
+                android:gravity="center"
+                android:rotation="340"
+                android:src="@drawable/outofstock" />
         </FrameLayout>
 
         <View
@@ -62,55 +72,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal">
-
-            <TextView
-                android:id="@+id/product_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:textColor="@color/black"
-                android:textSize="12dp"
-                android:textStyle="bold"
-                android:layout_marginTop="2dp"
-                android:text="New Text" />
-
-            <TextView
-                android:id="@+id/rate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:textColor="#008000"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:layout_alignParentRight="true"
-                android:text="\u20B9" />
-
-            <TextView
-                android:id="@+id/product_discription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rate"
-                android:textSize="12dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:text="New Text" />
-
-            <TextView
-                android:id="@+id/MRP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rate"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="1dp"
-                android:textColor="@color/red"
-                android:layout_marginEnd="1dp"
-                android:textSize="12dp"
-                android:foreground="@drawable/strickthrough"
-                android:text="\u20B9" />
+            android:layout_gravity="bottom|center_vertical">
 
         </RelativeLayout>
 
@@ -124,6 +86,68 @@
             <!-- Other views for product information -->
 
             <!-- "Add to Cart" Button -->
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="New Text"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/product_discription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:textSize="12dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rate:"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\u20B9"
+                    android:textColor="#008000"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="M.R.P:"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/MRP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:foreground="@drawable/strickthrough"
+                    android:text="\u20B9"
+                    android:textColor="@color/red"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+            <!-- item_out_of_stock.xml -->
             <Button
                 android:id="@+id/addToCartButton"
                 android:layout_width="match_parent"
@@ -140,11 +164,18 @@
             <!-- "Elegant" Button -->
 
             <!-- Minus Button -->
+
             <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                 android:id="@+id/numberButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:visibility="gone">
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                android:visibility="gone"
+                app:backGroundColor="#FFA500">
+
             </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
 
         </LinearLayout>

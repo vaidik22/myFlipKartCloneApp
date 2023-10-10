@@ -53,10 +53,8 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_home, null);
         dbHelper = new ProductDatabaseHelper(getContext());
-
         searchView = root.findViewById(R.id.search_view);
         searchHintText = root.findViewById(R.id.search_hint_text);
-
         // Initially show the hint text
         searchHintText.setVisibility(View.VISIBLE);
 
@@ -107,7 +105,7 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
         // rec_home.setLayoutManager(new GridLayoutManager(getContext(), 1, LinearLayoutManager.HORIZONTAL, false));
         // rec_home.setLayoutManager(new LinearLayoutManager(this.getContext()));// vertical
         // rec_home.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));// horizontal
-        rec_home.setLayoutManager(new GridLayoutManager(this.getContext(), 1));
+        rec_home.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
         //rec_home.setLayoutManager(new GridLayoutManager(this,1,LinearLayoutManager.HORIZONTAL,false));
         getCategoryList();
         cList = new ArrayList<>();
@@ -138,17 +136,17 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
     }
 
     private void loadDataForSelectedPosition(ProductDatabaseHelper dbHelper) {
-//     dbHelper.clearProducts();
+        //dbHelper.clearProducts();
         if (getProductItemsFromDataSource().size() > 0) {
 //           productList = dbHelper.getProductItems();
             fetchAndDisplayProducts(dbHelper);
         } else {
-            dbHelper.insertProduct("Shirt 1", "Men Regular...", "₹500", "₹1000", url44, "1", 5);
-            dbHelper.insertProduct("HR fashion 1", "Men Regular...", "₹500", "₹1000", url55, "1", 5);
-            dbHelper.insertProduct("Shirt 2", "Men Regular...", "₹500", "₹1000", url44, "1", 5);
-            dbHelper.insertProduct("Iphone 14", "RED,128 GB..", "₹500", "₹1000", url66, "1", 5);
-            dbHelper.insertProduct("POCO M6 PRO", "BLACK, 128 GB...", "₹500", "₹1000", url77, "1", 5);
-            dbHelper.insertProduct("POCO M6 PRO 2", "BLACK, 128 GB...", "₹500", "₹1000", url77, "1", 5);
+            dbHelper.insertProduct("Shirt 1", "Men Regular...", "₹500", "MRP:₹1000", url44, "1", 5);
+            dbHelper.insertProduct("HR fashion 1", "Men Regular...", "Rate: ₹500", "MRP:₹1000", url55, "1", 5);
+            dbHelper.insertProduct("Shirt 2", "Men Regular...", "Rate:₹500", "MRP:₹1000", url44, "1", 5);
+            dbHelper.insertProduct("Iphone 14", "RED,128 GB..", "Rate:₹500", "Mrp:₹1000", url66, "1", 5);
+            dbHelper.insertProduct("POCO M6 PRO", "BLACK, 128 GB...", "Rate:₹500", "MRP:₹1000", url77, "1", 5);
+            dbHelper.insertProduct("POCO M6 PRO 2", "BLACK, 128 GB...", "Rate:₹500", "MRP:₹1000", url77, "1", 5);
         }
 //        fetchAndDisplayProducts(dbHelper);
         subCategoryAdapter = new SubCategoryAdapter(
@@ -324,6 +322,40 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
             transaction.commit();
         }
     }
+//    public interface OnBackPressedListener {
+//        void onBackPressed();
+//    }
+//    @Override
+//    public void onBackPressed() {
+//        showExitConfirmationDialog();
+//    }
+//
+//
+//    private void showExitConfirmationDialog() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+//        View dialogView = getLayoutInflater().inflate(R.layout.exit_dialog, null);
+//        builder.setView(dialogView);
+//
+//        final AlertDialog dialog = builder.create();
+//        dialog.show();
+//
+//        dialog.findViewById(R.id.confirm_exit_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Exit the app
+//                requireActivity().finish();
+//            }
+//        });
+//
+//        dialog.findViewById(R.id.cancel_exit_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Dismiss the dialog
+//                dialog.dismiss();
+//            }
+//        });
+//    }
+
 
     @Override
     public void onBackPressed() {

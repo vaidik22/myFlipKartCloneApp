@@ -1,5 +1,6 @@
 <!-- cart_item.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cart_items_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -56,6 +57,7 @@
         android:id="@+id/elegantButton"
         android:layout_width="132dp"
         android:layout_height="49dp"
+        app:backGroundColor="#FFA500"
         android:layout_gravity="center">
 
     </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>

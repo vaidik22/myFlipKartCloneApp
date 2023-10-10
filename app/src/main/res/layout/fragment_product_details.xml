@@ -25,7 +25,6 @@
                 android:layout_width="379dp"
                 android:layout_height="323dp"
                 android:layout_gravity="center"
-                android:background="@drawable/recycler_view"
                 android:contentDescription="Product Image"
                 android:foregroundGravity="center"
                 android:src="@drawable/earphones" />
@@ -45,7 +44,7 @@
                 android:id="@+id/productDescriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="1dp"
                 android:text="Basic in Ear Wired Earphones with mic in-line Mic,10mm Dual Driver
 , Powerful Bass , Noise Reduction, 3.5 mm Audio Jack(Black, WE02)"
                 android:textSize="18sp" />
@@ -60,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-50%"
-                    android:textColor="@color/red"
+                    android:textColor="#FFA500"
                     android:textSize="20dp">
 
                 </TextView>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Demo App</string>
+    <string name="apnidukaan">ApniDuKaaN</string>
+    <string name="fffbf6">#FFFBF6</string>
+    <string name="keep_me_signed_in">Keep me Signed in</string>
+    <string name="dukaan">Dukaan</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="signin">Signin</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+</resources>
