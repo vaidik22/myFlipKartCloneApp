@@ -90,11 +90,13 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             holder.addToCartButton.setEnabled(false);
             int greyColor = ContextCompat.getColor(context, R.color.disabledGreyColor);
             holder.addToCartButton.setBackgroundTintList(ColorStateList.valueOf(greyColor));
+            holder.imageView.setAlpha(0.5f);
         } else {
             holder.out_of_stock.setVisibility(View.GONE);
             holder.addToCartButton.setEnabled(true);
             int normalColor = ContextCompat.getColor(context, R.color.yellow);
             holder.addToCartButton.setBackgroundTintList(ColorStateList.valueOf(normalColor));
+            holder.imageView.setAlpha(1.0f);
         }
 
         if (isInWishlist) {
