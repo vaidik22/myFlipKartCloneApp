@@ -1,0 +1,16 @@
+<!-- res/menu/bottom_navigation_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/home_foreground"
+        android:title="Home" />
+    <item
+        android:id="@+id/navigation_Account"
+        android:icon="@drawable/love_foreground"
+        android:title="Account" />
+    <item
+        android:id="@+id/navigation_cart"
+        android:icon="@drawable/cart_foreground"
+        android:title="Cart" />
+
+</menu>
