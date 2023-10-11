@@ -185,18 +185,20 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                 if (newValue <= availableStock) {
                     // Update the product database with the new quantity
                     dbProductHelper.updateProductQuantity(productId, newValue);
-
                     if (newValue < 1) {
                         dbcartHelp.deleteProduct(productId);
                         holder.numberButton.setVisibility(View.GONE);
                         holder.addToCartButton.setVisibility(View.VISIBLE);
+
                     } else {
                         holder.numberButton.setVisibility(View.VISIBLE);
                         holder.numberButton.setNumber(String.valueOf(newValue));
                         holder.addToCartButton.setVisibility(View.GONE);
                         dbcartHelp.updateProductQuantityInCart(productId, newValue);
+                        int stockLeft = newValue - availableStock;
+                        Toast.makeText(context, " left in Stock" + stockLeft, Toast.LENGTH_SHORT).show();
 
-                        // Update stock
+
                     }
                 } else if (newValue >= availableStock) {
                     Toast.makeText(context, "Insufficient stock", Toast.LENGTH_SHORT).show();
@@ -270,7 +272,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             super(itemView);
             imageView = itemView.findViewById(R.id.picture);
             titleTextView = itemView.findViewById(R.id.product_name);
-            descriptionTextView = itemView.findViewById(R.id.product_discription);
+            descriptionTextView = itemView.findViewById(R.id.product_description);
             rateTextView = itemView.findViewById(R.id.rate);
             mrpTextView = itemView.findViewById(R.id.MRP);
             addToCartButton = itemView.findViewById(R.id.addToCartButton);

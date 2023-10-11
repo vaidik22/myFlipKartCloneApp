@@ -29,6 +29,7 @@ public class AccountFragment extends Fragment {
         Button editProfileButton = view.findViewById(R.id.editprofile);
         Button cart = view.findViewById(R.id.cart);
         Button wishlistButton = view.findViewById(R.id.wishlist); // Find the Wishlist button
+        Button orderButton = view.findViewById(R.id.orders); // Find the Wishlist button
         logoutButton = view.findViewById(R.id.logoutButton);
         sessionManager = new SessionManager(requireContext());
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +78,20 @@ public class AccountFragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragment_section, wishListFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+        orderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an instance of the WishListFragment
+                OrderHistoryFragment orderHistoryFragment = new OrderHistoryFragment();
+
+                // Replace the current fragment with the WishListFragment
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_section, orderHistoryFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

@@ -11,7 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flicpcartClone.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class ThankYouActivity extends AppCompatActivity {
 
@@ -31,17 +34,48 @@ public class ThankYouActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateStockQuantity();
+                insertInOrderDatabase();
+                clearCart();
                 Intent intent = new Intent(ThankYouActivity.this, HomeActivity.class); // Replace HomeActivity with your home fragment's class
                 startActivity(intent);
-
                 // Finish the current activity (ThankYouActivity) if you want to close it
                 finish();
             }
         });
     }
 
+    private String getCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return sdf.format(new Date());
+    }
+
     @Override
     public void onBackPressed() {
+    }
+
+    private void insertInOrderDatabase() {
+        CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(this);
+        ArrayList<CartItemModel> cartItems = cartDatabaseHelper.getCartItems();
+
+        // Insert product details into the OrderDatabaseHelper
+        for (CartItemModel cartItem : cartItems) {
+            String productId = cartItem.getProductId();
+            String productName = cartItem.getProductName();
+            String productImage = cartItem.getImageUrl();
+            // You can fetch other details like image URL, etc.
+
+            // Insert the details into the OrderDatabaseHelper
+            String currentDate;
+            currentDate = getCurrentDate();
+            OrderDatabaseHelper orderDatabaseHelper = new OrderDatabaseHelper(this);
+            orderDatabaseHelper.insertOrder(productId, productName, productImage, currentDate); // Insert the order date
+        }
+
+    }
+
+    private void clearCart() {
+        CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(this);
+        cartDatabaseHelper.clearCart();
     }
 
     private void updateStockQuantity() {
@@ -67,6 +101,5 @@ public class ThankYouActivity extends AppCompatActivity {
             // Update the product's stock quantity in the product database
             productDatabaseHelper.updateProductStock(productId, newStock);
         }
-        cartDatabaseHelper.clearCart();
     }
 }
