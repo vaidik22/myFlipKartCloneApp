@@ -1,0 +1,9 @@
+<resources>
+
+    <style name="CustomEditTextStyle" parent="Widget.AppCompat.EditText">
+        <!-- Set the cursor color to black -->
+        <item name="android:textCursorDrawable">@drawable/custom_cursor_drawable</item>
+        <!-- Set the background to a custom drawable -->
+        <item name="android:background">@drawable/custom_edittext_background</item>
+    </style>
+</resources>

@@ -1,0 +1,9 @@
+<!-- res/drawable/custom_edittext_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- This is the underline -->
+    <item android:bottom="1dp">
+        <shape>
+            <solid android:color="@color/white" /> <!-- Set the underline color to black -->
+        </shape>
+    </item>
+</layer-list>

@@ -29,6 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-smallcaps"
+            style="@style/CustomEditTextStyle"
+            android:background="@drawable/recycler_view"
             android:hint="Enter Your Address" />
         <!-- Add more address fields as needed -->
     </LinearLayout>
