@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background1"
+    android:background="@drawable/background2"
     tools:context="com.example.flipcartClone.LoginActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#3fff"
-        android:gravity="center"
+        android:layout_width="253dp"
+        android:layout_height="348dp"
         android:orientation="vertical"
-        android:padding="10dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+        <!--        tools:layout_editor_absoluteX="55dp"-->
+        <!--        tools:layout_editor_absoluteY="-332dp">-->
 
         <ImageView
             android:layout_width="81dp"
             android:layout_height="81dp"
             android:background="@drawable/logo22"
-            android:gravity="center"
-            android:text="FLIPCART"
+            android:layout_gravity="center"
+            android:text="Flipcart"
             android:textColor="@color/black" />
 
         <EditText
@@ -31,7 +36,9 @@
             android:gravity="center"
             android:hint="Phone Number"
             android:inputType="number"
-            android:textColorHint="#000000" />
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -41,7 +48,9 @@
             android:background="@drawable/custombutton"
             android:gravity="center"
             android:hint="@string/password"
-            android:textColorHint="#000000" />
+            android:fontFamily="sans-serif-smallcaps"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <Button
             android:id="@+id/buttonLogin"
@@ -52,8 +61,8 @@
             android:text="Login"
             android:textAllCaps="false"
             android:textColor="#FFFBF6"
+            android:fontFamily="sans-serif-smallcaps"
             tools:ignore="TouchTargetSizeCheck" />
-
         <View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
@@ -68,6 +77,7 @@
             android:background="@drawable/custombutton2"
             android:text="@string/register"
             android:textAllCaps="false"
+            android:fontFamily="sans-serif-smallcaps"
             android:textColor="#FFFBF6" />
 
     </LinearLayout>

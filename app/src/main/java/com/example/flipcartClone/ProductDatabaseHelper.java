@@ -21,7 +21,7 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
     static final String COLUMN_PRODUCT_QUANTITY = "product_quantity";
     static final String COLUMN_PRODUCT_STOCK = "product_stocks";
     private static final String DATABASE_NAME = "product.db";
-    private static final int DATABASE_VERSION = 67;
+    private static final int DATABASE_VERSION = 69;
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_PRODUCTS + " (" +
                     COLUMN_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -181,8 +181,8 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
                 @SuppressLint("Range") String productId = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_ID));
                 @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_NAME));
                 @SuppressLint("Range") String description = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_DESCRIPTION));
-                @SuppressLint("Range") float rate = cursor.getFloat(cursor.getColumnIndex(COLUMN_PRODUCT_RATE));
-                @SuppressLint("Range") float mrp = cursor.getFloat(cursor.getColumnIndex(COLUMN_PRODUCT_MRP));
+                @SuppressLint("Range") String rate = String.valueOf(cursor.getFloat(cursor.getColumnIndex(COLUMN_PRODUCT_RATE)));
+                @SuppressLint("Range") String mrp = String.valueOf(cursor.getFloat(cursor.getColumnIndex(COLUMN_PRODUCT_MRP)));
                 @SuppressLint("Range") String imageUrl = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_IMAGE));
                 @SuppressLint("Range") String quantity = String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_QUANTITY)));
                 @SuppressLint("Range") int stock = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_STOCK)); // Get stock value

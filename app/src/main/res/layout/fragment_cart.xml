@@ -20,7 +20,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|top"
-                android:text="Clear Cart"></TextView>
+                android:layout_marginBottom="12dp"
+                android:text="Clear Cart"
+                android:textColor="@color/black"
+                android:textStyle="bold">
+
+            </TextView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cart_recycler_view"
@@ -34,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/checkout_button"
                 android:text="Total cost:"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold">
 

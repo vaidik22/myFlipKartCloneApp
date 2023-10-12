@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +81,13 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         holder.descriptionTextView.setText(item.getDescription());
         holder.rateTextView.setText("₹" + item.getRate());
         holder.mrpTextView.setText("₹" + item.getMrp());
+        String mrpString = item.getMrp();
+        String rateString = item.getRate();
+        double mrp = Double.parseDouble(mrpString);
+        double rate = Double.parseDouble(rateString);
+        double percentageDifference = ((mrp - rate) / mrp) * 100;
+        int roundedPercentage = (int) Math.round(percentageDifference);
+        holder.discount.setText(roundedPercentage + "% off");
         Glide.with(context).load(item.getImageUrl()).into(holder.imageView);
         boolean isInWishlist = dbWishListHelper.isProductInWishlist(item.getProductId());
         boolean isInCart = dbcartHelp.isProductInCart(item.getProductId());
@@ -108,14 +116,17 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
         }
         if (isInCart) {
+            holder.layout_button.setVisibility(View.VISIBLE);
             holder.addToCartButton.setVisibility(View.GONE);
             holder.numberButton.setVisibility(View.VISIBLE);
             holder.numberButton.setNumber(item.getQuantity());
         } else {
+            holder.layout_button.setVisibility(View.VISIBLE);
             holder.addToCartButton.setVisibility(View.VISIBLE);
             holder.numberButton.setVisibility(View.GONE);
         }
         holder.addToCartButton.setOnClickListener(v -> {
+            holder.layout_button.setVisibility(View.VISIBLE);
             holder.addToCartButton.setVisibility(View.GONE);
             holder.numberButton.setVisibility(View.VISIBLE);
             holder.numberButton.setNumber("1");
@@ -187,10 +198,12 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                     dbProductHelper.updateProductQuantity(productId, newValue);
                     if (newValue < 1) {
                         dbcartHelp.deleteProduct(productId);
+                        holder.layout_button.setVisibility(View.VISIBLE);
                         holder.numberButton.setVisibility(View.GONE);
                         holder.addToCartButton.setVisibility(View.VISIBLE);
 
                     } else {
+                        holder.layout_button.setVisibility(View.VISIBLE);
                         holder.numberButton.setVisibility(View.VISIBLE);
                         holder.numberButton.setNumber(String.valueOf(newValue));
                         holder.addToCartButton.setVisibility(View.GONE);
@@ -264,9 +277,11 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         ElegantNumberButton numberButton;
         ImageView img_icon;
         TextView tv_title;
+        TextView discount;
         ImageView out_of_stock;
         ImageButton wishlistIcon;
         ImageButton crossIcon;
+        LinearLayout layout_button;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -282,6 +297,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             crossIcon = itemView.findViewById(R.id.crossIcon);
             tv_title = itemView.findViewById(R.id.tv_title);
             out_of_stock = itemView.findViewById(R.id.out_of_stock);
+            discount = itemView.findViewById(R.id.discount);
+            layout_button = itemView.findViewById(R.id.layout_button);
         }
     }
 }

@@ -3,6 +3,5 @@
     <item name="toolbar" type="id" />
     <item name="searchBar" type="id" />
     <item name="productRecyclerView" type="id" />
-    <item name="bottomNavigation" type="id" />
     <item name="rec_circular" type="id" />
 </resources>

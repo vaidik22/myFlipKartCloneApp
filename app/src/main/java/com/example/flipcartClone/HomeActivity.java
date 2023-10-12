@@ -32,12 +32,42 @@ public class HomeActivity extends AppCompatActivity {
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         sessionManager = new SessionManager(this);
         setContentView(R.layout.activity_home);
         appBarLayout = findViewById(R.id.appBar);
         appBarLayoutTwo = findViewById(R.id.appBar2);
         toolbar = findViewById(R.id.toolbar2);
+
+        BottomNavigationView bottomNavView = findViewById(R.id.bottomNavigation);
+        bottomNavView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        int id = item.getItemId();
+                        String title = "";
+
+                        if (id == NAVIGATION_HOME) {
+                            openFragment(new HomeFragment());
+                            title = "Home";
+                        } else if (id == NAVIGATION_ACCOUNT) {
+                            openFragment(new AccountFragment());
+                            title = "Account";
+                        } else if (id == NAVIGATION_CART) {
+                            openFragment(new CartFragment());
+                            title = "Cart";
+                        } else {
+                            bottomNavView.setVisibility(View.GONE);
+                        }
+
+                        // Set the title on tv_title2
+                        TextView tvTitle2 = findViewById(R.id.tv_title2);
+                        tvTitle2.setText(title);
+
+                        return true;
+                    }
+                });
 
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -66,43 +96,6 @@ public class HomeActivity extends AppCompatActivity {
         imageView.setOnClickListener(view -> {
             getSupportFragmentManager().popBackStack();
         });
-        BottomNavigationView bottomNavView = findViewById(R.id.bottomNavigation);
-        bottomNavView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    private MenuItem item;
-
-                    @SuppressLint("NonConstantResourceId")
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        int id = item.getItemId();
-                        String title = "";
-
-                        if (id == NAVIGATION_HOME) {
-                            openFragment(new HomeFragment());
-                            title = "Home";
-                        } else if (id == NAVIGATION_ACCOUNT) {
-                            openFragment(new AccountFragment());
-                            title = "Account";
-                        } else if (id == NAVIGATION_CART) {
-                            openFragment(new CartFragment());
-                            title = "Cart";
-                        }
-
-                        // Set the title on tv_title2
-                        TextView tvTitle2 = findViewById(R.id.tv_title2);
-                        tvTitle2.setText(title);
-
-                        return true;
-                    }
-
-                    public void openFragment(Fragment fragment) {
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.fragment_section, fragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-                    }
-                });
-
     }
 
     @Override
@@ -114,7 +107,6 @@ public class HomeActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
 
     private void showExitConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -128,7 +120,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Exit the app
-                finish();
+                finishAffinity();
             }
         });
 

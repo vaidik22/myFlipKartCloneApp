@@ -73,7 +73,7 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void insertCartItem(int productId, String title, float rate, float mrp, String imageUrl, int stocks, String quantity) {
+    public void insertCartItem(int productId, String title, String rate, String mrp, String imageUrl, int stocks, String quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_PRODUCT_ID, productId);

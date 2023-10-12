@@ -60,16 +60,6 @@
         android:textSize="18sp" />
 
     <!-- Buy Now Button -->
-    <Button
-        android:id="@+id/buy_now_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/wishlistItemRate"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#FFA500"
-        android:text="Buy Now"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -13,7 +13,7 @@ public class OrderDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PRODUCT_DESCRIPTION = "product_description";
     public static final String COLUMN_PRODUCT_IMAGE = "product_image";
     private static final String DATABASE_NAME = "order.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
     // Add more columns for other order details like image, price, etc.
 
     public OrderDatabaseHelper(Context context) {
@@ -28,7 +28,6 @@ public class OrderDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_PRODUCT_NAME + " TEXT, " +
                 COLUMN_PRODUCT_IMAGE + " TEXT, " +
                 COLUMN_PRODUCT_DESCRIPTION + " TEXT" +
-                // Add more columns here
                 ")";
         db.execSQL(createTableQuery);
     }

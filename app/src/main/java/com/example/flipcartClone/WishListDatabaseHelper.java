@@ -76,7 +76,7 @@ public class WishListDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void addToWishlist(int productId, String title, float rate, float mrp, String imageUrl, String quantity) {
+    public void addToWishlist(int productId, String title, String rate, String mrp, String imageUrl, String quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

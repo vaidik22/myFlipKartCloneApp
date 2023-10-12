@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
+            android:fontFamily="sans-serif-smallcaps"
             android:textAllCaps="true"
             android:textColor="@color/black"
             android:textSize="20dp"
@@ -27,6 +28,7 @@
             android:id="@+id/et_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
             android:hint="Enter Your Address" />
         <!-- Add more address fields as needed -->
     </LinearLayout>
@@ -57,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif-smallcaps"
             android:text="Price Details"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -72,6 +75,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="Total Cost:"
                 android:textSize="16sp" />
 
@@ -96,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Discount:"
+                android:fontFamily="sans-serif-smallcaps"
                 android:textSize="16sp" />
 
             <TextView
@@ -118,6 +123,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="Delivery Charges:"
                 android:textSize="16sp" />
 
@@ -140,6 +146,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-smallcaps"
                 android:text="Total Amount:"
                 android:textSize="18sp"
                 android:textStyle="bold" />

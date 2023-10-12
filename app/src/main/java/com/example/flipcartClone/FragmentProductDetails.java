@@ -1,5 +1,6 @@
 package com.example.flipcartClone;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ public class FragmentProductDetails extends Fragment {
     TextView percentage;
     Button buyButton;
 
+    @SuppressLint("SetTextI18n")
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_product_details, container, false);
 
@@ -51,19 +53,17 @@ public class FragmentProductDetails extends Fragment {
             String rateStr = args.getString("rate");
             String imageUrl = args.getString("imageUrl");
 
-            // Convert MRP and rate strings to numeric values
             double mrp = Double.parseDouble(mrpStr);
             double rate = Double.parseDouble(rateStr);
-
-            // Calculate the percentage difference
             double percentageDifference = ((mrp - rate) / mrp) * 100;
+            int roundedPercentage = (int) Math.round(percentageDifference);
 
             // Set text for TextViews
             titleTextView.setText(title);
             descriptionTextView.setText(description);
             mrpTextView.setText("₹" + mrpStr);
             rateTextView.setText("₹" + rateStr);
-            percentage.setText(String.format("%.2f%% off", percentageDifference)); // Display percentage difference
+            percentage.setText(roundedPercentage + "%off"); // Display percentage difference
             Glide.with(this).load(imageUrl).into(productImageView);
         }
         return root;

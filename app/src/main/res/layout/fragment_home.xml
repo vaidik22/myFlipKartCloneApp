@@ -20,6 +20,8 @@
                 android:id="@+id/search_view_container"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/roundstylesearch">
@@ -50,6 +52,7 @@
 
             <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/slider"
+                android:paddingTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="123dp"
                 android:layout_weight="1"
@@ -111,6 +114,7 @@
                 android:layout_gravity="center"
                 android:gravity="left"
                 android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:text="NEW ARRIVAL"
                 android:textColor="@color/black"
                 android:textSize="20dp"

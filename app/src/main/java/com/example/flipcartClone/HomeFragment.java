@@ -39,14 +39,18 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
     CircularAdapter circularAdapter;
     SearchView searchView;
     TextView searchHintText;
-    String url1 = "https://rukminim2.flixcart.com/fk-p-flap/850/300/image/a08bb1606053a0ba.jpg?q=90";
-    String url2 = "https://dog55574plkkx.cloudfront.net/images/flipkart-big-billion-days-offer.jpg";
-    String url3 = "https://cdn.flipshope.com/blog/wp-content/uploads/2023/05/Flipkart-Big-Bachat-Dhamaal-sale.jpg";
+    String url1 = "https://cdn.zoutons.com/images/originals/blog/main-banner_1693650934.png";
+    String url2 = "https://cdn.flipshope.com/blog/wp-content/uploads/2023/05/Flipkart-Upcoming-Sale.jpg";
+    String url3 = "https://cdn.flipshope.com/blog/wp-content/uploads/2023/01/Flipkart-New-Year-Sale-2023.jpg";
     SubCategoryAdapter subCategoryAdapter;
-    String url44 = "https://rukminim2.flixcart.com/image/450/500/xif0q/shirt/3/j/v/xxl-st10-vebnor-original-imagnvrqgv7e5crg.jpeg?q=90&crop=false";
-    String url55 = "https://rukminim2.flixcart.com/image/550/650/kmthz0w0/dress/d/e/6/s-hr-0073-s-hr-fashion-original-imagfn8tfkhxh2xh.jpeg?q=90&crop=false";
-    String url66 = "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/k/o/-original-imaghx9qtwbnhwvy.jpeg?q=70";
-    String url77 = "https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/d/h/q/m6-pro-5g-mzb0eprin-poco-original-imags3e7vewsafst.jpeg?q=70";
+    String url44 = "https://www.myraymond.com/media/product/PCSA02393-W1/8476360924_PCSA02393-W1(3).jpg";
+    String url55 = "https://rukminim2.flixcart.com/image/832/832/xif0q/top/e/e/h/xl-1023ykp-yash-gallery-original-imagpcfgvx42kbrz.jpeg?q=70";
+    String url66 = "https://www.lavanyathelabel.com/cdn/shop/products/sku_2_1.jpg?v=1672232467&width=1024";
+    String url666 = "https://m.media-amazon.com/images/I/61SSVxTSs3L._SL1500_.jpg";
+    String url77 = "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/b/h/c/-original-imagth5xwrg4gfyp.jpeg?q=70";
+    String url88 = "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/e/q/g/-original-imagtqqd4vcdzqdg.jpeg?q=70";
+    String url99 = "https://rukminim2.flixcart.com/image/832/832/krz97rk0/sunglass/u/x/0/chi00121-c1-l-royal-son-original-imag5nbypcr2k37m.jpeg?q=70";
+    String url100 = "https://rukminim2.flixcart.com/image/416/416/kd3f3bk0/trimmer/z/t/f/0-5-18-mm-stainless-steel-bt5100c-corded-cordless-havells-original-imafu2fjcfvbmngm.jpeg?q=70";
     ProductDatabaseHelper dbHelper;
     private ArrayList<SubCategoryModel> productList = new ArrayList<>();
 
@@ -141,12 +145,28 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
 //           productList = dbHelper.getProductItems();
             fetchAndDisplayProducts(dbHelper);
         } else {
-            dbHelper.insertProduct("Shirt 1", "Men Regular...", "₹500", "MRP:₹1000", url44, "1", 5);
-            dbHelper.insertProduct("HR fashion 1", "Men Regular...", "Rate: ₹500", "MRP:₹1000", url55, "1", 5);
-            dbHelper.insertProduct("Shirt 2", "Men Regular...", "Rate:₹500", "MRP:₹1000", url44, "1", 5);
-            dbHelper.insertProduct("Iphone 14", "RED,128 GB..", "Rate:₹500", "Mrp:₹1000", url66, "1", 5);
-            dbHelper.insertProduct("POCO M6 PRO", "BLACK, 128 GB...", "Rate:₹500", "MRP:₹1000", url77, "1", 5);
-            dbHelper.insertProduct("POCO M6 PRO 2", "BLACK, 128 GB...", "Rate:₹500", "MRP:₹1000", url77, "1", 5);
+            dbHelper.insertProduct("Park Avenue", "Men Slim Fit Pure Cotton Printed Casual Shirt,Blue conversational printed opaque Casual shirt " +
+                    "\n", "1300", "5000", url44, "1", 5);
+            dbHelper.insertProduct("Libas", "Women Beige & Mustard Yellow Zari Woven Design Straight Kurta Trousers Dupatta Our 3-piece beige woven design silk suit set features a straight-fit floral embroidery kurta"
+                    , "1500", "3500", url55, "1", 5);
+            dbHelper.insertProduct("Lavanya The Label", "Tie-Dye Printed Anarkali Kurta With Trousers & Dupattaie-dye printed",
+                    "2000", "6000", url66, "1", 5);
+            dbHelper.insertProduct("NOISE", "Black Color Fit Icon 2 Calling Smartwatch1.8 inch display (500 nits brightness)", "3300", "5000", url666, "1", 5);
+            dbHelper.insertProduct("SAMSUNG Galaxy S22 5G", "Explore a new range of ni" +
+                    "ght photography features on this Samsung Galaxy" +
+                    " S22 5G smartphone. You can click stunning images eve" +
+                    "n in low light with the Nightography mode. It is de" +
+                    "signed with a pro-grade camera which comprises a b" +
+                    "ig pixel sensor that welcomes more light for mind-blow" +
+                    "ing photography. Built with impressive software and hardware, " +
+                    "this phone is a game-changer. With a 120 Hz refresh rate and dynamic AMO" +
+                    "LED 2x display, you are going to experience immersive screen time. This phone " +
+                    "operates on a Snapdragon 8 Gen 1 processor that delivers quick and hassle- free navigation." +
+                    " This device is protected by Corning Gorilla Glass Victus and has an IP68 waterproof rating.", "35000", "50000", url77, "1", 5);
+            dbHelper.insertProduct("realme 11x 5G (Purple Dawn, 128 GB)", "Avail yourself this 5G smartphone that offers a host of interesting features. The powerful MediaTek Dimensity 6100+ 5G chipset delivers a smooth performance. Click beautiful portraits with the 64 MP AI camera that offers exciting features like Street Photography Mode 4.0, Super Nightscape, 2x In-sensor zoom, and more. Equipped by a 5000 mAh long-lasting batte" +
+                    "ry, this phone runs for a longer duration and can be recharg", "13999", "16999", url88, "1", 5);
+            dbHelper.insertProduct("ROYAL SON", "Polarized, UV Protection Wayfarer, Retro Square Sunglasses (57)  (For Men & Women, Black)", "594", "1999", url99, "1", 5);
+            dbHelper.insertProduct("HAVELLS Trimmer ", "1 N Beard Trimmer, 1 N USB Cable, 1 N Cleaning Brush, 1 N Lubrication Oil, 1 N Instruction Manual45 min Runtime 13 Length Settings  (Black, Grey)", "749", "1495", url100, "1", 5);
         }
 //        fetchAndDisplayProducts(dbHelper);
         subCategoryAdapter = new SubCategoryAdapter(
@@ -182,10 +202,8 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
                 String product_id = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_ID));
                 String title = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_NAME));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_DESCRIPTION));
-                String rateStr = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_RATE));
-                int rate = Integer.parseInt(rateStr.replaceAll("[^0-9]", ""));
-                String mrpStr = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_MRP));
-                int mrp = Integer.parseInt(mrpStr.replaceAll("[^0-9]", ""));
+                String rate = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_RATE));
+                String mrp = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_MRP));
                 String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_IMAGE));
                 String quantity = String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow((ProductDatabaseHelper.COLUMN_PRODUCT_QUANTITY)))); // Get quantity from the database
                 String stockStr = cursor.getString(cursor.getColumnIndexOrThrow(ProductDatabaseHelper.COLUMN_PRODUCT_STOCK));
