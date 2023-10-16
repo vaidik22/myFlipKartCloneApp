@@ -18,6 +18,7 @@
         android:layout_marginEnd="0dp"
         android:gravity="center"
         android:text="Order Placed"
+        android:fontFamily="@font/mukta_regular"
         android:textSize="24sp"
         android:textColor="@color/black"
         android:textStyle="bold" />

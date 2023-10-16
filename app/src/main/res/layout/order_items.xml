@@ -33,8 +33,11 @@
                 android:id="@+id/order_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="Levis"
+                android:ellipsize="end"
+                android:fontFamily="@font/mukta_regular"
+                android:maxLines="2"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold">
@@ -45,9 +48,10 @@
                 android:id="@+id/product_description1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/mukta_regular"
                 android:text="Product Description"
-                android:textSize="12sp">
+                android:textSize="13sp">
 
             </TextView>
         </LinearLayout>

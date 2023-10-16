@@ -23,16 +23,16 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/camera"
+                android:src="@drawable/camera_icon_2"
                 app:civ_border_color="#808080" />
 
             <ImageButton
                 android:id="@+id/chooseImageButton"
-                android:layout_width="32dp"
-                android:layout_height="31dp"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="end"
-                android:background="@drawable/edit_pen" />
+                android:layout_gravity="bottom|end"
+                android:background="@drawable/edit_pen_2" />
         </FrameLayout>
     </LinearLayout>
 
@@ -49,6 +49,7 @@
             android:id="@+id/nameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/mukta_regular"
             android:layout_below="@id/chooseImageButton"
             android:hint="Name" />
 
@@ -56,6 +57,7 @@
             android:id="@+id/edit_Text_Name"
             android:layout_width="match_parent"
             style="@style/CustomEditTextStyle"
+            android:fontFamily="@font/mukta_regular"
             android:layout_height="wrap_content"
             android:background="@drawable/recycler_view">
 
@@ -65,6 +67,7 @@
             android:id="@+id/usernameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/mukta_regular"
             android:layout_below="@id/nameTextView"
             android:hint="Username" />
 
@@ -72,8 +75,11 @@
             android:id="@+id/edit_Text_Username"
             android:layout_width="match_parent"
             style="@style/CustomEditTextStyle"
+            android:background="@drawable/recycler_view"
             android:layout_height="wrap_content"
-            android:background="@drawable/recycler_view"></EditText>
+            android:fontFamily="@font/mukta_regular">
+
+        </EditText>
 
         <Button
             android:id="@+id/saveButton"

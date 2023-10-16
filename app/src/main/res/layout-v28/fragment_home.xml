@@ -79,8 +79,8 @@
                 android:text="DAILY PRODUCTS"
                 android:textColor="@color/black"
                 android:visibility="gone"
-                android:textSize="20dp"
-                android:textStyle="italic">
+
+                android:textSize="20dp">
 
             </TextView>
 
@@ -114,10 +114,10 @@
                 android:gravity="left"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
+                android:fontFamily="@font/mukta_extra_bold"
                 android:text="NEW ARRIVAL"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="italic">
+                android:textSize="20dp">
 
             </TextView>
 

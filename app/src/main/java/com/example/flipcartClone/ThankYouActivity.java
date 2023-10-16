@@ -82,6 +82,7 @@ public class ThankYouActivity extends AppCompatActivity {
         // Initialize your database helpers
         ProductDatabaseHelper productDatabaseHelper = new ProductDatabaseHelper(this);
         CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(this);
+      //  productDatabaseHelper.clearProducts();
 
         // Fetch cart items
         ArrayList<CartItemModel> cartItems = cartDatabaseHelper.getCartItems();

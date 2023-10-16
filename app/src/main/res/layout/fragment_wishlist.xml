@@ -22,6 +22,7 @@
             android:id="@+id/wishlist_empty_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/mukta_regular"
             android:text="Your Wishlist is empty"
             android:textSize="18sp" />
 

@@ -17,7 +17,7 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_QUANTITY = "quantity";
     public static final String COLUMN_DESCRIPTION = "description";
     private static final String DATABASE_NAME = "cart.db";
-    private static final int DATABASE_VERSION = 63;
+    private static final int DATABASE_VERSION = 64;
 
     // Define table and column names
     private static final String COLUMN_PRODUCT_NAME = "product_name";

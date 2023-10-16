@@ -59,6 +59,7 @@
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="20sp"
+                            android:fontFamily="@font/mukta_medium"
                             android:textStyle="bold" />
                     </RelativeLayout>
                 </androidx.appcompat.widget.Toolbar>
@@ -93,11 +94,13 @@
 
                         <TextView
                             android:id="@+id/tv_title2"
-                            android:layout_width="wrap_content"
+                            android:layout_width="123dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:textColor="#ffff"
+                            android:ellipsize="end"
                             android:textStyle="bold"
+                            android:fontFamily="@font/mukta_regular"
                             android:maxLines="1"
                             android:text="Title of the page">
 
@@ -124,6 +127,7 @@
             android:layout_height="wrap_content"
             style="@style/Theme.MyApp.LightMode"
             android:layout_alignParentBottom="true"
+            android:fontFamily="@font/mukta_regular"
             android:background="@color/white"
             android:visibility="gone"
             app:menu="@menu/bottom_navigation_menu">

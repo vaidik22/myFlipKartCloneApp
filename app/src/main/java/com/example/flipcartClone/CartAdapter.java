@@ -48,6 +48,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.cartProductName.setText(cartItem.getProductName());
         holder.cartProductRate.setText(String.format("₹%.2f", Double.parseDouble(String.valueOf(cartItem.getProductRate()))));
         holder.cartProductQuantity.setText("Quantity: " + cartItem.getQuantity());
+        holder.outofstock1.setVisibility(View.GONE);
+        String mrpString = String.valueOf(cartItem.getProductMrp());
+        String rateString = String.valueOf(cartItem.getProductRate());
+        double mrp = Double.parseDouble(mrpString);
+        double rate = Double.parseDouble(rateString);
+        double percentageDifference = ((mrp - rate) / mrp) * 100;
+        int roundedPercentage = (int) Math.round(percentageDifference);
+        holder.mrpTextView.setText(roundedPercentage + "% off");
         Glide.with(context)
                 .load(cartItem.getImageUrl()) // Load the image from the URL or resource ID
                 .into(holder.cart_Product_image);
@@ -227,6 +235,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         TextView totalCostTextView;
         Button placeOrder;
         TextView outofstock1;
+        TextView mrpTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -240,6 +249,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             totalCostTextView = itemView.findViewById(R.id.totalCostTextView);
             placeOrder = itemView.findViewById(R.id.place_order);
             outofstock1 = itemView.findViewById(R.id.outofstock1);
+            mrpTextView = itemView.findViewById(R.id.discount);
 //            elegantButton.setOnValueChangeListener((view, oldValue, newValue) -> {
 //                int position = getAdapterPosition();
 //                if (position != RecyclerView.NO_POSITION) {

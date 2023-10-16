@@ -37,8 +37,8 @@
 
 
     <LinearLayout
-        android:layout_width="127dp"
-        android:layout_height="134dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
 
@@ -47,44 +47,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Product Name"
+            android:fontFamily="@font/mukta_regular"
             android:textColor="@color/black"
-            android:textSize="12sp"
+            android:textSize="14dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/cart_product_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/mukta_regular"
             android:text="Product Rate: $0.00"
-            android:textSize="14sp" />
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/quantity"
+            android:fontFamily="@font/mukta_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mukta_regular"
+            android:text="%"
+            android:textColor="#008000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/delete_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|right"
+            android:background="@drawable/delete">
+
+        </ImageButton>
+
+        <TextView
             android:id="@+id/outofstock1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/mukta_regular"
             android:text="out of stock"
-            android:textColor="@color/red"
-            android:visibility="gone" />
+            android:textColor="@color/red" />
 
 
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/delete_button"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="bottom|right"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/delete">
-
-    </ImageButton>
 
 
 </LinearLayout>

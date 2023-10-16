@@ -33,6 +33,7 @@ public class OrderHistoryFragment extends Fragment {
         recyclerView = view.findViewById(R.id.orderRecyclerView); // Make sure to define the RecyclerView in your XML layout
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         ((HomeActivity) requireActivity()).toggleBottomNavigationView(false);
+        //orderDatabaseHelper.clearOrders();
 
         // Get a list of orders from the database
         ArrayList<OrderModel> orderList = getOrderList(); // Define the OrderModel class to represent order data
@@ -45,7 +46,6 @@ public class OrderHistoryFragment extends Fragment {
 
     private ArrayList<OrderModel> getOrderList() {
         ArrayList<OrderModel> orderList = new ArrayList<>();
-
         // Use the OrderDatabaseHelper to retrieve orders from the database
         SQLiteDatabase db = orderDatabaseHelper.getReadableDatabase();
         String[] projection = {

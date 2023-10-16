@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
+                android:fontFamily="@font/mukta_medium"
                 android:textColor="@android:color/black"
                 android:textSize="18dp"
                 android:textStyle="bold">
@@ -43,9 +44,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/mukta_regular"
                 android:text="Basic in Ear Wired Earphones with mic in-line Mic,10mm Dual Driver
 , Powerful Bass , Noise Reduction, 3.5 mm Audio Jack(Black, WE02)"
-                android:textSize="12dp" />
+                android:textSize="15dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,6 +60,7 @@
                     android:layout_height="wrap_content"
                     android:foreground="@drawable/strickthrough"
                     android:text="Rs599"
+                    android:fontFamily="@font/mukta_regular"
                     android:textColor="#80000000"
                     android:textSize="18dp">
 
@@ -72,6 +75,7 @@
                     android:text="Rs299"
                     android:textColor="@color/black"
                     android:textSize="18dp"
+                    android:fontFamily="@font/mukta_regular"
                     android:textStyle="bold"
                     tools:ignore="RtlSymmetry"></TextView>
 
@@ -81,6 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="-50%"
+                    android:fontFamily="@font/mukta_regular"
                     android:textColor="#008000"
                     android:textSize="18dp">
 

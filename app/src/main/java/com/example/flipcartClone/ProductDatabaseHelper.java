@@ -21,7 +21,7 @@ class ProductDatabaseHelper extends SQLiteOpenHelper {
     static final String COLUMN_PRODUCT_QUANTITY = "product_quantity";
     static final String COLUMN_PRODUCT_STOCK = "product_stocks";
     private static final String DATABASE_NAME = "product.db";
-    private static final int DATABASE_VERSION = 74;
+    private static final int DATABASE_VERSION = 75;
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_PRODUCTS + " (" +
                     COLUMN_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
