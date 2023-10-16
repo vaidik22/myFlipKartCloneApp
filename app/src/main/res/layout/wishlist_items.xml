@@ -1,65 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="8dp"
-    android:paddingTop="8dp"
-    android:paddingRight="8dp"
-    android:paddingBottom="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp"
+        android:orientation="vertical"
         android:background="@drawable/recycler_view"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="5dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
 
-        <!-- Product Image -->
-        <ImageView
-            android:id="@+id/wishlistItemImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/gucci" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <!-- Close Button (Cross Sign) -->
+            <ImageView
+                android:id="@+id/wishlistItemImage"
+                android:layout_width="150dp"
+                android:layout_height="250dp"
+                android:layout_gravity="top|center"
+                android:padding="5dp"
+                android:src="@drawable/indoera1" />
 
-    <!-- Product Name -->
+            <ImageButton
+                android:id="@+id/wishlistItemImageButton"
+                android:layout_width="31dp"
+                android:layout_height="30dp"
+                android:layout_gravity="top|end"
+                android:background="@drawable/delete" />
 
-    <ImageButton
-        android:id="@+id/wishlistItemImageButton"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignTop="@id/wishlistItemImage"
-        android:layout_alignEnd="@id/wishlistItemImage"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="-22dp"
-        android:background="@drawable/crossicon2" />
+            <ImageButton
+                android:id="@+id/crossIcon"
+                android:layout_width="31dp"
+                android:layout_height="30dp"
+                android:layout_gravity="top|end"
+                android:background="@drawable/crossicon1"
+                android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/wishlistItemName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/wishlistItemImage"
-        android:layout_marginTop="8dp"
-        android:text="Product Name"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        </FrameLayout>
 
-    <!-- Product Amount -->
-    <TextView
-        android:id="@+id/wishlistItemRate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/wishlistItemName"
-        android:layout_marginTop="4dp"
-        android:text="$19.99"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="#e6e6e6" />
 
-    <!-- Buy Now Button -->
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_vertical">
 
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="1dp">
+
+            <!-- Other views for product information -->
+
+            <!-- "Add to Cart" Button -->
+            <TextView
+                android:id="@+id/wishlistItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="New Text"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/wishlistItemMRP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:foreground="@drawable/strickthrough"
+                    android:text="rs"
+                    android:textColor="#80000000"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/wishlistItemRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="5dp"
+                    android:text="\u20B9"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="5dp"
+                    android:text="%"
+                    android:textColor="#008000"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+            <!-- item_out_of_stock.xml -->
+            <LinearLayout
+                android:id="@+id/layout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                android:visibility="gone"
+                app:backGroundColor="#FFA500">
+
+                <Button
+                    android:id="@+id/addToCartButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/square_button_background"
+                    android:gravity="center"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:text="Add to Cart"
+                    android:textColor="@color/white"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                    android:id="@+id/numberButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/square_button_background"
+                    android:gravity="center"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:visibility="gone"
+                    app:backGroundColor="#FFA500">
+
+                </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ... Other views for product information ... -->
 </LinearLayout>

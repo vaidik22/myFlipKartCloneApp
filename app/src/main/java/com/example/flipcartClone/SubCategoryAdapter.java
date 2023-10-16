@@ -3,15 +3,19 @@ package com.example.flipcartClone;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.bumptech.glide.Glide;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
@@ -27,7 +32,7 @@ import com.example.flicpcartClone.R;
 
 import java.util.ArrayList;
 
-public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.ViewHolder> {
+public class SubCategoryAdapter extends Adapter<SubCategoryAdapter.ViewHolder> {
     private CartDatabaseHelper dbcartHelp;
     private Context context;
     private ArrayList<SubCategoryModel> productList;
@@ -57,6 +62,15 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         dbProductHelper = new ProductDatabaseHelper(context);
         dbWishListHelper = new WishListDatabaseHelper(context);
 
+    }
+
+    public void filterList(ArrayList<SubCategoryModel> filterlist) {
+        // below line is to add our filtered
+        // list in our course array list.
+        productList = filterlist;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
     }
 
     // Setter method to set the listener
@@ -92,18 +106,29 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         boolean isInWishlist = dbWishListHelper.isProductInWishlist(item.getProductId());
         boolean isInCart = dbcartHelp.isProductInCart(item.getProductId());
         int updatedStock = dbProductHelper.getProductStock(String.valueOf(item.getProductId()));
+        new Handler().postDelayed(new Runnable() {
 
+            @Override
+            public void run() {
+                holder.progressBar.setVisibility(View.GONE);
+            }
+
+        }, 1000);
         if (updatedStock == 0) {
             holder.out_of_stock.setVisibility(View.VISIBLE);
             holder.addToCartButton.setEnabled(false);
             int greyColor = ContextCompat.getColor(context, R.color.disabledGreyColor);
-            holder.addToCartButton.setBackgroundTintList(ColorStateList.valueOf(greyColor));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                holder.addToCartButton.setBackgroundTintList(ColorStateList.valueOf(greyColor));
+            }
             holder.imageView.setAlpha(0.5f);
         } else {
             holder.out_of_stock.setVisibility(View.GONE);
             holder.addToCartButton.setEnabled(true);
             int normalColor = ContextCompat.getColor(context, R.color.yellow);
-            holder.addToCartButton.setBackgroundTintList(ColorStateList.valueOf(normalColor));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                holder.addToCartButton.setBackgroundTintList(ColorStateList.valueOf(normalColor));
+            }
             holder.imageView.setAlpha(1.0f);
         }
 
@@ -208,9 +233,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                         holder.numberButton.setNumber(String.valueOf(newValue));
                         holder.addToCartButton.setVisibility(View.GONE);
                         dbcartHelp.updateProductQuantityInCart(productId, newValue);
-                        int stockLeft = newValue - availableStock;
-                        Toast.makeText(context, " left in Stock" + stockLeft, Toast.LENGTH_SHORT).show();
-
+//                      int stockLeft = newValue - availableStock;
+//                      Toast.makeText(context, " left in Stock" + stockLeft, Toast.LENGTH_SHORT).show();
 
                     }
                 } else if (newValue >= availableStock) {
@@ -257,11 +281,12 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     }
 
     public interface OnQuantityChangeListener {
+        boolean onCreateOptionsMenu(Menu menu);
+
         void onBackPressed();
 
         void onQuantityChanged(int position, int newQuantity);
     }
-
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -282,6 +307,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         ImageButton wishlistIcon;
         ImageButton crossIcon;
         LinearLayout layout_button;
+        ProgressBar progressBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -299,6 +325,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
             out_of_stock = itemView.findViewById(R.id.out_of_stock);
             discount = itemView.findViewById(R.id.discount);
             layout_button = itemView.findViewById(R.id.layout_button);
+            progressBar = itemView.findViewById(R.id.PBLoading2);
         }
     }
 }

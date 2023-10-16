@@ -5,12 +5,16 @@ import static com.example.flipcartClone.DatabaseHelper.COLUMN_USERNAME;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,13 +42,14 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
     ArrayList<CircularModel> cList;
     CircularAdapter circularAdapter;
     SearchView searchView;
+    ProgressBar progressBar;
     TextView searchHintText;
-    String url1 = "https://cdn.zoutons.com/images/originals/blog/main-banner_1693650934.png";
-    String url2 = "https://cdn.flipshope.com/blog/wp-content/uploads/2023/05/Flipkart-Upcoming-Sale.jpg";
-    String url3 = "https://cdn.flipshope.com/blog/wp-content/uploads/2023/01/Flipkart-New-Year-Sale-2023.jpg";
+    String url1 = "https://i.pinimg.com/originals/a4/6b/4e/a46b4ef475e27837660cca8cadf48d2e.jpg";
+    String url2 = "https://aws-obg-image-lb-4.tcl.com/content/dam/brandsite/region/in/news/pc/news-detail/Flipkart%20sale%20Valentine%20day%20banner.jpg";
+    String url3 = "https://androidjunglee.com/wp-content/uploads/2015/06/big-app-shoppings-android-phones.jpg";
     SubCategoryAdapter subCategoryAdapter;
-    String url44 = "https://www.myraymond.com/media/product/PCSA02393-W1/8476360924_PCSA02393-W1(3).jpg";
-    String url55 = "https://rukminim2.flixcart.com/image/832/832/xif0q/top/e/e/h/xl-1023ykp-yash-gallery-original-imagpcfgvx42kbrz.jpeg?q=70";
+    String url44 = "https://www.cottonedge.in/cdn/shop/files/1_f2e0f85a-cd0b-4353-800c-fff53cbcda53.png?v=1687158360";
+    String url55 = "https://i.pinimg.com/736x/5d/6f/1e/5d6f1eb38bdd2fe202f5eff2af3eb7c5.jpg";
     String url66 = "https://www.lavanyathelabel.com/cdn/shop/products/sku_2_1.jpg?v=1672232467&width=1024";
     String url666 = "https://m.media-amazon.com/images/I/61SSVxTSs3L._SL1500_.jpg";
     String url77 = "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/b/h/c/-original-imagth5xwrg4gfyp.jpeg?q=70";
@@ -59,7 +64,15 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
         dbHelper = new ProductDatabaseHelper(getContext());
         searchView = root.findViewById(R.id.search_view);
         searchHintText = root.findViewById(R.id.search_hint_text);
-        // Initially show the hint text
+        progressBar = root.findViewById(R.id.idPBLoading1);
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+
+        }, 1000);
         searchHintText.setVisibility(View.VISIBLE);
 
 
@@ -85,6 +98,7 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
             @Override
             public boolean onQueryTextChange(String newText) {
                 // Show or hide hint based on search text
+                filter(newText);
                 searchHintText.setVisibility(newText.isEmpty() && !searchView.hasFocus() ? View.VISIBLE : View.INVISIBLE);
                 return true;
             }
@@ -119,6 +133,7 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
         add_to_cart_rec_product = root.findViewById(R.id.add_to_cart_rec_product);
         add_to_cart_rec_product.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
         loadDataForSelectedPosition(dbHelper);
+        progressBar.setVisibility(View.GONE);
         return root;
     }
     @Override
@@ -140,14 +155,16 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
     }
 
     private void loadDataForSelectedPosition(ProductDatabaseHelper dbHelper) {
-        //dbHelper.clearProducts();
+
+        //
+        // dbHelper.clearProducts();
         if (getProductItemsFromDataSource().size() > 0) {
 //           productList = dbHelper.getProductItems();
             fetchAndDisplayProducts(dbHelper);
         } else {
-            dbHelper.insertProduct("Park Avenue", "Men Slim Fit Pure Cotton Printed Casual Shirt,Blue conversational printed opaque Casual shirt " +
+            dbHelper.insertProduct("Dennis Lingo Men's Solid Slim Fit Cotton Casual Shirt", "Men Slim Fit Pure Cotton Printed Casual Shirt,Blue conversational printed opaque Casual shirt " +
                     "\n", "1300", "5000", url44, "1", 5);
-            dbHelper.insertProduct("Libas", "Women Beige & Mustard Yellow Zari Woven Design Straight Kurta Trousers Dupatta Our 3-piece beige woven design silk suit set features a straight-fit floral embroidery kurta"
+            dbHelper.insertProduct("STREET 9 Classy Black Geometric Top", "Women Beige & Mustard Yellow Zari Woven Design Straight Kurta Trousers Dupatta Our 3-piece beige woven design silk suit set features a straight-fit floral embroidery kurta"
                     , "1500", "3500", url55, "1", 5);
             dbHelper.insertProduct("Lavanya The Label", "Tie-Dye Printed Anarkali Kurta With Trousers & Dupattaie-dye printed",
                     "2000", "6000", url66, "1", 5);
@@ -156,15 +173,9 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
                     "ght photography features on this Samsung Galaxy" +
                     " S22 5G smartphone. You can click stunning images eve" +
                     "n in low light with the Nightography mode. It is de" +
-                    "signed with a pro-grade camera which comprises a b" +
-                    "ig pixel sensor that welcomes more light for mind-blow" +
-                    "ing photography. Built with impressive software and hardware, " +
-                    "this phone is a game-changer. With a 120 Hz refresh rate and dynamic AMO" +
-                    "LED 2x display, you are going to experience immersive screen time. This phone " +
-                    "operates on a Snapdragon 8 Gen 1 processor that delivers quick and hassle- free navigation." +
-                    " This device is protected by Corning Gorilla Glass Victus and has an IP68 waterproof rating.", "35000", "50000", url77, "1", 5);
-            dbHelper.insertProduct("realme 11x 5G (Purple Dawn, 128 GB)", "Avail yourself this 5G smartphone that offers a host of interesting features. The powerful MediaTek Dimensity 6100+ 5G chipset delivers a smooth performance. Click beautiful portraits with the 64 MP AI camera that offers exciting features like Street Photography Mode 4.0, Super Nightscape, 2x In-sensor zoom, and more. Equipped by a 5000 mAh long-lasting batte" +
-                    "ry, this phone runs for a longer duration and can be recharg", "13999", "16999", url88, "1", 5);
+                    "signed with a pro-grade camera which comprises a b", "35000", "50000", url77, "1", 5);
+            dbHelper.insertProduct("realme 11x 5G (Purple Dawn, 128 GB)", "Avail yourself this 5G smartphone that offers a host of interesting features. The powerful MediaTek Dimensity 6100+ 5G chipset delivers a smooth performan"
+                    , "13999", "16999", url88, "1", 5);
             dbHelper.insertProduct("ROYAL SON", "Polarized, UV Protection Wayfarer, Retro Square Sunglasses (57)  (For Men & Women, Black)", "594", "1999", url99, "1", 5);
             dbHelper.insertProduct("HAVELLS Trimmer ", "1 N Beard Trimmer, 1 N USB Cable, 1 N Cleaning Brush, 1 N Lubrication Oil, 1 N Instruction Manual45 min Runtime 13 Length Settings  (Black, Grey)", "749", "1495", url100, "1", 5);
         }
@@ -217,6 +228,30 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
                 subCategoryAdapter.notifyDataSetChanged();
             }
             // Initialize the adapter if it's null and set it to the RecyclerView
+        }
+    }
+
+    private void filter(String text) {
+        // creating a new array list to filter our data.
+        ArrayList<SubCategoryModel> filteredlist = new ArrayList<SubCategoryModel>();
+
+        // running a for loop to compare elements.
+        for (SubCategoryModel item : productList) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.getTitle().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist.add(item);
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            // if no item is added in filtered list we are
+            // displaying a toast message as no data found.
+            Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
+        } else {
+            // at last we are passing that filtered
+            // list to our adapter class.
+            subCategoryAdapter.filterList(filteredlist);
         }
     }
 
@@ -374,6 +409,11 @@ public class HomeFragment extends Fragment implements SubCategoryAdapter.OnQuant
 //        });
 //    }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
+    }
 
     @Override
     public void onBackPressed() {

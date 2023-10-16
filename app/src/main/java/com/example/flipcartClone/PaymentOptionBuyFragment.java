@@ -29,7 +29,7 @@ public class PaymentOptionBuyFragment extends Fragment implements PaymentStatusL
         View rootView = inflater.inflate(R.layout.fragment_payment_buy_options, container, false);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button continueButton = rootView.findViewById(R.id.btn_continue);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RadioGroup radioGroupPayment = rootView.findViewById(R.id.radio_group_payment);
-
+        ((HomeActivity) requireActivity()).toggleBottomNavigationView(false);
         // Set the total amount to the TextView
         Bundle args = getArguments();
         if (args != null) {
@@ -106,10 +106,22 @@ public class PaymentOptionBuyFragment extends Fragment implements PaymentStatusL
         startActivity(intent);
     }
 
+    public void navigateToCancelFragment() {
+        // Create an instance of the ThankYouFragment
+        Intent intent = new Intent(requireContext(), PaymentCancelActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onTransactionCompleted(TransactionDetails transactionDetails) {
         navigateToThankYouFragment();
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((HomeActivity) requireActivity()).toggleBottomNavigationView(true);
     }
 
     @Override
@@ -119,21 +131,21 @@ public class PaymentOptionBuyFragment extends Fragment implements PaymentStatusL
 
     @Override
     public void onTransactionSubmitted() {
-        navigateToThankYouFragment();
+        navigateToCancelFragment();
     }
 
     @Override
     public void onTransactionFailed() {
-        navigateToThankYouFragment();
+        navigateToCancelFragment();
     }
 
     @Override
     public void onTransactionCancelled() {
-        navigateToThankYouFragment();
+        navigateToCancelFragment();
     }
 
     @Override
     public void onAppNotFound() {
-        navigateToThankYouFragment();
+        navigateToCancelFragment();
     }
 }

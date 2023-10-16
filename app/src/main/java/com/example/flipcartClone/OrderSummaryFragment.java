@@ -26,6 +26,7 @@ public class OrderSummaryFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.order_summary, container, false);
         SessionManager sessionManager = new SessionManager(requireContext());
         addressEditText = rootView.findViewById(R.id.et_address);
+        ((HomeActivity) requireActivity()).toggleBottomNavigationView(false);
         DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
         String userId = sessionManager.getPhoneNumber();
         Cursor cursor = dbHelper.getUsernameAndName(userId);
@@ -105,11 +106,16 @@ public class OrderSummaryFragment extends Fragment {
     }
 
 
-
     private ArrayList<CartItemModel> getCartItemsFromDataSource() {
         ArrayList<CartItemModel> cartItems = new ArrayList<>();
         CartDatabaseHelper dbHelper = new CartDatabaseHelper(getContext());
         cartItems = dbHelper.getCartItems();
         return cartItems;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((HomeActivity) requireActivity()).toggleBottomNavigationView(true);
     }
 }

@@ -2,12 +2,14 @@ package com.example.flipcartClone;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -26,12 +28,29 @@ public class CartFragment extends Fragment implements CartAdapter.CartListEmptyL
     private CartAdapter cartAdapter;
     LinearLayout empty_cart;
     LinearLayout cart_items_present;
+    ProgressBar progressBar;
     private ArrayList<CartItemModel> cartItems;
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        progressBar = view.findViewById(R.id.idPBLoading4);
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+
+        }, 1000);
+        Button continueShoppingButton = view.findViewById(R.id.continue_shopping_button);
+        continueShoppingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToHomeFragment();
+            }
+        });
 
         recyclerView = view.findViewById(R.id.cart_recycler_view);
         cart_product_quantity = view.findViewById(R.id.quantity);

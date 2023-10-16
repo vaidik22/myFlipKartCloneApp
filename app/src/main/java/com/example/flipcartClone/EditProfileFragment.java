@@ -50,7 +50,7 @@ public class EditProfileFragment extends Fragment {
         nameTextView1 = rootView.findViewById(R.id.edit_Text_Name);
         usernameTextView1 = rootView.findViewById(R.id.edit_Text_Username);
         SessionManager sessionManager = new SessionManager(requireContext());
-
+        ((HomeActivity) requireActivity()).toggleBottomNavigationView(false);
 
         chooseImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,6 +183,12 @@ public class EditProfileFragment extends Fragment {
                 // For example, show a message or disable camera functionality
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((HomeActivity) requireActivity()).toggleBottomNavigationView(true);
     }
 
     private void openImagePicker() {

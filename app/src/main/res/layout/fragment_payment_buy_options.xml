@@ -1,4 +1,4 @@
-<!-- fragment_payment_options.xml -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="Payment Options"></TextView>
+        android:text="Payment Options">
+
+    </TextView>
 
 
     <RadioGroup
@@ -77,6 +79,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_total_amount"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/yellow"
+        android:background="@drawable/square_button_background"
+        android:textColor="@color/white"
+        android:textStyle="bold"
         android:text="Continue" />
 </RelativeLayout>

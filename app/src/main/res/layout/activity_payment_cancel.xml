@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <!-- "Thank You" TextView -->
+
+    <!-- "Continue Shopping" Button -->
+
+    <TextView
+        android:id="@+id/tv_thank_you"
+        android:layout_width="395dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="154dp"
+        android:layout_marginEnd="0dp"
+        android:gravity="center"
+        android:text="Order Cancelled"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_continue_shopping"
+        android:layout_width="172dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="500dp"
+        android:background="@drawable/square_button_background"
+        android:text="Continue Shopping"
+        android:textColor="@color/white" />
+
+    <!-- "Tick" ImageView (Initially Hidden) -->
+    <ImageView
+        android:id="@+id/iv_tick"
+        android:layout_width="251dp"
+        android:layout_height="233dp"
+        android:layout_below="@+id/tv_thank_you"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="91dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/your_cross_image" />
+
+</RelativeLayout>

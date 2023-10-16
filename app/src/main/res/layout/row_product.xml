@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="0.5dp"
+        android:layout_margin="1dp"
         android:orientation="vertical"
         android:background="@drawable/recycler_view"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,6 +54,15 @@
                 android:gravity="center"
                 android:rotation="340"
                 android:src="@drawable/outofstock" />
+
+            <ProgressBar
+                android:id="@+id/PBLoading2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/black"
+                tools:ignore="MissingConstraints" />
         </FrameLayout>
 
         <View
@@ -83,11 +92,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="New Text"
                 android:ellipsize="end"
-                android:textColor="@color/black"
-                android:fontFamily="sans-serif-smallcaps"
                 android:maxLines="1"
+                android:text="New Text"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -97,9 +105,8 @@
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:ellipsize="end"
-                android:fontFamily="sans-serif-smallcaps"
                 android:maxLines="1"
-                android:textSize="12dp" />
+                android:textSize="11sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -112,7 +119,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
                     android:layout_marginEnd="1dp"
-                    android:fontFamily="sans-serif-smallcaps"
                     android:foreground="@drawable/strickthrough"
                     android:text="rs"
                     android:textColor="#80000000"
@@ -123,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="\u20B9"
-                    android:fontFamily="sans-serif-smallcaps"
+                    android:paddingLeft="5dp"
                     android:textColor="@color/black"
                     android:textSize="12dp"
                     android:textStyle="bold" />
@@ -132,9 +138,8 @@
                     android:id="@+id/discount"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:fontFamily="sans-serif-smallcaps"
                     android:textColor="#008000"
-                    android:paddingLeft="2dp"
+                    android:paddingLeft="5dp"
                     android:text="%"
                     android:textSize="12dp"
                     android:textStyle="bold" />
@@ -159,8 +164,10 @@
                     android:background="@drawable/square_button_background"
                     android:gravity="center"
                     android:paddingTop="1dp"
+                    android:textColor="@color/white"
                     android:paddingBottom="1dp"
                     android:text="Add to Cart"
+                    android:textStyle="bold"
                     android:textSize="10dp"
                     android:visibility="gone" />
 
@@ -174,7 +181,9 @@
                     android:paddingTop="1dp"
                     android:paddingBottom="1dp"
                     android:visibility="gone"
-                    app:backGroundColor="#FFA500"></com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+                    app:backGroundColor="#FFA500">
+
+                </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
             </LinearLayout>
 
         </LinearLayout>

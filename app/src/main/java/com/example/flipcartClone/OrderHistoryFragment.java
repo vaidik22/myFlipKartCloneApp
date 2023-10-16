@@ -32,6 +32,7 @@ public class OrderHistoryFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.orderRecyclerView); // Make sure to define the RecyclerView in your XML layout
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        ((HomeActivity) requireActivity()).toggleBottomNavigationView(false);
 
         // Get a list of orders from the database
         ArrayList<OrderModel> orderList = getOrderList(); // Define the OrderModel class to represent order data
@@ -84,5 +85,11 @@ public class OrderHistoryFragment extends Fragment {
         db.close();
 
         return orderList;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((HomeActivity) requireActivity()).toggleBottomNavigationView(true);
     }
 }

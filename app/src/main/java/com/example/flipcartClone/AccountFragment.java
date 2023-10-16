@@ -1,13 +1,18 @@
 package com.example.flipcartClone;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
@@ -21,6 +26,7 @@ import com.example.flicpcartClone.R;
 
 public class AccountFragment extends Fragment {
     Button logoutButton;
+    ProgressBar progressBar;
     private SessionManager sessionManager;
 
     @SuppressLint("MissingInflatedId")
@@ -29,20 +35,33 @@ public class AccountFragment extends Fragment {
         Button editProfileButton = view.findViewById(R.id.editprofile);
         Button cart = view.findViewById(R.id.cart);
         Button wishlistButton = view.findViewById(R.id.wishlist); // Find the Wishlist button
-        Button orderButton = view.findViewById(R.id.orders); // Find the Wishlist button
+        Button orderButton = view.findViewById(R.id.orders);
+        Button helpButton = view.findViewById(R.id.help);
+        progressBar = view.findViewById(R.id.idPBLoading3);
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+
+        }, 1000);
         logoutButton = view.findViewById(R.id.logoutButton);
         sessionManager = new SessionManager(requireContext());
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showLogoutConfirmationDialog();
                 // Logout the user (clear session data, etc.) and navigate to LoginActivity
-                sessionManager.logoutUser(); // You should implement this method in your SessionManager class
-
-                // Start the LoginActivity
-                Intent intent = new Intent(requireContext(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                requireActivity().finish(); // Finish the current activity (AccountFragment)
+            }
+        });
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String myNumber = "8887825524";
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:" + myNumber));
+                startActivity(callIntent);
             }
         });
         DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
@@ -121,6 +140,39 @@ public class AccountFragment extends Fragment {
 
         return view;
     }
+
+    private void showLogoutConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Confirm Logout");
+        builder.setMessage("Are you sure you want to logout?");
+        builder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User clicked the "Logout" button in the dialog, perform the logout action
+                sessionManager.logoutUser();
+                navigateToLoginScreen();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User clicked the "Cancel" button, do nothing, and close the dialog
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+
+    private void navigateToLoginScreen() {
+        Intent intent = new Intent(requireContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        requireActivity().finish(); // Finish the current activity (AccountFragment)
+    }
+
 
     private void navigateToHomeFragment() {
         HomeFragment homeFragment = new HomeFragment();

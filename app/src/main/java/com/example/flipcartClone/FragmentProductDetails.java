@@ -37,6 +37,7 @@ public class FragmentProductDetails extends Fragment {
         productImageView = root.findViewById(R.id.productImageView);
         percentage = root.findViewById(R.id.percentage);
         buyButton = root.findViewById(R.id.buyButton);
+        ((HomeActivity) requireActivity()).toggleBottomNavigationView(false);
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,8 +86,11 @@ public class FragmentProductDetails extends Fragment {
         transaction.addToBackStack(null); // This allows the user to navigate back to the previous fragment
         transaction.commit();
     }
-    private void navigateBackToSubCategoryFragment() {
-        requireActivity().getSupportFragmentManager().popBackStack();
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((HomeActivity) requireActivity()).toggleBottomNavigationView(true);
     }
 
 }

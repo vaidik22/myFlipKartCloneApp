@@ -32,19 +32,21 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
         this.wishlistEmptyListener = listener;
     }
 
-
-    public WishListAdapter(List<WishListItem> wishlistItems, Context context) {
-        this.wishlistItems = wishlistItems;
-        this.context = context;
-        dbwishlisthelper = new WishListDatabaseHelper(context);
-    }
-
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull WishListAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         WishListItem item = wishlistItems.get(position);
         // Bind data from the WishListItem to the views in wishlist_item.xml
         holder.itemNameTextView.setText(item.getProductName());
         holder.itemRateTextView.setText("₹" + item.getProductRate());
+        holder.itemMRPTextView.setText("₹" + item.getProductMrp());
+        String mrpString = String.valueOf(item.getProductMrp());
+        String rateString = String.valueOf(item.getProductRate());
+        double mrp = Double.parseDouble(mrpString);
+        double rate = Double.parseDouble(rateString);
+        double percentageDifference = ((mrp - rate) / mrp) * 100;
+        int roundedPercentage = (int) Math.round(percentageDifference);
+        holder.discount.setText(roundedPercentage + "% off");
         Glide.with(context).load(item.getImageUrl()).into(holder.itemImageView);
         holder.wishlistItemImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,13 +104,18 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.ViewHo
         ImageView itemImageView;
         TextView itemNameTextView;
         TextView itemRateTextView;
+        TextView itemMRPTextView;
+        TextView discount;
         ImageButton wishlistItemImageButton;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemImageView = itemView.findViewById(R.id.wishlistItemImage);
             itemNameTextView = itemView.findViewById(R.id.wishlistItemName);
             itemRateTextView = itemView.findViewById(R.id.wishlistItemRate);
+            itemMRPTextView = itemView.findViewById(R.id.wishlistItemMRP);
+            discount = itemView.findViewById(R.id.discount);
             wishlistItemImageButton = itemView.findViewById(R.id.wishlistItemImageButton);
         }
     }

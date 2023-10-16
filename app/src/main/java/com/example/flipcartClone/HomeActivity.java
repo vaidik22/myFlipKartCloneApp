@@ -3,12 +3,10 @@ package com.example.flipcartClone;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -34,39 +32,43 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_MyApp_LightMode);
         sessionManager = new SessionManager(this);
         setContentView(R.layout.activity_home);
         appBarLayout = findViewById(R.id.appBar);
         appBarLayoutTwo = findViewById(R.id.appBar2);
         toolbar = findViewById(R.id.toolbar2);
+        toggleBottomNavigationView(true);
+
 
         BottomNavigationView bottomNavView = findViewById(R.id.bottomNavigation);
+
+        bottomNavView.setVisibility(View.VISIBLE);
         bottomNavView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        int id = item.getItemId();
-                        String title = "";
+                item -> {
+                    int id = item.getItemId();
+                    String title = "";
 
-                        if (id == NAVIGATION_HOME) {
-                            openFragment(new HomeFragment());
-                            title = "Home";
-                        } else if (id == NAVIGATION_ACCOUNT) {
-                            openFragment(new AccountFragment());
-                            title = "Account";
-                        } else if (id == NAVIGATION_CART) {
-                            openFragment(new CartFragment());
-                            title = "Cart";
-                        } else {
-                            bottomNavView.setVisibility(View.GONE);
-                        }
-
-                        // Set the title on tv_title2
-                        TextView tvTitle2 = findViewById(R.id.tv_title2);
-                        tvTitle2.setText(title);
-
-                        return true;
+                    if (id == NAVIGATION_HOME) {
+                        openFragment(new HomeFragment());
+                        title = "Home";
+                        bottomNavView.setVisibility(View.VISIBLE);
+                    } else if (id == NAVIGATION_ACCOUNT) {
+                        openFragment(new AccountFragment());
+                        title = "Account";
+                        bottomNavView.setVisibility(View.VISIBLE);
+                    } else if (id == NAVIGATION_CART) {
+                        openFragment(new CartFragment());
+                        title = "Cart";
+                        bottomNavView.setVisibility(View.VISIBLE);
+                    } else {
+                        bottomNavView.setVisibility(View.GONE);
                     }
+                    // Set the title on tv_title2
+                    TextView tvTitle2 = findViewById(R.id.tv_title2);
+                    tvTitle2.setText(title);
+
+                    return true;
                 });
 
         if (savedInstanceState == null) {
@@ -100,7 +102,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_section); // Replace 'R.id.fragment_container' with the actual ID of your fragment container
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_section);
         if (currentFragment instanceof HomeFragment) {
             showExitConfirmationDialog();
         } else {
@@ -133,12 +135,18 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    void toggleBottomNavigationView(boolean show) {
+        BottomNavigationView bottomNavView = findViewById(R.id.bottomNavigation);
+        bottomNavView.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
     private void openFragment(Fragment yourFragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_section, yourFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 
     public void onItemClick(int position) {
         String itemName = hList.get(position).getTitle();

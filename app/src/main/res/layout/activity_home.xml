@@ -31,12 +31,11 @@
 
                     <RelativeLayout
                         android:id="@+id/image_btn"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/roundstyle">
 
@@ -45,17 +44,18 @@
                             android:layout_width="63dp"
                             android:layout_height="34dp"
                             android:layout_marginEnd="10dp"
+                            android:foregroundGravity="center"
                             android:src="@drawable/logo22" />
 
                         <TextView
-                            android:layout_width="156dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="31dp"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="124dp"
-                            android:fontFamily="sans-serif-smallcaps"
+                            android:layout_marginEnd="15dp"
                             android:paddingStart="20dp"
                             android:paddingEnd="20dp"
                             android:text="FlipKart"
+                            android:gravity="center"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="20sp"
@@ -87,8 +87,8 @@
 
                         <ImageView
                             android:id="@+id/img_back"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
                             android:src="@drawable/back_button_icon_img" />
 
                         <TextView
@@ -98,6 +98,7 @@
                             android:layout_marginLeft="10dp"
                             android:textColor="#ffff"
                             android:textStyle="bold"
+                            android:maxLines="1"
                             android:text="Title of the page">
 
                         </TextView>
@@ -121,17 +122,13 @@
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Theme.MyApp.LightMode"
             android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:visibility="gone"
             app:menu="@menu/bottom_navigation_menu">
 
             <!-- Add a FrameLayout to create a badge -->
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginEnd="16dp">
-
-            </FrameLayout>
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     </RelativeLayout>

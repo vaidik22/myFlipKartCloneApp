@@ -36,7 +36,6 @@
             android:gravity="center"
             android:hint="Phone Number"
             android:inputType="number"
-            android:fontFamily="sans-serif-smallcaps"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
 
@@ -48,7 +47,6 @@
             android:background="@drawable/custombutton"
             android:gravity="center"
             android:hint="@string/password"
-            android:fontFamily="sans-serif-smallcaps"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
 
@@ -57,11 +55,10 @@
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/custombutton2"
+            android:background="@drawable/square_button_background"
             android:text="Login"
             android:textAllCaps="false"
             android:textColor="#FFFBF6"
-            android:fontFamily="sans-serif-smallcaps"
             tools:ignore="TouchTargetSizeCheck" />
         <View
             android:layout_width="fill_parent"
@@ -74,10 +71,9 @@
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/custombutton2"
+            android:background="@drawable/square_button_background"
             android:text="@string/register"
             android:textAllCaps="false"
-            android:fontFamily="sans-serif-smallcaps"
             android:textColor="#FFFBF6" />
 
     </LinearLayout>

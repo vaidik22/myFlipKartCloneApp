@@ -5,6 +5,7 @@ public class WishListItem {
     private String productName;
     private double productRate;
     private double productMrp;
+    private String description;
     private String imageUrl;
     private int quantity;
 
@@ -19,6 +20,14 @@ public class WishListItem {
 
     public int getProductId() {
         return productId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setProductId(int productId) {

@@ -27,10 +27,11 @@
 
         <Button
             android:id="@+id/continue_adding_button"
-            android:layout_width="wrap_content"
+            android:layout_width="162dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="#FFA500"
+            android:background="@drawable/square_button_background"
+            android:textColor="@color/white"
             android:text="Continue Adding" />
     </LinearLayout>
 

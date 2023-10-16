@@ -53,6 +53,14 @@ public class LoginActivity extends Activity {
             editTextPhoneNumber.setError("PhoneNumber is required");
             editTextPhoneNumber.requestFocus();
             return false;
+        } else if (phoneNumber.length() != 10) {
+            editTextPhoneNumber.setError("Mobile number must be 10 digits");
+            editTextPhoneNumber.requestFocus();
+            return false;
+        } else if (Integer.parseInt(String.valueOf(phoneNumber.charAt(0))) <= 5) {
+            editTextPhoneNumber.setError("Mobile number must not start with a digit less than 6");
+            editTextPhoneNumber.requestFocus();
+            return false;
         } else if (TextUtils.isEmpty(password)) {
             editTextPassword.setError("Password is required");
             editTextPassword.requestFocus();
