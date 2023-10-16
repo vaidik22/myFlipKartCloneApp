@@ -25,6 +25,7 @@ public class FragmentProductDetails extends Fragment {
     TextView percentage;
     Button buyButton;
 
+
     @SuppressLint("SetTextI18n")
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_product_details, container, false);

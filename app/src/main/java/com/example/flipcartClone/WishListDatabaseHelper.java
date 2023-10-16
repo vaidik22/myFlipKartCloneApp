@@ -12,8 +12,6 @@ public class WishListDatabaseHelper extends SQLiteOpenHelper {
     // Database information
     private static final String DATABASE_NAME = "wishlist.db";
     private static final int DATABASE_VERSION = 7;
-
-    // Wishlist table
     private static final String TABLE_WISHLIST = "wishlist";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_PRODUCT_ID = "product_id";

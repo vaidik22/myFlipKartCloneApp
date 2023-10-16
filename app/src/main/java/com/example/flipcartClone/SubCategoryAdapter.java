@@ -253,7 +253,11 @@ public class SubCategoryAdapter extends Adapter<SubCategoryAdapter.ViewHolder> {
                 }
                 // Get the clicked item's data
                 SubCategoryModel selectedItem = productList.get(position);
+                int updatedStock = dbProductHelper.getProductStock(String.valueOf(item.getProductId()));
+                if (updatedStock == 0) {
+                    holder.itemView.setEnabled(false);
 
+                }
 
                 FragmentProductDetails fragmentProductDetails = new FragmentProductDetails();
                 Bundle args = new Bundle();
