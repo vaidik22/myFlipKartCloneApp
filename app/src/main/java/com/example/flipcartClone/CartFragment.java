@@ -30,6 +30,7 @@ public class CartFragment extends Fragment implements CartAdapter.CartListEmptyL
     LinearLayout cart_items_present;
     ProgressBar progressBar;
     private ArrayList<CartItemModel> cartItems;
+    CartDatabaseHelper cartDatabaseHelper;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -167,7 +168,6 @@ public class CartFragment extends Fragment implements CartAdapter.CartListEmptyL
         cartItems = dbHelper.getCartItems();
         return cartItems;
     }
-
     private void deleteAllCartItems() {
         // Clear the cartItems list
         cartItems.clear();

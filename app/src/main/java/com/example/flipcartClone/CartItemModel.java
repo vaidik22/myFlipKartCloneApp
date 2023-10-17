@@ -9,11 +9,10 @@ import androidx.annotation.NonNull;
 @SuppressLint("ParcelCreator")
 public class CartItemModel implements Parcelable {
     private String productId;
-    private String productName;
-    private int productRate;
-    private String stocks;
+    private String phoneNumber;
 
     public CartItemModel(String productId, String productName, int productRate, int productMrp, String imageUrl, String stocks, int quantity) {
+        this.phoneNumber = phoneNumber;
         this.productId = productId;
         this.productName = productName;
         this.productRate = productRate;
@@ -21,6 +20,18 @@ public class CartItemModel implements Parcelable {
         this.quantity = quantity;
         this.stocks = stocks;
         this.imageUrl = imageUrl;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    private String productName;
+    private int productRate;
+    private String stocks;
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getStocks() {

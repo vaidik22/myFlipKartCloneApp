@@ -82,7 +82,8 @@ public class WishListFragment extends Fragment implements WishListAdapter.Wishli
         // Populate the wishlistItems list with the retrieved data
         //dbWishListHelper.clearProducts();
         SQLiteDatabase db = dbWishListHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM wishlist", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM wishlist", null
+        );
         if (cursor != null && cursor.getCount() > 0) {
             if (cursor.moveToFirst()) {
                 do {

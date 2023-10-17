@@ -150,6 +150,45 @@ public class EditProfileFragment extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if (requestCode == CAMERA_PERMISSION_REQUEST_CODE && resultCode == RESULT_OK) {
+
+            if (data != null) {
+                newImageUri = data.getData();
+            }
+
+            try {
+                InputStream inputStream = requireContext().getContentResolver().openInputStream(newImageUri);
+                Bitmap originalBitmap = BitmapFactory.decodeStream(inputStream);
+                inputStream.close();
+
+                // Compress the bitmap
+                int maxWidth = 800;
+                int maxHeight = 800;
+                float scale = Math.min(((float) maxWidth / originalBitmap.getWidth()), ((float) maxHeight / originalBitmap.getHeight()));
+
+                int newWidth = Math.round(originalBitmap.getWidth() * scale);
+                int newHeight = Math.round(originalBitmap.getHeight() * scale);
+
+                Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
+
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
+                byte[] imageBytes = byteArrayOutputStream.toByteArray();
+                String base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+                profileImageView.setImageBitmap(resizedBitmap);
+
+                String newName = nameTextView1.getText().toString();
+                String newUsername = usernameTextView1.getText().toString();
+                DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
+                SessionManager sessionManager = new SessionManager(requireContext());
+                String userId = sessionManager.getPhoneNumber();
+                dbHelper.updateUserInfo(userId, newName, newUsername, base64Image);
+
+                Log.e("base64Image", base64Image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -179,8 +218,7 @@ public class EditProfileFragment extends Fragment {
                 // The CAMERA permission is granted, proceed with opening the camera or gallery
                 openImagePicker();
             } else {
-                // The user denied the CAMERA permission request, handle accordingly
-                // For example, show a message or disable camera functionality
+
             }
         }
     }

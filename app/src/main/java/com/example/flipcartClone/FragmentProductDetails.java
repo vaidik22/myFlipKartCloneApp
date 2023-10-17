@@ -1,6 +1,8 @@
 package com.example.flipcartClone;
 
 import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -24,9 +27,10 @@ public class FragmentProductDetails extends Fragment {
     private ImageView productImageView;
     TextView percentage;
     Button buyButton;
+    ImageView out_of_stock;
 
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "MissingInflatedId"})
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_product_details, container, false);
 
@@ -37,6 +41,7 @@ public class FragmentProductDetails extends Fragment {
         rateTextView = root.findViewById(R.id.Product_rate);
         productImageView = root.findViewById(R.id.productImageView);
         percentage = root.findViewById(R.id.percentage);
+        out_of_stock = root.findViewById(R.id.out_of_stock);
         buyButton = root.findViewById(R.id.buyButton);
         ((HomeActivity) requireActivity()).toggleBottomNavigationView(false);
         buyButton.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +59,24 @@ public class FragmentProductDetails extends Fragment {
             String mrpStr = args.getString("mrp");
             String rateStr = args.getString("rate");
             String imageUrl = args.getString("imageUrl");
+            int stocks = Integer.parseInt(args.getString("stocks"));
+            if (stocks == 0) {
+                buyButton.setEnabled(false);
+                out_of_stock.setVisibility(View.VISIBLE);
+                int greyColor = ContextCompat.getColor(getContext(), R.color.disabledGreyColor);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    buyButton.setBackgroundTintList(ColorStateList.valueOf(greyColor));
+                }
+                productImageView.setAlpha(0.5f);
+            } else {
+                out_of_stock.setVisibility(View.GONE);
+                buyButton.setEnabled(false);
+                int normalColor = ContextCompat.getColor(getContext(), R.color.yellow);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    buyButton.setBackgroundTintList(ColorStateList.valueOf(normalColor));
+                }
+                productImageView.setAlpha(1.0f);
+            }
 
             double mrp = Double.parseDouble(mrpStr);
             double rate = Double.parseDouble(rateStr);

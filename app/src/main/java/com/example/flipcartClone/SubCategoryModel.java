@@ -7,6 +7,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class SubCategoryModel extends RecyclerView.Adapter {
     String title;
+    String phoneNumber;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     String ProductId;
     int stocks;
     String rate;

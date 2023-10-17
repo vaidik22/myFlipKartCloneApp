@@ -14,7 +14,7 @@ public class OrderDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PRODUCT_DESCRIPTION = "product_description";
     public static final String COLUMN_PRODUCT_IMAGE = "product_image";
     private static final String DATABASE_NAME = "order.db";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 12;
     // Add more columns for other order details like image, price, etc.
 
     public OrderDatabaseHelper(Context context) {

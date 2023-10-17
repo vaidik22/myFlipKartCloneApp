@@ -17,14 +17,13 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_QUANTITY = "quantity";
     public static final String COLUMN_DESCRIPTION = "description";
     private static final String DATABASE_NAME = "cart.db";
-    private static final int DATABASE_VERSION = 64;
-
     // Define table and column names
-    private static final String COLUMN_PRODUCT_NAME = "product_name";
-    private static final String COLUMN_PRODUCT_RATE = "product_rate";
-    private static final String COLUMN_PRODUCT_STOCK = "product_stock";
-    private static final String COLUMN_PRODUCT_MRP = "product_mrp";
-    private static final String COLUMN_PRODUCT_IMAGE_URL = "product_image_url";
+    static final String COLUMN_PRODUCT_NAME = "product_name";
+    static final String COLUMN_PRODUCT_RATE = "product_rate";
+    static final String COLUMN_PRODUCT_STOCK = "product_stock";
+    static final String COLUMN_PRODUCT_MRP = "product_mrp";
+    static final String COLUMN_PRODUCT_IMAGE_URL = "product_image_url";
+    private static final int DATABASE_VERSION = 69;
 
     // Create table query
     private static final String CREATE_CART_TABLE = "CREATE TABLE " + TABLE_CART + " (" +
@@ -139,16 +138,17 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                @SuppressLint("Range") String productId = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_ID));
-                @SuppressLint("Range") String productName = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_NAME));
-                @SuppressLint("Range") int productRate = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_RATE));
-                @SuppressLint("Range") int productMrp = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT_MRP));
-                @SuppressLint("Range") String productImageUrl = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_IMAGE_URL));
-                @SuppressLint("Range") String stocks = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT_STOCK));
-                @SuppressLint("Range") int productQuantity = cursor.getInt(cursor.getColumnIndex(COLUMN_QUANTITY));
+                ;
+                @SuppressLint("Range") String productId = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_PRODUCT_ID));
+                @SuppressLint("Range") String productName = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_PRODUCT_NAME));
+                @SuppressLint("Range") int productRate = Integer.parseInt(cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_PRODUCT_RATE)));
+                @SuppressLint("Range") int productMrp = Integer.parseInt(cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_PRODUCT_MRP)));
+                @SuppressLint("Range") String productImage = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_PRODUCT_IMAGE_URL));
+                @SuppressLint("Range") String stocks = cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_PRODUCT_STOCK));
+                @SuppressLint("Range") int quantity = Integer.parseInt(cursor.getString(cursor.getColumnIndex(CartDatabaseHelper.COLUMN_QUANTITY)));
 
-                // Create a CartItemModel object and add it to the list
-                CartItemModel cartItem = new CartItemModel(productId, productName, productRate, productMrp, productImageUrl, stocks, productQuantity);
+                // Create an OrderModel object and add it to the list
+                CartItemModel cartItem = new CartItemModel(productId, productName, productRate, productMrp, productImage, stocks, quantity);
                 cartItems.add(cartItem);
             }
 
@@ -179,7 +179,7 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Upgrade the database if needed
-        // Typically, you would migrate data from the old version to the new version here
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CART);
+        onCreate(db);
     }
 }

@@ -26,13 +26,19 @@
                 android:src="@drawable/camera_icon_3"
                 app:civ_border_color="#808080" />
 
-            <ImageButton
-                android:id="@+id/chooseImageButton"
-                android:layout_width="39dp"
-                android:layout_height="38dp"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="bottom|end"
-                android:background="@drawable/edit_pen_3" />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:padding="7dp">
+
+                <ImageButton
+                    android:id="@+id/chooseImageButton"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="bottom|end"
+                    android:background="@drawable/edit_pen_5" />
+            </FrameLayout>
         </FrameLayout>
     </LinearLayout>
 

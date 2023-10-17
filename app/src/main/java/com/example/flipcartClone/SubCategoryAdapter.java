@@ -117,8 +117,6 @@ public class SubCategoryAdapter extends Adapter<SubCategoryAdapter.ViewHolder> {
         if (updatedStock == 0) {
             holder.out_of_stock.setVisibility(View.VISIBLE);
             holder.addToCartButton.setEnabled(false);
-            holder.itemView.setClickable(false);
-            holder.itemView.setEnabled(false);
             int greyColor = ContextCompat.getColor(context, R.color.disabledGreyColor);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 holder.addToCartButton.setBackgroundTintList(ColorStateList.valueOf(greyColor));
@@ -184,6 +182,7 @@ public class SubCategoryAdapter extends Adapter<SubCategoryAdapter.ViewHolder> {
                     holder.crossIcon.setVisibility(View.VISIBLE);
                     dbWishListHelper.addToWishlist(
                             item.getProductId(),
+                            item.getPhoneNumber(),
                             item.getTitle(),
                             item.getRate(),
                             item.getMrp(),
@@ -264,6 +263,7 @@ public class SubCategoryAdapter extends Adapter<SubCategoryAdapter.ViewHolder> {
 
                 FragmentProductDetails fragmentProductDetails = new FragmentProductDetails();
                 Bundle args = new Bundle();
+                args.putString("stocks", String.valueOf(selectedItem.getStocks()));
                 args.putString("title", selectedItem.getTitle());
                 args.putString("description", selectedItem.getDescription());
                 args.putString("rate", String.valueOf(selectedItem.getRate()));

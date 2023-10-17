@@ -11,7 +11,7 @@ public class WishListDatabaseHelper extends SQLiteOpenHelper {
 
     // Database information
     private static final String DATABASE_NAME = "wishlist.db";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
     private static final String TABLE_WISHLIST = "wishlist";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_PRODUCT_ID = "product_id";
@@ -74,7 +74,7 @@ public class WishListDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void addToWishlist(int productId, String title, String rate, String mrp, String imageUrl, String quantity) {
+    public void addToWishlist(int productId, String phoneNumber, String title, String rate, String mrp, String imageUrl, String quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
