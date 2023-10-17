@@ -60,7 +60,7 @@
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             android:fontFamily="@font/mukta_medium"
-                            android:textStyle="bold" />
+                            android:textStyle="bold|italic" />
                     </RelativeLayout>
                 </androidx.appcompat.widget.Toolbar>
 

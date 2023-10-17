@@ -138,11 +138,9 @@
         <item name="android:colorControlHighlight">?attr/colorControlHighlight</item>
         <item name="android:colorButtonNormal">?attr/colorButtonNormal</item>
     </style>
-
     <style name="Base.V21.Theme.AppCompat.Dialog" parent="Base.V7.Theme.AppCompat.Dialog">
         <item name="android:windowElevation">@dimen/abc_floating_window_z</item>
     </style>
-
     <style name="Base.V21.Theme.AppCompat.Light" parent="Base.V7.Theme.AppCompat.Light">
 
         <item name="actionBarSize">?android:attr/actionBarSize</item>
@@ -317,7 +315,6 @@
         <item name="android:buttonBarStyle">?attr/buttonBarStyle</item>
         <item name="android:buttonBarButtonStyle">?attr/buttonBarButtonStyle</item>
     </style>
-
     <style name="Platform.V21.AppCompat.Light" parent="android:Theme.Material.Light.NoActionBar">
 
         <item name="android:textColorLink">?android:attr/colorAccent</item>

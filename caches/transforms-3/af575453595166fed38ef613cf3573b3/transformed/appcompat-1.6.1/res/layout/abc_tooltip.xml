@@ -24,17 +24,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/tooltip_margin"
+        android:paddingLeft="@dimen/tooltip_horizontal_padding"
         android:background="?attr/tooltipFrameBackground"
+        android:paddingRight="@dimen/tooltip_horizontal_padding"
         android:ellipsize="end"
         android:maxWidth="256dp"
+        android:paddingBottom="@dimen/tooltip_vertical_padding"
         android:maxLines="3"
         android:paddingStart="@dimen/tooltip_horizontal_padding"
-        android:paddingLeft="@dimen/tooltip_horizontal_padding"
+        android:textAppearance="@style/TextAppearance.AppCompat.Tooltip"
         android:paddingTop="@dimen/tooltip_vertical_padding"
         android:paddingEnd="@dimen/tooltip_horizontal_padding"
-        android:paddingRight="@dimen/tooltip_horizontal_padding"
-        android:paddingBottom="@dimen/tooltip_vertical_padding"
-        android:textAppearance="@style/TextAppearance.AppCompat.Tooltip"
         android:textColor="?attr/tooltipForegroundColor" />
 
 </LinearLayout>

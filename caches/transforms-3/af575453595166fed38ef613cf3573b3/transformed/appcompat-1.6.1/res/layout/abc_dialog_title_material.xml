@@ -19,22 +19,22 @@ enabled.
 -->
 
 <androidx.appcompat.widget.FitWindowsLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/title"
         style="?android:attr/windowTitleStyle"
+        android:ellipsize="end"
+        android:paddingTop="@dimen/abc_dialog_padding_top_material"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:ellipsize="end"
-        android:paddingLeft="?attr/dialogPreferredPadding"
-        android:paddingTop="@dimen/abc_dialog_padding_top_material"
-        android:paddingRight="?attr/dialogPreferredPadding"
         android:singleLine="true"
+        android:paddingLeft="?attr/dialogPreferredPadding"
+        android:paddingRight="?attr/dialogPreferredPadding"
         android:textAlignment="viewStart" />
 
     <include

@@ -13,10 +13,11 @@ public class SessionManager {
         sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
-    public void loginUser(String phoneNumber) {
+    public boolean loginUser(String phoneNumber) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(COLUMN_ID, phoneNumber);
         editor.apply();
+        return false;
     }
 
     public boolean isLoggedIn() {

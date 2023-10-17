@@ -32,21 +32,21 @@
 
     <LinearLayout
         android:id="@+id/content"
-        style="@style/RtlOverlay.Widget.AppCompat.PopupMenuItem"
         android:layout_width="match_parent"
         android:layout_height="?attr/dropdownListPreferredItemHeight"
+        style="@style/RtlOverlay.Widget.AppCompat.PopupMenuItem"
         android:duplicateParentState="true">
 
         <!-- Icon will be inserted here. -->
 
         <TextView
             android:id="@+id/title"
-            style="@style/RtlOverlay.Widget.AppCompat.PopupMenuItem.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:duplicateParentState="true"
+            style="@style/RtlOverlay.Widget.AppCompat.PopupMenuItem.Title"
             android:singleLine="true"
+            android:duplicateParentState="true"
             android:textAppearance="?attr/textAppearanceLargePopupMenu" />
 
         <Space
@@ -56,21 +56,21 @@
 
         <TextView
             android:id="@+id/shortcut"
-            style="@style/RtlOverlay.Widget.AppCompat.PopupMenuItem.Shortcut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:duplicateParentState="true"
+            style="@style/RtlOverlay.Widget.AppCompat.PopupMenuItem.Shortcut"
             android:singleLine="true"
+            android:duplicateParentState="true"
             android:textAppearance="?attr/textAppearanceSmallPopupMenu" />
 
         <ImageView
             android:id="@+id/submenuarrow"
-            style="@style/RtlOverlay.Widget.AppCompat.PopupMenuItem.SubmenuArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:scaleType="center"
+            style="@style/RtlOverlay.Widget.AppCompat.PopupMenuItem.SubmenuArrow"
             android:visibility="gone" />
 
         <!-- Checkbox, and/or radio button will be inserted here. -->

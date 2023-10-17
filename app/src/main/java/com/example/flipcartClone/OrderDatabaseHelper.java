@@ -8,12 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class OrderDatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_ORDERS = "orders";
     public static final String COLUMN_ORDER_ID = "order_id";
+    public static final String COLUMN_PHONE_NUMBER = "phoneNumber";
     public static final String COLUMN_PRODUCT_ID = "product_id";
     public static final String COLUMN_PRODUCT_NAME = "product_name";
     public static final String COLUMN_PRODUCT_DESCRIPTION = "product_description";
     public static final String COLUMN_PRODUCT_IMAGE = "product_image";
     private static final String DATABASE_NAME = "order.db";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 10;
     // Add more columns for other order details like image, price, etc.
 
     public OrderDatabaseHelper(Context context) {
@@ -24,6 +25,7 @@ public class OrderDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTableQuery = "CREATE TABLE " + TABLE_ORDERS + " (" +
                 COLUMN_ORDER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_PHONE_NUMBER + " TEXT, " +
                 COLUMN_PRODUCT_ID + " TEXT, " +
                 COLUMN_PRODUCT_NAME + " TEXT, " +
                 COLUMN_PRODUCT_IMAGE + " TEXT, " +
@@ -44,9 +46,10 @@ public class OrderDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertOrder(String productId, String productName, String productImage, String orderDate) {
+    public long insertOrder(String phoneNumber, String productId, String productName, String productImage, String orderDate) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(COLUMN_PHONE_NUMBER, phoneNumber);
         values.put(COLUMN_PRODUCT_ID, productId);
         values.put(COLUMN_PRODUCT_NAME, productName);
         values.put(COLUMN_PRODUCT_IMAGE, productImage);

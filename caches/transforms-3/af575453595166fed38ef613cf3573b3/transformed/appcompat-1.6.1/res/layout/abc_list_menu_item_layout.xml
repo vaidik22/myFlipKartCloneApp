@@ -22,23 +22,23 @@
     <!-- The title and summary have some gap between them, and this 'group' should be centered vertically. -->
     <RelativeLayout
         android:layout_width="0dip"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="?attr/listPreferredItemPaddingLeft"
         android:layout_marginRight="?attr/listPreferredItemPaddingRight"
-        android:layout_weight="1"
         android:duplicateParentState="true">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:duplicateParentState="true"
-            android:ellipsize="marquee"
+            android:layout_alignParentLeft="true"
             android:fadingEdge="horizontal"
             android:singleLine="true"
+            android:duplicateParentState="true"
+            android:ellipsize="marquee"
             android:textAppearance="?attr/textAppearanceListItemSmall" />
 
         <TextView

@@ -16,11 +16,11 @@
 */
 -->
 <view xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_chooser_view_content"
-    style="?attr/activityChooserViewStyle"
     class="androidx.appcompat.widget.ActivityChooserView$InnerLayout"
+    android:id="@+id/activity_chooser_view_content"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
+    style="?attr/activityChooserViewStyle"
     android:layout_gravity="center">
 
     <FrameLayout
@@ -28,12 +28,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:focusable="true"
         android:addStatesFromChildren="true"
         android:background="?attr/actionBarItemBackground"
-        android:focusable="true"
-        android:paddingLeft="12dip"
         android:paddingTop="2dip"
         android:paddingRight="12dip"
+        android:paddingLeft="12dip"
         android:paddingBottom="2dip">
 
         <ImageView
@@ -51,12 +51,12 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:focusable="true"
         android:addStatesFromChildren="true"
         android:background="?attr/actionBarItemBackground"
-        android:focusable="true"
-        android:paddingLeft="12dip"
         android:paddingTop="2dip"
         android:paddingRight="12dip"
+        android:paddingLeft="12dip"
         android:paddingBottom="2dip">
 
         <ImageView

@@ -68,7 +68,9 @@ public class ThankYouActivity extends AppCompatActivity {
             String currentDate;
             currentDate = getCurrentDate();
             OrderDatabaseHelper orderDatabaseHelper = new OrderDatabaseHelper(this);
-            orderDatabaseHelper.insertOrder(productId, productName, productImage, currentDate); // Insert the order date
+            SessionManager sessionManager = new SessionManager(this);
+            String currentUserPhoneNumber = sessionManager.getPhoneNumber();
+            orderDatabaseHelper.insertOrder(currentUserPhoneNumber, productId, productName, productImage, currentDate); // Insert the order date
         }
 
     }

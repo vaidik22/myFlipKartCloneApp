@@ -40,13 +40,12 @@ public class WishListFragment extends Fragment implements WishListAdapter.Wishli
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         ((HomeActivity) requireActivity()).toggleBottomNavigationView(false);
         wishlistItems = new ArrayList<>(); // Initialize the wishlistItems list
-
         // Initialize the WishListAdapter with the wishlistItems list
         wishListAdapter = new WishListAdapter(wishlistItems, getContext(), this);
         recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
         recyclerView.setAdapter(wishListAdapter);
         dbWishListHelper = new WishListDatabaseHelper(getActivity());
-        fetchWishlistItems();
+
         if (wishlistItems.isEmpty()) {
             emptyWishlistMessage.setVisibility(View.VISIBLE);
         } else {
@@ -59,6 +58,7 @@ public class WishListFragment extends Fragment implements WishListAdapter.Wishli
                 navigateToHomeFragment();
             }
         });
+        fetchWishlistItems();
 
         return rootView;
     }

@@ -23,10 +23,10 @@
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="?attr/listPreferredItemHeightSmall"
     android:ellipsize="marquee"
     android:gravity="center_vertical"
-    android:minHeight="?attr/listPreferredItemHeightSmall"
+    android:textAppearance="?attr/textAppearanceListItemSmall"
     android:paddingLeft="?attr/listPreferredItemPaddingLeft"
     android:paddingRight="?attr/listPreferredItemPaddingRight"
-    android:textAppearance="?attr/textAppearanceListItemSmall"
     android:textColor="?attr/textColorAlertDialogListItem" />

@@ -16,8 +16,8 @@
 */
 -->
 <androidx.appcompat.widget.ActionBarContextView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="?attr/actionModeStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="?attr/actionModeStyle"
     android:theme="?attr/actionModeTheme"
     android:visibility="gone" />

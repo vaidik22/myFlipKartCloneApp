@@ -117,6 +117,8 @@ public class SubCategoryAdapter extends Adapter<SubCategoryAdapter.ViewHolder> {
         if (updatedStock == 0) {
             holder.out_of_stock.setVisibility(View.VISIBLE);
             holder.addToCartButton.setEnabled(false);
+            holder.itemView.setClickable(false);
+            holder.itemView.setEnabled(false);
             int greyColor = ContextCompat.getColor(context, R.color.disabledGreyColor);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 holder.addToCartButton.setBackgroundTintList(ColorStateList.valueOf(greyColor));
@@ -249,7 +251,8 @@ public class SubCategoryAdapter extends Adapter<SubCategoryAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onItemClick(position); // Call the click listener method
+                    listener.onItemClick(position);
+                    // Call the click listener method
                 }
                 // Get the clicked item's data
                 SubCategoryModel selectedItem = productList.get(position);

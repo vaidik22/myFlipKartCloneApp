@@ -24,25 +24,25 @@
 
     <androidx.appcompat.widget.ActionBarContainer
         android:id="@+id/action_bar_container"
-        style="?attr/actionBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        style="?attr/actionBarStyle"
         android:gravity="top"
         android:touchscreenBlocksFocus="true">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/action_bar"
-            style="?attr/toolbarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="?attr/toolbarStyle"
             app:navigationContentDescription="@string/abc_action_bar_up_description" />
 
         <androidx.appcompat.widget.ActionBarContextView
             android:id="@+id/action_context_bar"
-            style="?attr/actionModeStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="?attr/actionModeStyle"
             android:theme="?attr/actionModeTheme"
             android:visibility="gone" />
 

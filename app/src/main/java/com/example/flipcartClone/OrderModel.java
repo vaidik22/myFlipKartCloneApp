@@ -1,18 +1,28 @@
 package com.example.flipcartClone;
 
 public class OrderModel {
-    private String productId;
-    private String productName;
-    private String productImage;
-    private String orderDate;
+    private String phoneNumber;
 
-    public OrderModel(String productId, String productName, String productImage, String orderDate) {
-
+    public OrderModel(String phoneNumber, String productId, String productName, String productImage, String orderDate) {
+        this.phoneNumber = phoneNumber;
         this.productId = productId;
         this.productName = productName;
         this.productImage = productImage;
         this.orderDate = orderDate;
         // Initialize other fields here
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    private String productId;
+    private String productName;
+    private String productImage;
+    private String orderDate;
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getOrderDate() {

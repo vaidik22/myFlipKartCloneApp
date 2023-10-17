@@ -27,7 +27,6 @@ public class PaymentCancelActivity extends AppCompatActivity {
         findViewById(R.id.btn_continue_shopping).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearCart();
                 Intent intent = new Intent(PaymentCancelActivity.this, HomeActivity.class); // Replace HomeActivity with your home fragment's class
                 startActivity(intent);
                 // Finish the current activity (ThankYouActivity) if you want to close it
@@ -38,10 +37,5 @@ public class PaymentCancelActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-    }
-
-    private void clearCart() {
-        CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(this);
-        cartDatabaseHelper.clearCart();
     }
 }

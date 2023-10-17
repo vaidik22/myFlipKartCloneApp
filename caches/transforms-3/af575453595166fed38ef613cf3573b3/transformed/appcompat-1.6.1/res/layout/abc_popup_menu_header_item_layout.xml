@@ -21,15 +21,15 @@
     android:paddingRight="16dip">
 
     <TextView xmlns:tools="http://schemas.android.com/tools"
+        android:singleLine="true"
         android:id="@android:id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAlignment="viewStart"
         android:layout_gravity="center_vertical"
+        android:textAppearance="?attr/textAppearancePopupMenuHeader"
         android:ellipsize="marquee"
         android:fadingEdge="horizontal"
-        android:singleLine="true"
-        android:textAlignment="viewStart"
-        android:textAppearance="?attr/textAppearancePopupMenuHeader"
         tools:ignore="RtlCompat" />
 
 </FrameLayout>
